@@ -1,52 +1,51 @@
-import React from 'react'
+import React from 'react';
 
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import axios from 'axios';
-
+import { loginUser } from '../state/user/user';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const handleSubmit = (values) => {
-        axios
-            .post('/api/users/login', {
-                email: values.email,
-                password: values.password,
-            })
-            .then((user) => {
-                localStorage.setItem('user', JSON.stringify(user.data));
-            })
-            .catch((err) => console.log('ERROR: ', err));
-    }
+  const handleSubmit = values => {
+    dispatch(
+      loginUser({
+        email: values.email,
+        password: values.password,
+      })
+    );
+    navigate('/');
+  };
 
-    const validate = Yup.object({
-        email: Yup.string()
-            .email('El email ingresado no es válido')
-            .required('Se requiere un email'),
-        password: Yup.string()
-            .min(6, 'La contraseña debe tener al menos 6 caracteres')
-            .required('Se requiere contraseña'),
-    });
+  const validate = Yup.object({
+    email: Yup.string()
+      .email('El email ingresado no es válido')
+      .required('Se requiere un email'),
+    password: Yup.string()
+      .min(6, 'La contraseña debe tener al menos 6 caracteres')
+      .required('Se requiere contraseña'),
+  });
 
-
-    return (
-        <Formik
+  return (
+    <Formik
       initialValues={{
         email: '',
         password: '',
       }}
       validationSchema={validate}
-      onSubmit={(values) => {
+      onSubmit={values => {
         handleSubmit(values);
       }}
     >
-      {(formik) => (
+      {formik => (
         <div className="container w-75 mt-4">
-          <h3>Login</h3>
           <Form>
             <div className="form-group">
               <label htmlFor="email">E-mail</label>
@@ -93,7 +92,7 @@ const Login = () => {
         </div>
       )}
     </Formik>
-    )
-}
+  );
+};
 
-export default Login
+export default Login;
