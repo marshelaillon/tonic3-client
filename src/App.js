@@ -1,19 +1,32 @@
+import React from 'react'; //tools
+import { Route, Routes } from 'react-router-dom';
 
-import React from "react"
-import { Route, Routes } from 'react-router';
+import Login from './components/Login'; //components
 import Register from './components/Register';
-import Login from './components/Login';
+//import Home from './components/Home';
+
+import Navbar from './commons/Navbar'; //commons
+import Countdown from './commons/Countdown';
+
+
+import  './styles/App.css' //styles
 
 
 function App() {
-  return <div>
-<Routes>
-  <Route exact path="/login" element={<Login />} />
-  <Route exact path="/register" element={<Register />} />
-
-</Routes>
-
-  </div>;
-}
+  return (
+    <>
+      <Navbar />
+      <Countdown/>
+      <Routes>
+        {/* confirm access-Public */}
+     <Route exact path="/login" element={<Login />} />
+        {/* register- confirmed token No public */} 
+<Route exact path="/register" element={<Register />} />
+       
+        {/* home-No Public */}
+        <Route path="/home" />
+      </Routes>
+    </>
+  );
 
 export default App;

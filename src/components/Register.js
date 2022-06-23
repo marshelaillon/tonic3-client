@@ -1,3 +1,4 @@
+export default Register;
 import React from 'react'
 import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
@@ -151,3 +152,4 @@ const Register = () => {
 }
 
 export default Register
+
