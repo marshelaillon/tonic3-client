@@ -10,17 +10,18 @@ import Countdown from './commons/Countdown';
 
 import './styles/App.css'; //styles
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './state/user/user';
 import Home from './components/Home';
 
 function App() {
   axios.defaults.withCredentials = true;
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkUser());
-  }, []);
+  }, [user.id]);
 
   return (
     <>
@@ -33,7 +34,7 @@ function App() {
         <Route exact path="/register" element={<Register />} />
 
         {/* home-No Public */}
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </>
   );

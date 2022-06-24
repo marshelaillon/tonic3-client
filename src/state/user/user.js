@@ -20,7 +20,7 @@ export const loginUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk('SEND_LOGOUT_REQUEST', async () => {
   try {
     const response = await axios.get('http://localhost:3001/api/users/logout');
-    console.log(response);
+    return response.data;
   } catch (error) {
     console.error('user/logout ERROR', error);
   }
@@ -39,7 +39,7 @@ export const userReducer = createReducer(
   {},
   {
     [loginUser.fulfilled]: (state, action) => action.payload?.data,
-    [logoutUser.fulfilled]: (state, action) => {},
+    [logoutUser.fulfilled]: (state, action) => action.payload,
     [checkUser.fulfilled]: (state, action) => action.payload?.data,
   }
 );
