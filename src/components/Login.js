@@ -3,9 +3,12 @@ import { useRef, useState } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6576788095765a3c6bc1439e99d02ba52726ca64
 import { loginUser } from '../state/user/user';
 import ReCAPTCHA from "react-google-recaptcha";
 

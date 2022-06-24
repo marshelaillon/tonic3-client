@@ -2,7 +2,7 @@ import { createAsyncThunk, createReducer } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const setEvent = createAsyncThunk("SET_EVENT", (data, thunkAPI) => {
-    // user debe ser admin
+    
     const thunk = thunkAPI.getState();
 
     if(thunk.user.isAdmin){
