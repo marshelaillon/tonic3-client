@@ -5,21 +5,21 @@ import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-<<<<<<< HEAD
-=======
-
->>>>>>> 6576788095765a3c6bc1439e99d02ba52726ca64
 import { loginUser } from '../state/user/user';
 import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [captchaValido, setCaptchaValido] = useState(null)
+  const [captchaValido, setCaptchaValido] = useState(false)
   const [usuarioValido, setUsuarioValido] = useState(false)
+  const [cantSubmit, setCantSubmit] = useState(false)
   const captcha = useRef(null);
 
   const handleSubmit = values => {
+  if (!captchaValido) {
+    setCantSubmit(true)
+  }
     dispatch(
       loginUser({
         email: values.email,
@@ -56,7 +56,7 @@ const Login = () => {
         validationSchema={validate}
         onSubmit={values => {
           handleSubmit(values)
-          if ("hubo un cambio", captcha.current.getValue()) {
+          if (captcha.current.getValue()) {
             console.log("el usuario no es un robot")
             setUsuarioValido(true)
             setCaptchaValido(true)
@@ -106,9 +106,9 @@ const Login = () => {
                     sitekey="6LdOKZogAAAAAEhkSW2hDBgJlWOncF-Ivg8DSB_r
                 "
                     onChange={onChange}
-                  />,
+                  />
                 </div>
-                {captchaValido === false && <div style={{color: "red"}} >Por favor acepta el captcha</div>}
+                {cantSubmit && <div style={{color: "red"}} >Por favor acepta el captcha</div>}
                 <div className="mt-4 d-flex flex-row">
                   <div className="form-group me-4">
                     <Button type="submit" variant="dark">
