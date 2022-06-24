@@ -3,11 +3,9 @@ import React from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import axios from 'axios';
 import { loginUser } from '../state/user/user';
 
 const Login = () => {
