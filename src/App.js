@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react'; //tools
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Login from './components/Login'; //components
+import Login from './components/Login';
 import Register from './components/Register';
-//import Home from './components/Home';
 
-import Navbar from './commons/Navbar'; //commons
+import Navbar from './commons/Navbar';
 import Countdown from './commons/Countdown';
 
-import './styles/App.css'; //styles
+import './styles/App.css';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './state/user/user';
