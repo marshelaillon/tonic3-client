@@ -12,27 +12,32 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './state/user/user';
 import Home from './components/Home';
+import { getEmailList } from './state/guests/emailList';
 
 function App() {
   axios.defaults.withCredentials = true;
   const user = useSelector(state => state.user);
+  const guestEmails = useSelector(state => state.guestEmails);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getEmailList());
+  }, []);
 
   useEffect(() => {
     dispatch(checkUser());
   }, [user.id]);
-
+  console.log(guestEmails);
   return (
     <>
       <Navbar />
       <Countdown />
       <Routes>
         {/* confirm access-Public */}
-        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/login" element={user.id && <Login />} />
         {/* register- confirmed token No public */}
         <Route exact path="/register" element={<Register />} />
 
-        {/* home-No Public */}
+        {/* home - Public */}
         <Route path="/" element={<Home />} />
       </Routes>
     </>
