@@ -1,11 +1,11 @@
 import React from 'react';
-import Login from './Login';
+import LoginWithToken from './LoginWithToken';
 
 const Home = () => {
   return (
     <div>
       {/* si no hay usuario mostrar el primer ingreso con acces code */}
-      <Login />
+      <LoginWithToken />
       {/* si hay usuario mostrar evento en pending */}
     </div>
   );
