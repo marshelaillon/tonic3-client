@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 
 const Register = () => {
+  // hablar sobre poner los pedido axios esten en un solo archivo {Maxi}
   const handleRegister = values => {
     console.log('enviste el formulario');
     axios
@@ -120,14 +121,14 @@ const Register = () => {
                 name="confirmpassword"
                 className={
                   formik.touched.confirmpassword &&
-                  formik.errors.confirmpassword
+                    formik.errors.confirmpassword
                     ? 'form-control is-invalid'
                     : 'form-control'
                 }
                 type="password"
               />
               {formik.touched.confirmpassword &&
-              formik.errors.confirmpassword ? (
+                formik.errors.confirmpassword ? (
                 <div className="invalid-feedback">
                   {formik.errors.confirmpassword}
                 </div>
