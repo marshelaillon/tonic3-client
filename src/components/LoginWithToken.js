@@ -29,6 +29,7 @@ const LoginWhitToken = () => {
     if (values.email) {
       guestEmails.forEach(item => {
         item.email === values.email && setValidGuest(true);
+        //aca se puede enviar un cartelito que diga como usuario no encon
       });
     }
     if (validGuest) {
