@@ -6,6 +6,7 @@ import Register from './components/Register';
 
 import Navbar from './commons/Navbar';
 import Countdown from './commons/Countdown';
+import ForgotPassword from './components/ForgotPassword';
 
 import './styles/App.css';
 import axios from 'axios';
@@ -13,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './state/user/user';
 import Home from './components/Home';
 import { getEmailList } from './state/guests/emailList';
+import NewPassword from './components/NewPassword';
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -39,6 +41,8 @@ function App() {
 
         {/* home - Public */}
         <Route path="/" element={<Home />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/new-password/:id/:token" element={<NewPassword />} />
       </Routes>
     </>
   );
