@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toggleSidebar } from '../state/UI/sidebar';
 import { checkUser, logoutUser } from '../state/user/user';
 import { sidebarCollapsed } from '../utils/utils';
+import { useTranslation } from 'react-i18next';
 
 export default function SidebarItem({ index, item, setTypeOfUser }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
@@ -14,7 +16,7 @@ export default function SidebarItem({ index, item, setTypeOfUser }) {
         <Link
           to={item.path}
           onClick={e => {
-            if (item.title == 'Logout') {
+            if (item.title === t('logout')) {
               dispatch(logoutUser());
               dispatch(checkUser());
               dispatch(toggleSidebar());
