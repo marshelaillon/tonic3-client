@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
+import { eventReducer } from './admin/eventController/event';
 import { verifyGuestReducer } from './guests/verifyGuest';
 import { verifyTokenReducer } from './guests/verifyToken';
 import { sidebarReducer } from './UI/sidebar';
@@ -12,6 +13,7 @@ const store = configureStore({
     sidebar: sidebarReducer,
     verifiedGuest: verifyGuestReducer,
     verifiedToken: verifyTokenReducer,
+    currentEvent: eventReducer,
   },
 });
 
