@@ -65,7 +65,6 @@ const Login = () => {
             setUsuarioValido(true);
             setCaptchaValido(true);
           } else {
-
             console.log('Aceptar el captcha');
             setUsuarioValido(false);
             setCaptchaValido(false);
@@ -76,7 +75,11 @@ const Login = () => {
           <div className="container w-75 mt-4">
               <Form>
                 <div className="form-group">
-                  <label htmlFor="email">E-mail</label>
+                  <label
+                    htmlFor="email"
+                  >
+                    E-mail
+                  </label>
                   <Field
                     name="email"
                     className={

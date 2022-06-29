@@ -26,16 +26,18 @@ const LoginWhitToken = () => {
   const captcha = useRef();
 
   const handleSubmit = values => {
-    console.log(values);
-    // if (!captchaValido) {
-    //   return setCantSubmit(true);
-    // }
+    console.log(tries);
+    if (!captchaValido) {
+      return setCantSubmit(true);
+    }
+
     if (!checkedEmail) {
       return dispatch(verifyGuest({ email: values.email }))
         .then(({ payload }) => {
           setCheckedEmail(payload?.data.verified);
         })
         .catch(err => console.error(err));
+
     }
     if (!verifiedGuest.checked) {
       return dispatch(
@@ -103,7 +105,7 @@ const LoginWhitToken = () => {
         }}
       >
         {formik => (
-          <div className="container w-75 mt-4">
+          <div className="container w-75 mt-4 form">
             <Form>
               <div className="form-group">
                 <label htmlFor="email">E-mail</label>
