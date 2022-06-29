@@ -92,7 +92,7 @@ const LoginWhitToken = () => {
         }}
       >
         {formik => (
-          <div className="container w-75 mt-4">
+          <div className="container w-75 mt-4 form">
             <Form>
               <div className="form-group">
                 <label htmlFor="email">E-mail</label>

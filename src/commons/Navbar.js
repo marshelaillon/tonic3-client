@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import Sidebar from '../components/Sidebar';
 import { toggleSidebar } from '../state/UI/sidebar';
 import LanguageDropdown from '../components/LanguageDropdown';
+import { useEffect, useState } from 'react';
 
 function Navbar() {
   const { t } = useTranslation();
@@ -15,36 +16,40 @@ function Navbar() {
   const dispatch = useDispatch();
 
   return (
-    <div className="nav-style">
-      <NavLink to={'/'} className="home-icon">
-        <GoHome size={40} />
-      </NavLink>
-      <h2>{t('welcome_msg')}</h2>
-      <div
-        className="home-icon"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'row',
-        }}
-      >
+
+    <div className= "nav-style">
+     
+        <NavLink to={'/'} className= "home-icon ">
+          <GoHome size={40} />
+        </NavLink>
+        <h2 className="welcome-msg">{t('welcome_msg')}</h2>
         <div
-          onClick={() => {
-            dispatch(toggleSidebar());
+          className= "home-icon" 
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'row',
           }}
         >
-          <GoPerson
-            style={{
-              margin: '0 10px',
-              cursor: 'pointer',
+          <div
+            onClick={() => {
+              dispatch(toggleSidebar());
             }}
-            size={40}
-          />
+          >
+            <GoPerson
+              className="home-icon"
+              style={{
+                margin: '0 10px',
+                cursor: 'pointer',
+              }}
+              size={40}
+            />
+          </div>
+          <LanguageDropdown className="language-dropdown" />
         </div>
-        <LanguageDropdown className="language-dropdown" />
-      </div>
+     
       {sidebar && <Sidebar />}
-    </div>
+     </div>
   );
 }
 export default Navbar;

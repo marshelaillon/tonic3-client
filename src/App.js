@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import Login from './components/Login';
 import Register from './components/Register';
-
+import ForgotPassword from './components/ForgotPassword';
+import User from './components/User'
 import Navbar from './commons/Navbar';
 import Countdown from './commons/Countdown';
-import ForgotPassword from './components/ForgotPassword';
+
 
 import './styles/App.css';
 import axios from 'axios';
@@ -17,14 +18,15 @@ import { verifyToken } from './state/guests/verifyToken';
 import NewPassword from './components/NewPassword';
 
 
+
 function App() {
+
   axios.defaults.withCredentials = true;
   const user = useSelector(state => state.user);
+  const sidebar = useSelector(state => state.sidebar);
+
   const verifiedToken = useSelector(state => state.verifiedToken);
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-
+  const dispatch=useDispatch()
   // este useEffect probablemente ya no sea necesario
   // useEffect(() => {
   //   if (verifiedToken) {
@@ -35,11 +37,12 @@ function App() {
 
   useEffect(() => {
     dispatch(checkUser());
+    
   }, [user.id]);
 
   return (
-    <>
-      <Navbar />
+       <div className={sidebar?"overlap":""}>
+      <Navbar  />
       <Countdown />
       <Routes>
         {/* confirm access-Public */}
@@ -51,8 +54,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/new-password/:id/:token" element={<NewPassword />} />
+        <Route path='/user' element={<User/>}/>
       </Routes>
-    </>
+     </div>
+    
   );
 }
 

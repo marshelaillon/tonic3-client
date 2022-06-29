@@ -10,13 +10,14 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import ReCAPTCHA from 'react-google-recaptcha';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+//import LanguageDetector from 'i18next-browser-languagedetector';
 import httpApi from 'i18next-http-backend';
 import 'flag-icon-css/css/flag-icons.min.css';
+import { useSelector } from 'react-redux';
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
-  .use(LanguageDetector)
+  //.use(LanguageDetector)
   .use(httpApi)
   .init({
     supportedLngs: ['en', 'es', 'pt', 'ru'],
@@ -50,7 +51,8 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <React.StrictMode>
-          <App />
+          <App/>
+        
         </React.StrictMode>
       </BrowserRouter>
     </Provider>
