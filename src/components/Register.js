@@ -5,11 +5,11 @@ import * as Yup from 'yup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { registerUser } from '../state/user/user';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { checkCaptcha } from '../state/user/user';
+import { checkCaptcha } from '../state/captcha/captcha';
 
 const Register = () => {
 
@@ -17,14 +17,26 @@ const Register = () => {
   const navigate = useNavigate();
   const [cantSubmit, setCantSubmit] = useState(false)
   const [captchaValido, setCaptchaValido] = useState(false);
-  const [firstNameValido, setfirstNameValido] = useState(false);
-  const captcha = useRef();
+  const [usuarioValido, setUsuarioValido] = useState(false);
+  const captcha = useRef(null);
 
 
   const handleSubmit = values => {
     if (!captchaValido) {
      return setCantSubmit(true)
     }
+
+    if (captcha.current.getValue()) {
+      console.log('el usuario no es un robot');
+      setUsuarioValido(true);
+      setCaptchaValido(true);
+    } else {
+      console.log('Aceptar el captcha');
+      setUsuarioValido(false);
+      setCaptchaValido(false);
+    }
+
+    captcha.current.reset()
 
     dispatch(
       registerUser({
@@ -56,15 +68,18 @@ const Register = () => {
 
   const onChange = () => {
     const captchaToken = captcha.current.getValue()
-   /*  dispatch(checkCaptcha({
+    
+    dispatch(checkCaptcha({
       tokenCaptcha: captchaToken
-    })) */
+    })) 
     if (('hubo un cambio', captchaToken)) {
       console.log("esto es el captcha", captcha);
       console.log('el usuario no es un robot');
       setCaptchaValido(true);
     }
+    
   };
+
 
   return (
     <Formik
@@ -79,7 +94,8 @@ const Register = () => {
       validationSchema={validate}
       onSubmit={values => {
         handleSubmit(values);
-
+        window.location.reload();
+/* 
         if (captcha.current.getValue()) {
           console.log('el usuario no es un robot');
           setfirstNameValido(true);
@@ -88,7 +104,7 @@ const Register = () => {
           console.log('Aceptar el captcha');
           setfirstNameValido(false);
           setCaptchaValido(false);
-        }
+        } */
       }}
     >
 
@@ -176,7 +192,7 @@ const Register = () => {
                 </div>
               ) : null}
             </div>
-            {!firstNameValido && (
+            {!usuarioValido && (
               <div className="recaptcha">
                 <ReCAPTCHA
                   ref={captcha}

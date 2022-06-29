@@ -53,7 +53,7 @@ function App() {
 
         <Route exact path="/login" element={!user.id && <Login />} />
         {/* register- confirmed token No public */}
-        <Route exact path="/register" element={verifiedToken && <Register />} />
+        <Route exact path="/register" element={!verifiedToken && <Register />} />
 
         {/* home - Public */}
 
