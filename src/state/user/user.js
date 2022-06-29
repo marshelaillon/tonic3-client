@@ -6,6 +6,22 @@ import {
 import axios from 'axios';
 import { InvalidPassword } from '../../utils/sweetAlerts';
 
+export const registerUser = createAsyncThunk(
+  'SEND_REGISTER_REQUEST',
+  async registerBody => {
+    console.log("no me sale buaaaa", registerBody);
+    try {
+      const { data } = await axios.post(
+        'http://localhost:3001/api/users/register', registerBody
+      );
+      console.log("esta es la data del registerbody", data);
+      return data;
+    } catch (error) {
+      console.error('/user/register ERROR ', error);
+    }
+  }
+);
+
 export const loginUser = createAsyncThunk(
   'SEND_LOGIN_REQUEST',
   async credentials => {
@@ -33,6 +49,17 @@ export const checkUser = createAsyncThunk('CHECK_USER_BY_COOKIES', async () => {
     return data;
   } catch (error) {
     console.error('user/getMe ERROR', error);
+  }
+});
+
+//cambiar a otro estado!!!!!!!!!!!
+export const checkCaptcha = createAsyncThunk('CHECK_CAPTCHA', async tokenCaptcha => {
+  console.log("esto es el token", tokenCaptcha);
+  try {
+    const { data } = await axios.post('http://localhost:3001/api/users/register-with-recaptcha', tokenCaptcha);
+    return data;
+  } catch (error) {
+    console.error('user/register-with-recaptcha ERROR', error);
   }
 });
 
@@ -68,9 +95,11 @@ export const newPassword = createAsyncThunk(
   }
 );
 
+
 export const userReducer = createReducer(
   {},
   {
+    [registerUser.fulfilled]: (state, action) => action.payload?.data,
     [loginUser.fulfilled]: (state, action) => action.payload?.data,
     [loginUser.rejected]: (state, action) => {
       InvalidPassword();
@@ -78,7 +107,12 @@ export const userReducer = createReducer(
     },
     [logoutUser.fulfilled]: (state, action) => action.payload,
     [checkUser.fulfilled]: (state, action) => action.payload?.data,
-    // {maxi}
+
+    //cambiar a otro estado
+    [checkCaptcha.fulfilled]: (state, action) => action.payload?.data,
+
+   
     [forgotPassword.fulfilled]: (state, action) => action.payload?.data,
+
   }
 );
