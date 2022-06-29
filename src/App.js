@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -13,24 +13,29 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './state/user/user';
 import Home from './components/Home';
-import { getEmailList } from './state/guests/emailList';
+import { verifyToken } from './state/guests/verifyToken';
 import NewPassword from './components/NewPassword';
+
 
 function App() {
   axios.defaults.withCredentials = true;
   const user = useSelector(state => state.user);
-  const guestEmails = useSelector(state => state.guestEmails);
+  const verifiedToken = useSelector(state => state.verifiedToken);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getEmailList());
-  }, []);
+  const navigate = useNavigate();
+
+  // este useEffect probablemente ya no sea necesario
+  // useEffect(() => {
+  //   if (verifiedToken) {
+  //     dispatch(verifyToken());
+  //     navigate('/register');
+  //   }
+  // }, [verifiedToken]);
 
   useEffect(() => {
     dispatch(checkUser());
   }, [user.id]);
-
-  console.log(guestEmails);
 
   return (
     <>
@@ -40,7 +45,7 @@ function App() {
         {/* confirm access-Public */}
         <Route exact path="/login" element={user.id && <Login />} />
         {/* register- confirmed token No public */}
-        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/register" element={verifiedToken && <Register />} />
 
         {/* home - Public */}
         <Route path="/" element={<Home />} />
