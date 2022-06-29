@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken } from '../state/guests/verifyToken';
 import { InvalidToken } from '../utils/sweetAlerts';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { checkCaptcha } from '../state/user/user';
 
 const LoginWhitToken = () => {
   const guestEmails = useSelector(state => state.guestEmails);
@@ -19,7 +20,7 @@ const LoginWhitToken = () => {
   const [usuarioValido, setUsuarioValido] = useState(false);
   const [validGuest, setValidGuest] = useState(false);
   const [cantSubmit, setCantSubmit] = useState(false);
-  const captcha = useRef(null);
+  const captcha = useRef();
 
   const handleSubmit = values => {
     console.log('tries', tries);
@@ -49,7 +50,12 @@ const LoginWhitToken = () => {
   });
 
   const onChange = () => {
-    if (('hubo un cambio', captcha.current.getValue())) {
+    const captchaToken = captcha.current.getValue()
+    /* dispatch(checkCaptcha({
+      tokenCaptcha: captchaToken
+    })) */
+    if (('hubo un cambio', captchaToken)) {
+      console.log("esto es el captcha", captcha);
       console.log('el usuario no es un robot');
       setCaptchaValido(true);
     }

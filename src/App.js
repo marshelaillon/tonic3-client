@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './state/user/user';
 import Home from './components/Home';
 import { getEmailList } from './state/guests/emailList';
+import LoginWhitToken from './components/LoginWithToken';
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -33,11 +34,11 @@ function App() {
       <Countdown />
       <Routes>
         {/* confirm access-Public */}
-        <Route exact path="/login" element={user.id && <Login />} />
+        <Route exact path="/login" element={/* user.id && */ <Login />} />
         {/* register- confirmed token No public */}
         <Route exact path="/register" element={<Register />} />
-
-        {/* home - Public */}
+        <Route exact path="/login-with-token" element={<LoginWhitToken />}/>
+          {/* home - Public */}
         <Route path="/" element={<Home />} />
       </Routes>
     </>

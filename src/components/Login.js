@@ -17,9 +17,11 @@ const Login = () => {
   const captcha = useRef(null);
 
   const handleSubmit = values => {
-  if (!captchaValido) {
-    setCantSubmit(true)
-  }
+    if (!captchaValido) {
+    return setCantSubmit(true)
+      
+    }
+
     dispatch(
       loginUser({
         email: values.email,
@@ -36,6 +38,7 @@ const Login = () => {
     password: Yup.string()
       .min(6, 'La contraseña debe tener al menos 6 caracteres')
       .required('Se requiere contraseña'),
+   
   });
 
 
@@ -43,7 +46,7 @@ const Login = () => {
     if ("hubo un cambio", captcha.current.getValue()) {
       console.log("el usuario no es un robot")
       setCaptchaValido(true)
-    } 
+    }
   }
 
   return (
@@ -64,11 +67,12 @@ const Login = () => {
             console.log("Aceptar el captcha")
             setUsuarioValido(false)
             setCaptchaValido(false)
-        }}}
+          }
+        }}
       >
         {formik => (
           <div className="container w-75 mt-4">
-            {!usuarioValido &&
+           {/*  {!usuarioValido && */}
               <Form>
                 <div className="form-group">
                   <label htmlFor="email">E-mail</label>
@@ -100,15 +104,16 @@ const Login = () => {
                     <div className="invalid-feedback">{formik.errors.password}</div>
                   ) : null}
                 </div>
+                {!usuarioValido && (
                 <div className='recaptcha'>
                   <ReCAPTCHA
                     ref={captcha}
-                    sitekey="6LdOKZogAAAAAEhkSW2hDBgJlWOncF-Ivg8DSB_r
-                "
+                    sitekey="6LdOKZogAAAAAEhkSW2hDBgJlWOncF-Ivg8DSB_r"
                     onChange={onChange}
                   />
                 </div>
-                {cantSubmit && <div style={{color: "red"}} >Por favor acepta el captcha</div>}
+                )}
+                {cantSubmit && <div style={{ color: "red" }} >Por favor acepta el captcha</div>}
                 <div className="mt-4 d-flex flex-row">
                   <div className="form-group me-4">
                     <Button type="submit" variant="dark">
@@ -120,7 +125,7 @@ const Login = () => {
                   No tenés una cuenta?&nbsp;
                   <Link to="/register">Te invitamos a registrarte.</Link>
                 </p>
-              </Form>}
+              </Form>
           </div>
         )}
       </Formik>

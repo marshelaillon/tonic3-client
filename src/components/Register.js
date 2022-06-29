@@ -4,22 +4,41 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useRef, useState } from 'react';
+import { registerUser } from '../state/user/user';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { checkCaptcha } from '../state/user/user';
 
 const Register = () => {
-  const handleRegister = values => {
-    console.log('enviste el formulario');
-    axios
-      .post('http://localhost:3001/api/users/register', {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [cantSubmit, setCantSubmit] = useState(false)
+  const [captchaValido, setCaptchaValido] = useState(false);
+  const [firstNameValido, setfirstNameValido] = useState(false);
+  const captcha = useRef();
+
+
+  const handleSubmit = values => {
+    if (!captchaValido) {
+     return setCantSubmit(true)
+    }
+
+    dispatch(
+      registerUser({
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
         password: values.password,
+        confirmpassword: values.confirmpassword,
       })
-      .then(({ data }) => {
-        console.log(data.data.id);
-      })
-      .catch(err => console.log('ERROR: ', err));
+    );
+    navigate('/');
   };
+
+
   const validate = Yup.object({
     firstName: Yup.string().required('Se requiere un nombre'),
     lastName: Yup.string().required('Se requiere un apellido'),
@@ -32,28 +51,54 @@ const Register = () => {
     confirmpassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'La contraseña no coincide')
       .required('Se requiere confirmación de contraseña'),
+  
   });
+
+  const onChange = () => {
+    const captchaToken = captcha.current.getValue()
+   /*  dispatch(checkCaptcha({
+      tokenCaptcha: captchaToken
+    })) */
+    if (('hubo un cambio', captchaToken)) {
+      console.log("esto es el captcha", captcha);
+      console.log('el usuario no es un robot');
+      setCaptchaValido(true);
+    }
+  };
 
   return (
     <Formik
       initialValues={{
         firstName: '',
-        lastName: '',
+        lastName: "",
         email: '',
         password: '',
         confirmpassword: '',
+
       }}
       validationSchema={validate}
       onSubmit={values => {
-        handleRegister(values);
+        handleSubmit(values);
+
+        if (captcha.current.getValue()) {
+          console.log('el usuario no es un robot');
+          setfirstNameValido(true);
+          setCaptchaValido(true);
+        } else {
+          console.log('Aceptar el captcha');
+          setfirstNameValido(false);
+          setCaptchaValido(false);
+        }
       }}
     >
+
       {formik => (
         <div className="container w-75 mt-4">
           <h3>Register</h3>
-          <Form>
-            <div className="form-group">
-              <label htmlFor="firstName">Nombre</label>
+          <Form >
+
+          <div className="form-group">
+              <label htmlFor="firstName">firstName</label>
               <Field
                 name="firstName"
                 className={
@@ -64,13 +109,11 @@ const Register = () => {
                 type="text"
               />
               {formik.touched.firstName && formik.errors.firstName ? (
-                <div className="invalid-feedback">
-                  {formik.errors.firstName}
-                </div>
+                <div className="invalid-feedback">{formik.errors.firstName}</div>
               ) : null}
             </div>
             <div className="form-group">
-              <label htmlFor="lastName">Apellido</label>
+              <label htmlFor="lastName">lastName</label>
               <Field
                 name="lastName"
                 className={
@@ -120,19 +163,31 @@ const Register = () => {
                 name="confirmpassword"
                 className={
                   formik.touched.confirmpassword &&
-                  formik.errors.confirmpassword
+                    formik.errors.confirmpassword
                     ? 'form-control is-invalid'
                     : 'form-control'
                 }
                 type="password"
               />
               {formik.touched.confirmpassword &&
-              formik.errors.confirmpassword ? (
+                formik.errors.confirmpassword ? (
                 <div className="invalid-feedback">
                   {formik.errors.confirmpassword}
                 </div>
               ) : null}
             </div>
+            {!firstNameValido && (
+              <div className="recaptcha">
+                <ReCAPTCHA
+                  ref={captcha}
+                  sitekey="6LdOKZogAAAAAEhkSW2hDBgJlWOncF-Ivg8DSB_r"
+                  onChange={onChange}
+                />
+              </div>
+            )}
+            {cantSubmit && (
+              <div style={{ color: 'red' }}>Por favor acepta el captcha</div>
+            )}
             <div className="mt-4 d-flex flex-row">
               <div className="form-group me-4">
                 <Button type="submit" variant="dark">
