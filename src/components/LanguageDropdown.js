@@ -22,11 +22,6 @@ export default function LanguageDropdown() {
       name: 'Português',
       country_code: 'br',
     },
-    {
-      code: 'ru',
-      name: 'Русский',
-      country_code: 'ru',
-    },
   ];
 
   return (

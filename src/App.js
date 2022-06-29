@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Login from './components/Login';
@@ -21,16 +21,36 @@ function App() {
   const user = useSelector(state => state.user);
   const guestEmails = useSelector(state => state.guestEmails);
   const dispatch = useDispatch();
+  const [ip, setIP] = useState('');
+
+  //creating function to load ip address from the API
+  const getData = async () => {
+    const res = await axios.get('https://geolocation-db.com/json/', {
+      withCredentials: false,
+    });
+    const country = await axios.get('https://ipapi.co/json/', {
+      withCredentials: false,
+    });
+    console.log('country', country.data);
+    console.log(res.data);
+    setIP(res.data.IPv4);
+  };
 
   useEffect(() => {
     dispatch(getEmailList());
+    getData();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { latitude, longitude } = position.coords;
+        console.log(latitude, longitude);
+        console.log(position);
+      });
+    }
   }, []);
 
   useEffect(() => {
     dispatch(checkUser());
   }, [user.id]);
-
-  console.log(guestEmails);
 
   return (
     <>
