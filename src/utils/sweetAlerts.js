@@ -9,6 +9,26 @@ export const InvalidToken = () =>
     showConfirmButton: true,
   });
 
+export const InvalidPassword = () =>
+  Swal.fire({
+    position: 'top',
+    icon: 'warning',
+    title: 'Password invalido !',
+    text: 'Vuelva a intentarlo ',
+    showConfirmButton: false,
+    timer: 1200,
+  });
+
+export const RegisterRequest = () =>
+  Swal.fire({
+    position: 'top',
+    icon: 'info',
+    title: 'Ya casi !',
+    text: 'Solo debes registrarte y no volveras a necesitar un token!',
+    showConfirmButton: false,
+    timer: 3500,
+  });
+
 export const EmailPassword = () =>
   Swal.fire({
     position: 'top',

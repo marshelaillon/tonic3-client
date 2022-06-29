@@ -15,7 +15,7 @@ import { checkUser } from './state/user/user';
 import Home from './components/Home';
 import { verifyToken } from './state/guests/verifyToken';
 import NewPassword from './components/NewPassword';
-
+import { RegisterRequest } from './utils/sweetAlerts';
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -25,13 +25,12 @@ function App() {
 
   const navigate = useNavigate();
 
-  // este useEffect probablemente ya no sea necesario
-  // useEffect(() => {
-  //   if (verifiedToken) {
-  //     dispatch(verifyToken());
-  //     navigate('/register');
-  //   }
-  // }, [verifiedToken]);
+  useEffect(() => {
+    if (verifiedToken) {
+      navigate('/register');
+      RegisterRequest();
+    }
+  }, [verifiedToken]);
 
   useEffect(() => {
     dispatch(checkUser());
@@ -43,7 +42,7 @@ function App() {
       <Countdown />
       <Routes>
         {/* confirm access-Public */}
-        <Route exact path="/login" element={user.id && <Login />} />
+        <Route exact path="/login" element={!user.id && <Login />} />
         {/* register- confirmed token No public */}
         <Route exact path="/register" element={verifiedToken && <Register />} />
 

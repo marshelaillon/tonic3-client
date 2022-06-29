@@ -8,9 +8,9 @@ import { StaleWhileRevalidate } from 'workbox-strategies';
 clientsClaim();
 
 // ACTIVAR ALMACENAMIENTO EN CACHE
-// precacheAndRoute(self.__WB_MANIFEST);
+precacheAndRoute(self.__WB_MANIFEST);
 // DESACTIVAR ALMACENAMIENTO EN CACHE
-const desactivarPrecache = self.__WB_MANIFEST;
+// const desactivarPrecache = self.__WB_MANIFEST;
 
 // CONCEDE LA ESTRUCTURA DE APP-SHELL, ESTO IMPLUCA
 // QUE LA APLICACION SOLO VA A CARGAR LA CANTIDAD MINIMA NECESARIA DE CODIGO EN EL ESTADO OFFLINE
@@ -49,8 +49,8 @@ registerRoute(
     ],
   })
 );
-// self.addEventListener('message', event => {
-//   if (event.data && event.data.type === 'SKIP_WAITING') {
-//     self.skipWaiting();
-//   }
-// });
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
