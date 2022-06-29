@@ -39,11 +39,45 @@ export const checkUser = createAsyncThunk('CHECK_USER_BY_COOKIES', async () => {
   }
 });
 
+export const forgotPassword = createAsyncThunk(
+  'SEND_EMAIL_CHANGE_PASSWORD',
+  async dataEmail => {
+    try {
+      const data = await axios.post(
+        'http://localhost:3001/api/users/forgot-password',
+        dataEmail
+      );
+      console.log('LLEGE ATA ACA ', data);
+
+      return data;
+    } catch (error) {
+      console.log('forgotPassword ERROR', error);
+    }
+  }
+);
+
+export const newPassword = createAsyncThunk(
+  'UPDATE_NEW_PASSWORD',
+  async dataPassword => {
+    try {
+      const data = await axios.post(
+        `http://localhost:3001/api/users/${dataPassword.id}/new-password`,
+        dataPassword
+      );
+      return data;
+    } catch (error) {
+      console.log('ESTO ES EL ERROR DE NEW ERROR', error);
+    }
+  }
+);
+
 export const userReducer = createReducer(
   {},
   {
     [loginUser.fulfilled]: (state, action) => action.payload?.data,
     [logoutUser.fulfilled]: (state, action) => action.payload,
     [checkUser.fulfilled]: (state, action) => action.payload?.data,
+    // {maxi}
+    [forgotPassword.fulfilled]: (state, action) => action.payload?.data,
   }
 );
