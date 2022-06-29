@@ -1,73 +1,66 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
-
+import ForgotPassword from './components/ForgotPassword';
+import User from './components/User';
 import Navbar from './commons/Navbar';
 import Countdown from './commons/Countdown';
-import ForgotPassword from './components/ForgotPassword';
-
 import './styles/App.css';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './state/user/user';
 import Home from './components/Home';
-import { getEmailList } from './state/guests/emailList';
+import LoginWhitToken from './components/LoginWithToken';
+import { verifyToken } from './state/guests/verifyToken';
 import NewPassword from './components/NewPassword';
+import { RegisterRequest } from './utils/sweetAlerts';
 
 function App() {
+  const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   const user = useSelector(state => state.user);
-  const guestEmails = useSelector(state => state.guestEmails);
+  const sidebar = useSelector(state => state.sidebar);
+  const verifiedToken = useSelector(state => state.verifiedToken);
   const dispatch = useDispatch();
-  const [ip, setIP] = useState('');
-
-  //creating function to load ip address from the API
-  const getData = async () => {
-    const res = await axios.get('https://geolocation-db.com/json/', {
-      withCredentials: false,
-    });
-    const country = await axios.get('https://ipapi.co/json/', {
-      withCredentials: false,
-    });
-    console.log('country', country.data);
-    console.log(res.data);
-    setIP(res.data.IPv4);
-  };
 
   useEffect(() => {
-    dispatch(getEmailList());
-    getData();
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const { latitude, longitude } = position.coords;
-        console.log(latitude, longitude);
-        console.log(position);
-      });
+    if (verifiedToken) {
+      navigate('/register');
+      RegisterRequest();
     }
-  }, []);
+  }, [verifiedToken]);
 
   useEffect(() => {
     dispatch(checkUser());
   }, [user.id]);
 
   return (
-    <>
+    <div className={sidebar ? 'overlap' : ''}>
       <Navbar />
       <Countdown />
       <Routes>
         {/* confirm access-Public */}
-        <Route exact path="/login" element={user.id && <Login />} />
+
+        <Route exact path="/login-with-token" element={<LoginWhitToken />} />
+        {/* home - Public */}
+
+        <Route exact path="/login" element={!user.id && <Login />} />
         {/* register- confirmed token No public */}
-        <Route exact path="/register" element={<Register />} />
+        <Route
+          exact
+          path="/register"
+          element={!verifiedToken && <Register />}
+        />
 
         {/* home - Public */}
+
         <Route path="/" element={<Home />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/new-password/:id/:token" element={<NewPassword />} />
+        <Route path="/user" element={<User />} />
       </Routes>
-    </>
+    </div>
   );
 }
 

@@ -9,47 +9,74 @@ import { verifyToken } from '../state/guests/verifyToken';
 import { InvalidToken } from '../utils/sweetAlerts';
 import ReCAPTCHA from 'react-google-recaptcha';
 
+import { checkCaptcha } from '../state/user/user';
+
+import { verifyGuest } from '../state/guests/verifyGuest';
+import { loginUser } from '../state/user/user';
+
+
 const LoginWhitToken = () => {
-  const guestEmails = useSelector(state => state.guestEmails);
-  const verifiedToken = useSelector(state => state.verifiedToken);
+  const verifiedGuest = useSelector(state => state.verifiedGuest);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [tries, setTries] = useState(0);
   const [captchaValido, setCaptchaValido] = useState(false);
   const [usuarioValido, setUsuarioValido] = useState(false);
-  const [validGuest, setValidGuest] = useState(false);
+  const [checkedEmail, setCheckedEmail] = useState(false);
   const [cantSubmit, setCantSubmit] = useState(false);
-  const captcha = useRef(null);
+  const captcha = useRef();
 
   const handleSubmit = values => {
-    console.log('tries', tries);
+    console.log(tries);
     if (!captchaValido) {
       return setCantSubmit(true);
     }
-    if (values.email) {
-      guestEmails.forEach(item => {
-        item.email === values.email && setValidGuest(true);
+
+    if (!checkedEmail) {
+      return dispatch(verifyGuest({ email: values.email }))
+        .then(({ payload }) => {
+          setCheckedEmail(payload?.data.verified);
+        })
+        .catch(err => console.error(err));
+
+    }
+    if (!verifiedGuest.checked) {
+      return dispatch(
+        verifyToken({ email: values.email, token: values.token })
+      ).then(state => {
+        !state.payload?.data && tries >= 3
+          ? InvalidToken()
+          : setTries(tries + 1);
       });
     }
-    if (validGuest) {
-      dispatch(verifyToken({ email: values.email, token: values.token })).then(
-        state => {
-          !state.payload.data && tries >= 3
-            ? InvalidToken()
-            : setTries(tries + 1);
-        }
+    if (values.password)
+      dispatch(
+        loginUser({
+          email: values.email,
+          password: values.password,
+        })
       );
-    }
   };
   const validate = Yup.object({
     email: Yup.string()
       .email('El email ingresado no es válido')
       .required('Se requiere un email'),
-    token: usuarioValido && Yup.string().required('se requiere un token'),
+    token:
+      usuarioValido &&
+      !verifiedGuest?.checked &&
+      Yup.string().required('se requiere un token'),
+    password:
+      usuarioValido &&
+      verifiedGuest?.checked &&
+      Yup.string().required('Se requiere contraseña'),
   });
 
   const onChange = () => {
-    if (('hubo un cambio', captcha.current.getValue())) {
+    const captchaToken = captcha.current.getValue()
+    /* dispatch(checkCaptcha({
+      tokenCaptcha: captchaToken
+    })) */
+    if (('hubo un cambio', captchaToken)) {
+      console.log("esto es el captcha", captcha);
       console.log('el usuario no es un robot');
       setCaptchaValido(true);
     }
@@ -61,12 +88,12 @@ const LoginWhitToken = () => {
         initialValues={{
           email: '',
           token: '',
-          //   password: '',
+          password: '',
         }}
         validationSchema={validate}
         onSubmit={values => {
           handleSubmit(values);
-          if (captcha.current.getValue()) {
+          if (captcha.current?.getValue()) {
             console.log('el usuario no es un robot');
             setUsuarioValido(true);
             setCaptchaValido(true);
@@ -78,7 +105,7 @@ const LoginWhitToken = () => {
         }}
       >
         {formik => (
-          <div className="container w-75 mt-4">
+          <div className="container w-75 mt-4 form">
             <Form>
               <div className="form-group">
                 <label htmlFor="email">E-mail</label>
@@ -104,7 +131,10 @@ const LoginWhitToken = () => {
                   />
                 </div>
               )}
-              {usuarioValido && validGuest && (
+
+              {/* si el usuario NO esta registrado, se lo verifica con el token
+                y se lo redirige a /register */}
+              {checkedEmail && !verifiedGuest.checked && (
                 <div className="form-group">
                   <label htmlFor="loginToken">
                     Token
@@ -125,24 +155,35 @@ const LoginWhitToken = () => {
                   </label>
                 </div>
               )}
-
-              {/* {validGuest && usuarioValido && (
-                <div className="recaptcha">
-                  <ReCAPTCHA
-                    ref={captcha}
-                    sitekey="6LdOKZogAAAAAEhkSW2hDBgJlWOncF-Ivg8DSB_r"
-                    onChange={onChange}
+              {/* si el usuario esta ya registrado, se lo loguea */}
+              {checkedEmail && verifiedGuest.checked && (
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <Field
+                    name="password"
+                    className={
+                      formik.touched.password && formik.errors.password
+                        ? 'form-control is-invalid'
+                        : 'form-control'
+                    }
+                    type="password"
                   />
+                  {formik.touched.password && formik.errors.password ? (
+                    <div className="invalid-feedback">
+                      {formik.errors.password}
+                    </div>
+                  ) : null}
                 </div>
-              )} */}
+              )}
 
               {cantSubmit && (
                 <div style={{ color: 'red' }}>Por favor acepta el captcha</div>
               )}
+
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
-                    {!validGuest ? 'Search' : 'Enter'}
+                    {!checkedEmail ? 'Welcome' : 'Enter'}
                   </Button>
                 </div>
               </div>

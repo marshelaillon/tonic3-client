@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Virtual Events",
+  "name": "Virtual Events by P5 'Dream Team'",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +18,12 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "start_url": "http://localhost:3000/?mode=pwa",
+  "theme_color": "orange",
+  "background_color": "#020122",
+  "categories": ["entertainment", "streming", "virtual content"],
+  "descripcion": "",
+  "dir": "ltr",
+  "display_override": ["standalone", "fullscreen"],
+  "scope": "/"
 }
