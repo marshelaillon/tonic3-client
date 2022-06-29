@@ -1,13 +1,16 @@
 import '../styles/Navbar.css';
-
+import '../styles/LanguageDropdown.css';
+import { useTranslation } from 'react-i18next';
 import { GoHome, GoPerson } from 'react-icons/go';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Sidebar from '../components/Sidebar';
 import { toggleSidebar } from '../state/UI/sidebar';
+import LanguageDropdown from '../components/LanguageDropdown';
 
 function Navbar() {
+  const { t } = useTranslation();
   const sidebar = useSelector(state => state.sidebar);
   const dispatch = useDispatch();
 
@@ -16,14 +19,29 @@ function Navbar() {
       <NavLink to={'/'} className="home-icon">
         <GoHome size={40} />
       </NavLink>
-      <div className="home-icon">
+      <h2>{t('welcome_msg')}</h2>
+      <div
+        className="home-icon"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'row',
+        }}
+      >
         <div
           onClick={() => {
             dispatch(toggleSidebar());
           }}
         >
-          <GoPerson size={40} />
+          <GoPerson
+            style={{
+              margin: '0 10px',
+              cursor: 'pointer',
+            }}
+            size={40}
+          />
         </div>
+        <LanguageDropdown className="language-dropdown" />
       </div>
       {sidebar && <Sidebar />}
     </div>

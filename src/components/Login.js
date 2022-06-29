@@ -6,18 +6,19 @@ import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../state/user/user';
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [captchaValido, setCaptchaValido] = useState(false)
-  const [usuarioValido, setUsuarioValido] = useState(false)
-  const [cantSubmit, setCantSubmit] = useState(false)
+  const [captchaValido, setCaptchaValido] = useState(false);
+  const [usuarioValido, setUsuarioValido] = useState(false);
+  const [cantSubmit, setCantSubmit] = useState(false);
   const captcha = useRef(null);
 
   const handleSubmit = values => {
     if (!captchaValido) {
+
     return setCantSubmit(true)
       
     }
@@ -41,13 +42,13 @@ const Login = () => {
    
   });
 
-
   const onChange = () => {
     if ("hubo un cambio", captcha.current.getValue()) {
       console.log("el usuario no es un robot")
       setCaptchaValido(true)
     }
   }
+
 
   return (
     <>
@@ -58,21 +59,21 @@ const Login = () => {
         }}
         validationSchema={validate}
         onSubmit={values => {
-          handleSubmit(values)
+          handleSubmit(values);
           if (captcha.current.getValue()) {
-            console.log("el usuario no es un robot")
-            setUsuarioValido(true)
-            setCaptchaValido(true)
+            console.log('el usuario no es un robot');
+            setUsuarioValido(true);
+            setCaptchaValido(true);
           } else {
-            console.log("Aceptar el captcha")
-            setUsuarioValido(false)
-            setCaptchaValido(false)
+
+            console.log('Aceptar el captcha');
+            setUsuarioValido(false);
+            setCaptchaValido(false);
           }
         }}
       >
         {formik => (
           <div className="container w-75 mt-4">
-           {/*  {!usuarioValido && */}
               <Form>
                 <div className="form-group">
                   <label htmlFor="email">E-mail</label>
@@ -86,7 +87,9 @@ const Login = () => {
                     type="email"
                   />
                   {formik.touched.email && formik.errors.email ? (
-                    <div className="invalid-feedback">{formik.errors.email}</div>
+                    <div className="invalid-feedback">
+                      {formik.errors.email}
+                    </div>
                   ) : null}
                 </div>
                 <div className="form-group">
@@ -101,19 +104,31 @@ const Login = () => {
                     type="password"
                   />
                   {formik.touched.password && formik.errors.password ? (
-                    <div className="invalid-feedback">{formik.errors.password}</div>
+                    <div className="invalid-feedback">
+                      {formik.errors.password}
+                    </div>
                   ) : null}
                 </div>
+
                 {!usuarioValido && (
                 <div className='recaptcha'>
+
+
                   <ReCAPTCHA
                     ref={captcha}
                     sitekey="6LdOKZogAAAAAEhkSW2hDBgJlWOncF-Ivg8DSB_r"
                     onChange={onChange}
                   />
                 </div>
+
                 )}
-                {cantSubmit && <div style={{ color: "red" }} >Por favor acepta el captcha</div>}
+
+                {cantSubmit && (
+                  <div style={{ color: 'red' }}>
+                    Por favor acepta el captcha
+                  </div>
+                )}
+
                 <div className="mt-4 d-flex flex-row">
                   <div className="form-group me-4">
                     <Button type="submit" variant="dark">
@@ -130,11 +145,11 @@ const Login = () => {
         )}
       </Formik>
 
-      {usuarioValido &&
+      {usuarioValido && (
         <div>
           <h1>Bienvenido</h1>
         </div>
-      }
+      )}
     </>
   );
 };

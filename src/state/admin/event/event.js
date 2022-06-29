@@ -7,11 +7,10 @@ export const setEvent = createAsyncThunk("SET_EVENT", (data, thunkAPI) => {
 
     if(thunk.user.isAdmin){
         try {
-            const { data } = await axios.post("/api/event/set", data);
-        
+            const { data } = await axios.post("http://localhost:3001/api/admin/add-event", data);
+            console.log(data);
         } catch (error) {
             console.error("/user/login ERROR ", error)
-    
         }    
     }
     
