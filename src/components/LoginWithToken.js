@@ -8,31 +8,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken } from '../state/guests/verifyToken';
 import { InvalidToken } from '../utils/sweetAlerts';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { verifyGuest } from '../state/guests/verifyGuest';
+import { loginUser } from '../state/user/user';
+
+// Al momento tenemos un sistema de logueo con token y un sistema de logueo con password, por separado.
+// Propongo que sea el mismo componente. Siguiendo con la logica que planteamos ayer con las chicas,
+// podemos hacer que apenas ingresa el usuario a la app y si este no esta ya logueado, lo primero que se le pida es el mail.
+// En vez de dispararse la busqueda en el front como propuse ayer, que se dispare la busqueda al back, ademas de
+// verificiar si el email esta en la lista de invitados, verificar si este usuario no se hizo ya una cuenta,
+// si no lo hizo, se le pide el token, se hacen las comprobaciones necesarias y se lo invita a registrase, para evitarse este paso
+// durante el proximo ingreso, basicamente lo obligamos, lo redirigimos donde corresponda y listo.
+// si el mail pertenece a un invitado CHECKED true, se le pide la constraseña y se dispara el dispatch de login.
 
 const LoginWhitToken = () => {
-  const guestEmails = useSelector(state => state.guestEmails);
-  const verifiedToken = useSelector(state => state.verifiedToken);
+  const verifiedGuest = useSelector(state => state.verifiedGuest);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tries, setTries] = useState(0);
   const [captchaValido, setCaptchaValido] = useState(false);
   const [usuarioValido, setUsuarioValido] = useState(false);
+  const [checkedEmail, setCheckedEmail] = useState(false);
   const [validGuest, setValidGuest] = useState(false);
   const [cantSubmit, setCantSubmit] = useState(false);
   const captcha = useRef(null);
 
   const handleSubmit = values => {
-    console.log('tries', tries);
+    console.log(tries);
     if (!captchaValido) {
       return setCantSubmit(true);
     }
-    if (values.email) {
-      guestEmails.forEach(item => {
-        item.email === values.email && setValidGuest(true);
-        //aca se puede enviar un cartelito que diga como usuario no encon
-      });
+
+    if (!checkedEmail) {
+      return dispatch(verifyGuest({ email: values.email }))
+        .then(({ payload }) => {
+          setCheckedEmail(payload.data.verified);
+        })
+        .catch(err => console.error(err));
+
     }
-    if (validGuest) {
+    if (!verifiedGuest.checked) {
       dispatch(verifyToken({ email: values.email, token: values.token })).then(
         state => {
           !state.payload.data && tries >= 3
@@ -40,7 +54,7 @@ const LoginWhitToken = () => {
             : setTries(tries + 1);
         }
       );
-    }
+    } else dispatch(loginUser());
   };
   const validate = Yup.object({
     email: Yup.string()
@@ -62,12 +76,11 @@ const LoginWhitToken = () => {
         initialValues={{
           email: '',
           token: '',
-          //   password: '',
         }}
         validationSchema={validate}
         onSubmit={values => {
           handleSubmit(values);
-          if (captcha.current.getValue()) {
+          if (captcha.current?.getValue()) {
             console.log('el usuario no es un robot');
             setUsuarioValido(true);
             setCaptchaValido(true);
@@ -105,7 +118,10 @@ const LoginWhitToken = () => {
                   />
                 </div>
               )}
-              {usuarioValido && validGuest && (
+
+              {/* si el usuario NO esta registrado, se lo verifica con el token
+                y se lo redirige a /register */}
+              {usuarioValido && checkedEmail && !verifiedGuest.checked && (
                 <div className="form-group">
                   <label htmlFor="loginToken">
                     Token
@@ -126,16 +142,26 @@ const LoginWhitToken = () => {
                   </label>
                 </div>
               )}
-
-              {/* {validGuest && usuarioValido && (
-                <div className="recaptcha">
-                  <ReCAPTCHA
-                    ref={captcha}
-                    sitekey="6LdOKZogAAAAAEhkSW2hDBgJlWOncF-Ivg8DSB_r"
-                    onChange={onChange}
+              {/* si el usuario esta ya registrado, se lo loguea */}
+              {usuarioValido && checkedEmail && verifiedGuest.checked && (
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <Field
+                    name="password"
+                    className={
+                      formik.touched.password && formik.errors.password
+                        ? 'form-control is-invalid'
+                        : 'form-control'
+                    }
+                    type="password"
                   />
+                  {formik.touched.password && formik.errors.password ? (
+                    <div className="invalid-feedback">
+                      {formik.errors.password}
+                    </div>
+                  ) : null}
                 </div>
-              )} */}
+              )}
 
               {cantSubmit && (
                 <div style={{ color: 'red' }}>Por favor acepta el captcha</div>
@@ -143,7 +169,7 @@ const LoginWhitToken = () => {
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
-                    {!validGuest ? 'Search' : 'Enter'}
+                    {!checkedEmail ? 'Welcome' : 'Enter'}
                   </Button>
                 </div>
               </div>
