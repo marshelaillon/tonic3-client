@@ -21,6 +21,7 @@ function App() {
   const user = useSelector(state => state.user);
   const guestEmails = useSelector(state => state.guestEmails);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getEmailList());
   }, []);
@@ -28,7 +29,9 @@ function App() {
   useEffect(() => {
     dispatch(checkUser());
   }, [user.id]);
+
   console.log(guestEmails);
+
   return (
     <>
       <Navbar />
