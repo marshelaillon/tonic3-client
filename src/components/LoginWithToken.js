@@ -11,54 +11,57 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { verifyGuest } from '../state/guests/verifyGuest';
 import { loginUser } from '../state/user/user';
 
-// Al momento tenemos un sistema de logueo con token y un sistema de logueo con password, por separado.
-// Propongo que sea el mismo componente. Siguiendo con la logica que planteamos ayer con las chicas,
-// podemos hacer que apenas ingresa el usuario a la app y si este no esta ya logueado, lo primero que se le pida es el mail.
-// En vez de dispararse la busqueda en el front como propuse ayer, que se dispare la busqueda al back, ademas de
-// verificiar si el email esta en la lista de invitados, verificar si este usuario no se hizo ya una cuenta,
-// si no lo hizo, se le pide el token, se hacen las comprobaciones necesarias y se lo invita a registrase, para evitarse este paso
-// durante el proximo ingreso, basicamente lo obligamos, lo redirigimos donde corresponda y listo.
-// si el mail pertenece a un invitado CHECKED true, se le pide la constraseña y se dispara el dispatch de login.
-
 const LoginWhitToken = () => {
   const verifiedGuest = useSelector(state => state.verifiedGuest);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [tries, setTries] = useState(0);
   const [captchaValido, setCaptchaValido] = useState(false);
   const [usuarioValido, setUsuarioValido] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState(false);
-  const [validGuest, setValidGuest] = useState(false);
   const [cantSubmit, setCantSubmit] = useState(false);
   const captcha = useRef(null);
 
   const handleSubmit = values => {
-    console.log(tries);
-    if (!captchaValido) {
-      return setCantSubmit(true);
-    }
+    console.log(values);
+    // if (!captchaValido) {
+    //   return setCantSubmit(true);
+    // }
     if (!checkedEmail) {
       return dispatch(verifyGuest({ email: values.email }))
         .then(({ payload }) => {
-          setCheckedEmail(payload.data.verified);
+          setCheckedEmail(payload?.data.verified);
         })
         .catch(err => console.error(err));
     }
     if (!verifiedGuest.checked) {
-      dispatch(verifyToken({ email: values.email, token: values.token })).then(
-        state => {
-          !state.payload.data && tries >= 3
-            ? InvalidToken()
-            : setTries(tries + 1);
-        }
+      return dispatch(
+        verifyToken({ email: values.email, token: values.token })
+      ).then(state => {
+        !state.payload?.data && tries >= 3
+          ? InvalidToken()
+          : setTries(tries + 1);
+      });
+    }
+    if (values.password)
+      dispatch(
+        loginUser({
+          email: values.email,
+          password: values.password,
+        })
       );
-    } else dispatch(loginUser());
   };
   const validate = Yup.object({
     email: Yup.string()
       .email('El email ingresado no es válido')
       .required('Se requiere un email'),
-    token: usuarioValido && Yup.string().required('se requiere un token'),
+    token:
+      usuarioValido &&
+      !verifiedGuest?.checked &&
+      Yup.string().required('se requiere un token'),
+    password:
+      usuarioValido &&
+      verifiedGuest?.checked &&
+      Yup.string().required('Se requiere contraseña'),
   });
 
   const onChange = () => {
@@ -74,6 +77,7 @@ const LoginWhitToken = () => {
         initialValues={{
           email: '',
           token: '',
+          password: '',
         }}
         validationSchema={validate}
         onSubmit={values => {
@@ -119,7 +123,7 @@ const LoginWhitToken = () => {
 
               {/* si el usuario NO esta registrado, se lo verifica con el token
                 y se lo redirige a /register */}
-              {usuarioValido && checkedEmail && !verifiedGuest.checked && (
+              {checkedEmail && !verifiedGuest.checked && (
                 <div className="form-group">
                   <label htmlFor="loginToken">
                     Token
@@ -141,7 +145,7 @@ const LoginWhitToken = () => {
                 </div>
               )}
               {/* si el usuario esta ya registrado, se lo loguea */}
-              {usuarioValido && checkedEmail && verifiedGuest.checked && (
+              {checkedEmail && verifiedGuest.checked && (
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
                   <Field
@@ -164,6 +168,7 @@ const LoginWhitToken = () => {
               {cantSubmit && (
                 <div style={{ color: 'red' }}>Por favor acepta el captcha</div>
               )}
+
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">

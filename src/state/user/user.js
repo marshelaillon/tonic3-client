@@ -4,20 +4,17 @@ import {
   createReducer,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { InvalidPassword } from '../../utils/sweetAlerts';
 
 export const loginUser = createAsyncThunk(
   'SEND_LOGIN_REQUEST',
   async credentials => {
-    try {
-      console.log('credentials', credentials);
-      const { data } = await axios.post(
-        'http://localhost:3001/api/users/login',
-        credentials
-      );
-      return data;
-    } catch (error) {
-      console.error('/user/login ERROR ', error);
-    }
+    console.log('credentials', credentials);
+    const { error, data } = await axios.post(
+      'http://localhost:3001/api/users/login',
+      credentials
+    );
+    if (!error) return data;
   }
 );
 
@@ -75,6 +72,10 @@ export const userReducer = createReducer(
   {},
   {
     [loginUser.fulfilled]: (state, action) => action.payload?.data,
+    [loginUser.rejected]: (state, action) => {
+      InvalidPassword();
+      return action.payload?.data;
+    },
     [logoutUser.fulfilled]: (state, action) => action.payload,
     [checkUser.fulfilled]: (state, action) => action.payload?.data,
     // {maxi}
