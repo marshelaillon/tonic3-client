@@ -17,6 +17,7 @@ import { verifyToken } from './state/guests/verifyToken';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
 import { checkCaptcha } from './state/captcha/captcha';
+import Adminview from './components/Adminview';
 
 function App() {
   const navigate = useNavigate();
@@ -27,7 +28,6 @@ function App() {
   const sidebar = useSelector(state => state.sidebar);
   const verifiedToken = useSelector(state => state.verifiedToken);
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (verifiedToken) {
       navigate('/register');
@@ -66,6 +66,7 @@ function App() {
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/new-password/:id/:token" element={<NewPassword />} />
         <Route path="/user" element={<User />} />
+        <Route path="/cosas-de-admin" element={<Adminview />} />
       </Routes>
     </div>
   );

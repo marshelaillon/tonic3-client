@@ -4,6 +4,8 @@ import axios from 'axios';
 export const addEvent = createAsyncThunk(
   'SET_EVENT',
   async (body, thunkAPI) => {
+    console.log("ESTO ES EL BODI Q LLEGA DE POR AHI ",
+      body)
     const thunk = thunkAPI.getState();
 
     if (thunk.user.isAdmin) {

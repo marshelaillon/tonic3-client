@@ -6,20 +6,20 @@ import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../state/user/user';
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [captchaValido, setCaptchaValido] = useState(false);
-  const [usuarioValido, setUsuarioValido] = useState(false);
-  const [cantSubmit, setCantSubmit] = useState(false);
-  const captcha = useRef();
+  // const [captchaValido, setCaptchaValido] = useState(false);
+  // const [usuarioValido, setUsuarioValido] = useState(false);
+  // const [cantSubmit, setCantSubmit] = useState(false);
+  // const captcha = useRef();
 
   const handleSubmit = values => {
-    if (!captchaValido) {
-      return setCantSubmit(true);
-    }
+    // if (!captchaValido) {
+    //   return setCantSubmit(true);
+    // }
 
     dispatch(
       loginUser({
@@ -39,12 +39,12 @@ const Login = () => {
       .required('Se requiere contraseña'),
   });
 
-  const onChange = () => {
-    if (('hubo un cambio', captcha.current.getValue())) {
-      console.log('el usuario no es un robot');
-      setCaptchaValido(true);
-    }
-  };
+  // const onChange = () => {
+  //   if (('hubo un cambio', captcha.current.getValue())) {
+  //     console.log('el usuario no es un robot');
+  //     setCaptchaValido(true);
+  //   }
+  // };
 
   return (
     <>
@@ -56,15 +56,15 @@ const Login = () => {
         validationSchema={validate}
         onSubmit={values => {
           handleSubmit(values);
-          if (captcha.current.getValue()) {
-            console.log('el usuario no es un robot');
-            setUsuarioValido(true);
-            setCaptchaValido(true);
-          } else {
-            console.log('Aceptar el captcha');
-            setUsuarioValido(false);
-            setCaptchaValido(false);
-          }
+          // if (captcha.current.getValue()) {
+          //   console.log('el usuario no es un robot');
+          //   setUsuarioValido(true);
+          //   setCaptchaValido(true);
+          // } else {
+          //   console.log('Aceptar el captcha');
+          //   setUsuarioValido(false);
+          //   setCaptchaValido(false);
+          // }
         }}
       >
         {formik => (
@@ -103,7 +103,7 @@ const Login = () => {
                 ) : null}
               </div>
 
-              {!usuarioValido && (
+              {/* {!usuarioValido && (
                 <div className="recaptcha">
                   <ReCAPTCHA
                     ref={captcha}
@@ -112,11 +112,11 @@ const Login = () => {
                     style={{ width: '15px' }}
                   />
                 </div>
-              )}
+              )} */}
 
-              {cantSubmit && (
+              {/* {cantSubmit && (
                 <div style={{ color: 'red' }}>Por favor acepta el captcha</div>
-              )}
+              )} */}
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
@@ -133,12 +133,6 @@ const Login = () => {
           </div>
         )}
       </Formik>
-
-      {usuarioValido && (
-        <div>
-          <h1>Bienvenido</h1>
-        </div>
-      )}
     </>
   );
 };

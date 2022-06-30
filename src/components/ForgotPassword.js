@@ -31,7 +31,6 @@ const ForgotPassword = () => {
                     email: '',
                 }}
                 validationSchema={validate}
-                //preguntar de donde mierda sale ese value ¿? {maxi}
                 onSubmit={value => handleSubmit(value)}
             >
                 {formik => (
@@ -47,7 +46,7 @@ const ForgotPassword = () => {
                                 }
                                 type="email"
                             />
-                            <Button type="submit" variant="dark">
+                            <Button type="submit" variant="dark" >
                                 Submit
                             </Button>
                         </Form>
