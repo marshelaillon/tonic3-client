@@ -38,13 +38,12 @@
   text-align: center;
 }
 
+
 .nav-menu.active {
   margin-top: 47px;
   left: 0;
   backdrop-filter: "static";
   box-shadow: 0px 15px 11px 11px black;
- 
-
 }
 
 

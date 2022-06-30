@@ -13,7 +13,7 @@ export const InvalidPassword = () =>
   Swal.fire({
     position: 'top',
     icon: 'warning',
-    title: 'Password invalido !',
+    title: 'Contraseña invalida !',
     text: 'Vuelva a intentarlo ',
     showConfirmButton: false,
     timer: 1200,
@@ -28,11 +28,21 @@ export const RegisterRequest = () =>
     showConfirmButton: false,
     timer: 3500,
   });
+  export const InvalidRegister = () =>
+  Swal.fire({
+    position: 'top',
+    icon: 'warning',
+    title: 'No fue posible registrarte !',
+    text: 'Solo debes registrarte y no volveras a necesitar un token!',
+    showConfirmButton: false,
+    timer: 3500,
+  });
 
 export const EmailPassword = () =>
   Swal.fire({
     position: 'top',
     icon: 'success',
+    title: 'Revisa tu correo!',
     text: 'Hemos enviado un link a tu correo',
     showConfirmButton: false,
     timer: 2500,
@@ -42,6 +52,7 @@ export const NotMatchPassword = () =>
   Swal.fire({
     position: 'top',
     icon: 'error',
+    title: 'Error !',
     text: 'La contraseñas no coinciden ',
     showConfirmButton: false,
     timer: 2500,
@@ -51,7 +62,24 @@ export const PasswordSuccessfully = () =>
   Swal.fire({
     position: 'top',
     icon: 'success',
-    text: 'La contraseñas se cambio correctamenete  ',
+    text: 'La contraseñas se cambio correctamente  ',
     showConfirmButton: false,
     timer: 2500,
   });
+
+export const Welcome =()=>{
+  Swal.fire({
+    position: 'top',
+    icon: 'success',
+    text: 'Que bueno es volver a verte!',
+    showConfirmButton: false,
+  })
+}
+export const RegisterSuccessfully =()=>{
+  Swal.fire({
+    position: 'top',
+    icon: 'success',
+    text: 'Usuario creado!',
+    showConfirmButton: false,
+  })
+}
