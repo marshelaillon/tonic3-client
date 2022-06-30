@@ -20,8 +20,8 @@ import { checkCaptcha } from './state/captcha/captcha';
 import Adminview from './components/Adminview';
 
 function App() {
-  const navigate = useNavigate();
   axios.defaults.withCredentials = true;
+  const navigate = useNavigate();
   const user = useSelector(state => state.user);
   const verifiedGuest = useSelector(state => state.verifiedGuest);
   const captcha = useSelector(state => state.captcha);

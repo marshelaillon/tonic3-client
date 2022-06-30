@@ -10,9 +10,12 @@ const Home = () => {
   return (
     <div>
       {/* si no hay usuario mostrar el primer ingreso con acces code */}
-      {(!verifiedGuest.verified || !verifiedToken) && <LoginWithToken />}
-      {verifyGuest.checked ||
-        (verifiedToken && <h1>todo el contenido de home</h1>)}
+      {/* {(!verifiedGuest.verified || !verifiedToken) && <LoginWithToken />} */}
+      {user.id || verifiedToken ? (
+        <h1>todo el contenido de home</h1>
+      ) : (
+        <LoginWithToken />
+      )}
       {/* si hay usuario mostrar evento en pending */}
     </div>
   );
