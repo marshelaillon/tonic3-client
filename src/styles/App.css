@@ -47,12 +47,15 @@ input:-webkit-autofill:focus {
   }
 }
 .overlap {
- 
   height: 100vh;
-background: -webkit-repeating-linear-gradient(left, rgb(0, 0, 0,0.8), rgba(15, 15, 29));
+  background: -webkit-repeating-linear-gradient(
+    left,
+    rgb(0, 0, 0, 0.8),
+    rgba(15, 15, 29)
+  );
   position: absolute;
   z-index: 50;
-  top:0%;
+  top: 0%;
   bottom: 0;
   left: 0;
   right: 0;

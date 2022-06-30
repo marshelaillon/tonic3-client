@@ -85,12 +85,13 @@ export default function Sidebar() {
       <nav className={'nav-menu active'}>
         <ul className="nav-menu-item">
           {SIDEBAR_ITEMS[typeOfUser].map((item, index) => {
+            
             return (
+              < div key={index}>
               <SidebarItem
-                index={index}
                 item={item}
                 setTypeOfUser={setTypeOfUser}
-              />
+              /></div>
             );
           })}
         </ul>

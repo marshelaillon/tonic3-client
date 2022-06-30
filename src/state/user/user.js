@@ -4,7 +4,12 @@ import {
   createReducer,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { InvalidPassword, InvalidRegister} from '../../utils/sweetAlerts';
+import {
+  InvalidPassword,
+  InvalidRegister,
+  RegisterSuccessfully,
+  Welcome,
+} from '../../utils/sweetAlerts';
 
 export const registerUser = createAsyncThunk(
   'SEND_REGISTER_REQUEST',
@@ -88,12 +93,18 @@ export const newPassword = createAsyncThunk(
 export const userReducer = createReducer(
   {},
   {
-    [registerUser.fulfilled]: (state, action) => action.payload?.data,
+    [registerUser.fulfilled]: (state, action) => {
+      RegisterSuccessfully();
+      return action.payload?.data;
+    },
     [registerUser.rejected]: (state, action) => {
       InvalidRegister();
       return action.payload?.data;
     },
-    [loginUser.fulfilled]: (state, action) => action.payload?.data,
+    [loginUser.fulfilled]: (state, action) => {
+      Welcome();
+      return action.payload?.data;
+    },
     [loginUser.rejected]: (state, action) => {
       InvalidPassword();
       return action.payload?.data;
