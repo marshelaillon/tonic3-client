@@ -14,7 +14,6 @@ import { checkCaptcha } from '../state/user/user';
 import { verifyGuest } from '../state/guests/verifyGuest';
 import { loginUser } from '../state/user/user';
 
-
 const LoginWhitToken = () => {
   const verifiedGuest = useSelector(state => state.verifiedGuest);
   const dispatch = useDispatch();
@@ -26,10 +25,11 @@ const LoginWhitToken = () => {
   const captcha = useRef();
 
   const handleSubmit = values => {
-    console.log(values);
-    // if (!captchaValido) {
-    //   return setCantSubmit(true);
-    // }
+    console.log(tries);
+    if (!captchaValido) {
+      return setCantSubmit(true);
+    }
+
     if (!checkedEmail) {
       return dispatch(verifyGuest({ email: values.email }))
         .then(({ payload }) => {
@@ -69,12 +69,12 @@ const LoginWhitToken = () => {
   });
 
   const onChange = () => {
-    const captchaToken = captcha.current.getValue()
+    const captchaToken = captcha.current.getValue();
     /* dispatch(checkCaptcha({
       tokenCaptcha: captchaToken
     })) */
     if (('hubo un cambio', captchaToken)) {
-      console.log("esto es el captcha", captcha);
+      console.log('esto es el captcha', captcha);
       console.log('el usuario no es un robot');
       setCaptchaValido(true);
     }
@@ -103,7 +103,7 @@ const LoginWhitToken = () => {
         }}
       >
         {formik => (
-          <div className="container w-75 mt-4">
+          <div className="container w-75 mt-4 form">
             <Form>
               <div className="form-group">
                 <label htmlFor="email">E-mail</label>

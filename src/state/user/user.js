@@ -52,16 +52,6 @@ export const checkUser = createAsyncThunk('CHECK_USER_BY_COOKIES', async () => {
   }
 });
 
-//cambiar a otro estado!!!!!!!!!!!
-export const checkCaptcha = createAsyncThunk('CHECK_CAPTCHA', async tokenCaptcha => {
-  console.log("esto es el token", tokenCaptcha);
-  try {
-    const { data } = await axios.post('http://localhost:3001/api/users/register-with-recaptcha', tokenCaptcha);
-    return data;
-  } catch (error) {
-    console.error('user/register-with-recaptcha ERROR', error);
-  }
-});
 
 export const forgotPassword = createAsyncThunk(
   'SEND_EMAIL_CHANGE_PASSWORD',
@@ -107,11 +97,6 @@ export const userReducer = createReducer(
     },
     [logoutUser.fulfilled]: (state, action) => action.payload,
     [checkUser.fulfilled]: (state, action) => action.payload?.data,
-
-    //cambiar a otro estado
-    [checkCaptcha.fulfilled]: (state, action) => action.payload?.data,
-
-   
     [forgotPassword.fulfilled]: (state, action) => action.payload?.data,
 
   }
