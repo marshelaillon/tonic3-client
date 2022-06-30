@@ -27,6 +27,7 @@ import { RegisterRequest } from './utils/sweetAlerts';
 function App() {
 
   axios.defaults.withCredentials = true;
+  const navigate=useNavigate()
   const user = useSelector(state => state.user);
   const sidebar = useSelector(state => state.sidebar);
   const verifiedToken = useSelector(state => state.verifiedToken);

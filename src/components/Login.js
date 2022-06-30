@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../state/user/user';
 import ReCAPTCHA from 'react-google-recaptcha';
-
+import {Welcome} from '../utils/sweetAlerts'
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,13 +22,13 @@ const Login = () => {
     return setCantSubmit(true)
       
     }
-
     dispatch(
       loginUser({
         email: values.email,
         password: values.password,
       })
     );
+    Welcome()
     navigate('/');
   };
 

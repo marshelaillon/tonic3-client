@@ -10,7 +10,7 @@ import { registerUser } from '../state/user/user';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { checkCaptcha } from '../state/captcha/captcha';
-
+import {RegisterSuccessfully} from '../utils/sweetAlerts'
 const Register = () => {
 
   const dispatch = useDispatch();
@@ -46,8 +46,10 @@ const Register = () => {
         password: values.password,
         confirmpassword: values.confirmpassword,
       })
-    );
+    )
+    RegisterSuccessfully()
     navigate('/');
+
   };
 
 
@@ -112,7 +114,6 @@ const Register = () => {
         <div className="container w-75 mt-4">
           <h3>Register</h3>
           <Form >
-
           <div className="form-group">
               <label htmlFor="firstName">firstName</label>
               <Field
