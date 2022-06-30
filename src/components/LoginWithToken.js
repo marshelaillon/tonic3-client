@@ -13,9 +13,11 @@ import { InvalidToken } from '../utils/sweetAlerts';
 
 import { verifyGuest } from '../state/guests/verifyGuest';
 import { loginUser } from '../state/user/user';
+import axios from 'axios';
+import updateToken from '../services/updateToken';
 
 const LoginWhitToken = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const verifiedGuest = useSelector(state => state.verifiedGuest);
   const dispatch = useDispatch();
   const [tries, setTries] = useState(0);
@@ -42,7 +44,7 @@ const LoginWhitToken = () => {
         verifyToken({ email: values.email, token: values.token })
       ).then(state => {
         !state.payload?.data && tries >= 3
-          ? InvalidToken()
+          ? InvalidToken() && updateToken()
           : setTries(tries + 1);
       });
     }
@@ -52,8 +54,7 @@ const LoginWhitToken = () => {
           email: values.email,
           password: values.password,
         })
-      )
-        .then(() => navigate('/'))
+      ).then(() => navigate('/'));
   };
   const validate = Yup.object({
     email: Yup.string()

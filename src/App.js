@@ -42,27 +42,24 @@ function App() {
   return (
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar />
-      <Countdown />
+      {verifiedGuest.verified && <Countdown />}
       <Routes>
-        {/* confirm access-Public */}
-
-        <Route exact path="/login-with-token" element={<LoginWhitToken />} />
-        {/* home - Public */}
-
-        <Route
-          exact
-          path="/login"
-          element={!user.id && verifiedGuest.checked && <Login />}
-        />
-        {/* register- confirmed token No public */}
-        <Route exact path="/register" element={verifiedToken && <Register />} />
-
-        {/* home - Public */}
-
-        <Route path="/" element={<Home />} />
-        <Route path="/forgotPassword" element={<ForgotPassword />} />
-        <Route path="/new-password/:id/:token" element={<NewPassword />} />
-        <Route path="/user" element={<User />} />
+        {!verifiedToken ? (
+          <Route path="/" element={<Home />} />
+        ) : (
+          <>
+            <Route
+              exact
+              path="/login"
+              element={!user.id && verifiedGuest.checked && <Login />}
+            />
+            <Route exact path="/register" element={<Register />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/new-password/:id/:token" element={<NewPassword />} />
+            <Route path="/user" element={<User />} />
+          </>
+        )}
+        {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
         <Route path="/cosas-de-admin" element={<Adminview />} />
       </Routes>
     </div>

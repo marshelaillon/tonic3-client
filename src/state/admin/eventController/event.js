@@ -7,6 +7,7 @@ export const addEvent = createAsyncThunk(
     console.log("ESTO ES EL BODI Q LLEGA DE POR AHI ",
       body)
     const thunk = thunkAPI.getState();
+
     if (thunk.user.isAdmin) {
       try {
         const { data } = await axios.post(
