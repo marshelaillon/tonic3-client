@@ -4,37 +4,37 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
 import { useRef, useState, useEffect } from 'react';
 import { registerUser } from '../state/user/user';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { checkCaptcha } from '../state/captcha/captcha';
-import {RegisterSuccessfully} from '../utils/sweetAlerts'
+// import { checkCaptcha } from '../state/captcha/captcha';
+import { RegisterSuccessfully } from '../utils/sweetAlerts';
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [cantSubmit, setCantSubmit] = useState(false);
-  const [captchaValido, setCaptchaValido] = useState(false);
-  const [usuarioValido, setUsuarioValido] = useState(false);
-  const captcha = useRef(null);
+  // const [cantSubmit, setCantSubmit] = useState(false);
+  // const [captchaValido, setCaptchaValido] = useState(false);
+  // const [usuarioValido, setUsuarioValido] = useState(false);
+  // const captcha = useRef(null);
 
   const handleSubmit = values => {
-    if (!captchaValido) {
-      return setCantSubmit(true);
-    }
+    // if (!captchaValido) {
+    //   return setCantSubmit(true);
+    // }
 
-    if (captcha.current.getValue()) {
-      console.log('el usuario no es un robot');
-      setUsuarioValido(true);
-      setCaptchaValido(true);
-    } else {
-      console.log('Aceptar el captcha');
-      setUsuarioValido(false);
-      setCaptchaValido(false);
-    }
+    // if (captcha.current.getValue()) {
+    //   console.log('el usuario no es un robot');
+    //   setUsuarioValido(true);
+    //   setCaptchaValido(true);
+    // } else {
+    //   console.log('Aceptar el captcha');
+    //   setUsuarioValido(false);
+    //   setCaptchaValido(false);
+    // }
 
-    captcha.current.reset();
+    // captcha.current.reset();
 
     dispatch(
       registerUser({
@@ -44,10 +44,9 @@ const Register = () => {
         password: values.password,
         confirmpassword: values.confirmpassword,
       })
-    )
-    RegisterSuccessfully()
+    );
+    RegisterSuccessfully();
     navigate('/');
-
   };
 
   const validate = Yup.object({
@@ -64,20 +63,22 @@ const Register = () => {
       .required('Se requiere confirmación de contraseña'),
   });
 
-  const onChange = () => {
-    const captchaToken = captcha.current.getValue();
+  // const onChange = () => {
+  //   const captchaToken = captcha.current.getValue();
 
-    dispatch(
-      checkCaptcha({
-        tokenCaptcha: captchaToken,
-      })
-    );
-    if (('hubo un cambio', captchaToken)) {
-      console.log('esto es el captcha', captcha);
-      console.log('el usuario no es un robot');
-      setCaptchaValido(true);
-    }
-  };
+  // dispatch(
+  //   checkCaptcha({
+  //     tokenCaptcha: captchaToken,
+  //   })
+  // );
+
+  // if (('hubo un cambio', captchaToken)) {
+  //   console.log('esto es el captcha', captcha);
+  //   console.log('el usuario no es un robot');
+  //   setCaptchaValido(true);
+  // }
+
+  // };
 
   return (
     <Formik
@@ -91,7 +92,7 @@ const Register = () => {
       validationSchema={validate}
       onSubmit={values => {
         handleSubmit(values);
-        window.location.reload();
+        // window.location.reload();
         /* 
         if (captcha.current.getValue()) {
           console.log('el usuario no es un robot');
@@ -189,7 +190,7 @@ const Register = () => {
                 </div>
               ) : null}
             </div>
-            {!usuarioValido && (
+            {/* {!usuarioValido && (
               <div className="recaptcha">
                 <ReCAPTCHA
                   ref={captcha}
@@ -197,10 +198,10 @@ const Register = () => {
                   onChange={onChange}
                 />
               </div>
-            )}
-            {cantSubmit && (
+            )} */}
+            {/* {cantSubmit && (
               <div style={{ color: 'red' }}>Por favor acepta el captcha</div>
-            )}
+            )} */}
             <div className="mt-4 d-flex flex-row">
               <div className="form-group me-4">
                 <Button type="submit" variant="dark">
