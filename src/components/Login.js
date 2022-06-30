@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../state/user/user';
+import {Welcome} from '../utils/sweetAlerts'
 // import ReCAPTCHA from 'react-google-recaptcha';
 
 const Login = () => {
@@ -27,6 +28,7 @@ const Login = () => {
         password: values.password,
       })
     );
+    Welcome()
     navigate('/');
   };
 
