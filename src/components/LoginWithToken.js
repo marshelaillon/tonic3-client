@@ -14,7 +14,6 @@ import { checkCaptcha } from '../state/user/user';
 import { verifyGuest } from '../state/guests/verifyGuest';
 import { loginUser } from '../state/user/user';
 
-
 const LoginWhitToken = () => {
   const verifiedGuest = useSelector(state => state.verifiedGuest);
   const dispatch = useDispatch();
@@ -37,7 +36,6 @@ const LoginWhitToken = () => {
           setCheckedEmail(payload?.data.verified);
         })
         .catch(err => console.error(err));
-
     }
     if (!verifiedGuest.checked) {
       return dispatch(
@@ -71,12 +69,12 @@ const LoginWhitToken = () => {
   });
 
   const onChange = () => {
-    const captchaToken = captcha.current.getValue()
+    const captchaToken = captcha.current.getValue();
     /* dispatch(checkCaptcha({
       tokenCaptcha: captchaToken
     })) */
     if (('hubo un cambio', captchaToken)) {
-      console.log("esto es el captcha", captcha);
+      console.log('esto es el captcha', captcha);
       console.log('el usuario no es un robot');
       setCaptchaValido(true);
     }

@@ -5,6 +5,7 @@ import { toggleSidebar } from '../state/UI/sidebar';
 import { checkUser, logoutUser } from '../state/user/user';
 import { sidebarCollapsed } from '../utils/utils';
 import { useTranslation } from 'react-i18next';
+import { checkCaptcha } from '../state/captcha/captcha';
 
 export default function SidebarItem({ index, item, setTypeOfUser }) {
   const { t } = useTranslation();
@@ -16,6 +17,9 @@ export default function SidebarItem({ index, item, setTypeOfUser }) {
         <Link
           to={item.path}
           onClick={e => {
+            if (item.title === t('login')) {
+              dispatch(checkCaptcha());
+            }
             if (item.title === t('logout')) {
               dispatch(logoutUser());
               dispatch(checkUser());

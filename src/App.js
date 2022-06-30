@@ -11,15 +11,19 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './state/user/user';
 import Home from './components/Home';
+
 import LoginWhitToken from './components/LoginWithToken';
 import { verifyToken } from './state/guests/verifyToken';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
+import { checkCaptcha } from './state/captcha/captcha';
 
 function App() {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   const user = useSelector(state => state.user);
+  const verifiedGuest = useSelector(state => state.verifiedGuest);
+  const captcha = useSelector(state => state.captcha);
   const sidebar = useSelector(state => state.sidebar);
   const verifiedToken = useSelector(state => state.verifiedToken);
   const dispatch = useDispatch();
@@ -45,13 +49,13 @@ function App() {
         <Route exact path="/login-with-token" element={<LoginWhitToken />} />
         {/* home - Public */}
 
-        <Route exact path="/login" element={!user.id && <Login />} />
-        {/* register- confirmed token No public */}
         <Route
           exact
-          path="/register"
-          element={!verifiedToken && <Register />}
+          path="/login"
+          element={!user.id && verifiedGuest.checked && <Login />}
         />
+        {/* register- confirmed token No public */}
+        <Route exact path="/register" element={verifiedToken && <Register />} />
 
         {/* home - Public */}
 

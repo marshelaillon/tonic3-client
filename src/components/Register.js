@@ -12,18 +12,16 @@ import { useDispatch } from 'react-redux';
 import { checkCaptcha } from '../state/captcha/captcha';
 
 const Register = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [cantSubmit, setCantSubmit] = useState(false)
+  const [cantSubmit, setCantSubmit] = useState(false);
   const [captchaValido, setCaptchaValido] = useState(false);
   const [usuarioValido, setUsuarioValido] = useState(false);
   const captcha = useRef(null);
 
-
   const handleSubmit = values => {
     if (!captchaValido) {
-     return setCantSubmit(true)
+      return setCantSubmit(true);
     }
 
     if (captcha.current.getValue()) {
@@ -36,7 +34,7 @@ const Register = () => {
       setCaptchaValido(false);
     }
 
-    captcha.current.reset()
+    captcha.current.reset();
 
     dispatch(
       registerUser({
@@ -50,7 +48,6 @@ const Register = () => {
     navigate('/');
   };
 
-
   const validate = Yup.object({
     firstName: Yup.string().required('Se requiere un nombre'),
     lastName: Yup.string().required('Se requiere un apellido'),
@@ -63,39 +60,37 @@ const Register = () => {
     confirmpassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'La contraseña no coincide')
       .required('Se requiere confirmación de contraseña'),
-  
   });
 
   const onChange = () => {
-    const captchaToken = captcha.current.getValue()
-    
-    dispatch(checkCaptcha({
-      tokenCaptcha: captchaToken
-    })) 
+    const captchaToken = captcha.current.getValue();
+
+    dispatch(
+      checkCaptcha({
+        tokenCaptcha: captchaToken,
+      })
+    );
     if (('hubo un cambio', captchaToken)) {
-      console.log("esto es el captcha", captcha);
+      console.log('esto es el captcha', captcha);
       console.log('el usuario no es un robot');
       setCaptchaValido(true);
     }
-    
   };
-
 
   return (
     <Formik
       initialValues={{
         firstName: '',
-        lastName: "",
+        lastName: '',
         email: '',
         password: '',
         confirmpassword: '',
-
       }}
       validationSchema={validate}
       onSubmit={values => {
         handleSubmit(values);
         window.location.reload();
-/* 
+        /* 
         if (captcha.current.getValue()) {
           console.log('el usuario no es un robot');
           setfirstNameValido(true);
@@ -107,13 +102,11 @@ const Register = () => {
         } */
       }}
     >
-
       {formik => (
         <div className="container w-75 mt-4">
           <h3>Register</h3>
-          <Form >
-
-          <div className="form-group">
+          <Form>
+            <div className="form-group">
               <label htmlFor="firstName">firstName</label>
               <Field
                 name="firstName"
@@ -125,7 +118,9 @@ const Register = () => {
                 type="text"
               />
               {formik.touched.firstName && formik.errors.firstName ? (
-                <div className="invalid-feedback">{formik.errors.firstName}</div>
+                <div className="invalid-feedback">
+                  {formik.errors.firstName}
+                </div>
               ) : null}
             </div>
             <div className="form-group">
@@ -179,14 +174,14 @@ const Register = () => {
                 name="confirmpassword"
                 className={
                   formik.touched.confirmpassword &&
-                    formik.errors.confirmpassword
+                  formik.errors.confirmpassword
                     ? 'form-control is-invalid'
                     : 'form-control'
                 }
                 type="password"
               />
               {formik.touched.confirmpassword &&
-                formik.errors.confirmpassword ? (
+              formik.errors.confirmpassword ? (
                 <div className="invalid-feedback">
                   {formik.errors.confirmpassword}
                 </div>
