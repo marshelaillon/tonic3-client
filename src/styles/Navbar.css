@@ -30,7 +30,7 @@
   position: fixed;
   top: auto;
   left: -100%;
-  transition: .1s ease all;
+    transition: .1s ease all;
   opacity: 1;
 }
 .welcome-msg{

@@ -36,11 +36,10 @@ const Register = () => {
       setCaptchaValido(false);
     }
 
-    // captcha.current.reset()
+    captcha.current.reset()
 
     dispatch(
       registerUser({
-        userName:values.userName,
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
@@ -48,13 +47,15 @@ const Register = () => {
         confirmpassword: values.confirmpassword,
       })
     )
-    navigate('/login');
+    RegisterSuccessfully()
+    navigate('/');
 
   };
 
 
   const validate = Yup.object({
-    userName: Yup.string().required('Se requiere un nombre de usuario'),
+    firstName: Yup.string().required('Se requiere un nombre'),
+    lastName: Yup.string().required('Se requiere un apellido'),
     email: Yup.string()
       .email('El email ingresado no es válido')
       .required('Se requiere un email'),
@@ -85,7 +86,6 @@ const Register = () => {
   return (
     <Formik
       initialValues={{
-        userName:"",
         firstName: '',
         lastName: "",
         email: '',
@@ -95,9 +95,8 @@ const Register = () => {
       }}
       validationSchema={validate}
       onSubmit={values => {
-      
         handleSubmit(values);
-        // window.location.reload();
+        window.location.reload();
 /* 
         if (captcha.current.getValue()) {
           console.log('el usuario no es un robot');
@@ -116,23 +115,35 @@ const Register = () => {
           <h3>Register</h3>
           <Form >
           <div className="form-group">
-
-          <label htmlFor="firstName">userName</label>
+              <label htmlFor="firstName">firstName</label>
               <Field
-                name="userName"
+                name="firstName"
                 className={
-                  formik.touched.userName && formik.errors.userName
+                  formik.touched.firstName && formik.errors.firstName
                     ? 'form-control is-invalid'
                     : 'form-control'
                 }
                 type="text"
-              /> 
-              {formik.touched.userName && formik.errors.userName ? (
-                <div className="invalid-feedback">{formik.errors.userName}</div>
+              />
+              {formik.touched.firstName && formik.errors.firstName ? (
+                <div className="invalid-feedback">{formik.errors.firstName}</div>
               ) : null}
-           
             </div>
-            
+            <div className="form-group">
+              <label htmlFor="lastName">lastName</label>
+              <Field
+                name="lastName"
+                className={
+                  formik.touched.lastName && formik.errors.lastName
+                    ? 'form-control is-invalid'
+                    : 'form-control'
+                }
+                type="text"
+              />
+              {formik.touched.lastName && formik.errors.lastName ? (
+                <div className="invalid-feedback">{formik.errors.lastName}</div>
+              ) : null}
+            </div>
             <div className="form-group">
               <label htmlFor="email">E-mail</label>
               <Field

@@ -16,6 +16,7 @@ export const InvalidPassword = () =>
     title: 'Contraseña invalida !',
     text: 'Vuelva a intentarlo ',
     showConfirmButton: false,
+    timer: 1200,
   });
 
 export const RegisterRequest = () =>
@@ -31,7 +32,7 @@ export const RegisterRequest = () =>
   Swal.fire({
     position: 'top',
     icon: 'warning',
-    title: 'No fue posible registrarte!',
+    title: 'No fue posible registrarte !',
     text: 'Solo debes registrarte y no volveras a necesitar un token!',
     showConfirmButton: false,
     timer: 3500,
@@ -82,12 +83,3 @@ export const RegisterSuccessfully =()=>{
     showConfirmButton: false,
   })
 }
-export const PleaseRegister = () =>
-  Swal.fire({
-    position: 'top',
-    icon: 'info',
-    title: 'Hola !',
-    text: 'Te invitamos a que te registres y así puedas disfrutar de esta experincia!',
-    showConfirmButton: false,
-    timer: 3500,
-  });
