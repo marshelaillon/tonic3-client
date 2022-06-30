@@ -9,10 +9,10 @@ import { verifyToken } from '../state/guests/verifyToken';
 import { InvalidToken } from '../utils/sweetAlerts';
 import ReCAPTCHA from 'react-google-recaptcha';
 
-import { checkCaptcha } from '../state/user/user';
-
 import { verifyGuest } from '../state/guests/verifyGuest';
 import { loginUser } from '../state/user/user';
+import axios from 'axios';
+import updateToken from '../services/updateToken';
 
 const LoginWhitToken = () => {
   const verifiedGuest = useSelector(state => state.verifiedGuest);
@@ -42,7 +42,7 @@ const LoginWhitToken = () => {
         verifyToken({ email: values.email, token: values.token })
       ).then(state => {
         !state.payload?.data && tries >= 3
-          ? InvalidToken()
+          ? InvalidToken() && updateToken()
           : setTries(tries + 1);
       });
     }

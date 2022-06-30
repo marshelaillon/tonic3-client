@@ -42,9 +42,13 @@ function App() {
   return (
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar />
-      <Countdown />
+      {verifiedGuest.verified && <Countdown />}
       <Routes>
-        {/* confirm access-Public */}
+        {/* confirm access-Public 
+          MIENTRAS QUE EL USUARIO NO ESTE VERIFICADO, NO PUEDE VER OTRA PAGINA 
+          QUE NO SEA EL HOME.
+        */}
+        <Route path="/*" element={<Home />} />
 
         <Route exact path="/login-with-token" element={<LoginWhitToken />} />
         {/* home - Public */}
@@ -59,7 +63,6 @@ function App() {
 
         {/* home - Public */}
 
-        <Route path="/" element={<Home />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/new-password/:id/:token" element={<NewPassword />} />
         <Route path="/user" element={<User />} />

@@ -5,6 +5,7 @@ export const addEvent = createAsyncThunk(
   'SET_EVENT',
   async (body, thunkAPI) => {
     const thunk = thunkAPI.getState();
+
     if (thunk.user.isAdmin) {
       try {
         const { data } = await axios.post(
