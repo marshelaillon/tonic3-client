@@ -9,6 +9,15 @@ export const InvalidToken = () =>
     showConfirmButton: true,
   });
 
+export const WithoutInvitation = () =>
+  Swal.fire({
+    position: 'top',
+    icon: 'warning',
+    title: 'Email incorrecto',
+    text: 'El email ingresado no cuenta con una invitacion, verifique porfavor.',
+    showConfirmButton: true,
+  });
+
 export const InvalidPassword = () =>
   Swal.fire({
     position: 'top',
@@ -28,7 +37,7 @@ export const RegisterRequest = () =>
     showConfirmButton: false,
     timer: 3500,
   });
-  export const InvalidRegister = () =>
+export const InvalidRegister = () =>
   Swal.fire({
     position: 'top',
     icon: 'warning',
@@ -67,19 +76,19 @@ export const PasswordSuccessfully = () =>
     timer: 2500,
   });
 
-export const Welcome =()=>{
+export const Welcome = () => {
   Swal.fire({
     position: 'top',
     icon: 'success',
     text: 'Que bueno es volver a verte!',
     showConfirmButton: false,
-  })
-}
-export const RegisterSuccessfully =()=>{
+  });
+};
+export const RegisterSuccessfully = () => {
   Swal.fire({
     position: 'top',
     icon: 'success',
     text: 'Usuario creado!',
     showConfirmButton: false,
-  })
-}
+  });
+};

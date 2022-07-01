@@ -11,20 +11,15 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './state/user/user';
 import Home from './components/Home';
-
-import LoginWhitToken from './components/LoginWithToken';
-import { verifyToken } from './state/guests/verifyToken';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
-import { checkCaptcha } from './state/captcha/captcha';
 import Adminview from './components/Adminview';
 
 function App() {
-  const navigate = useNavigate();
   axios.defaults.withCredentials = true;
+  const navigate = useNavigate();
   const user = useSelector(state => state.user);
   const verifiedGuest = useSelector(state => state.verifiedGuest);
-  const captcha = useSelector(state => state.captcha);
   const sidebar = useSelector(state => state.sidebar);
   const verifiedToken = useSelector(state => state.verifiedToken);
   const dispatch = useDispatch();
@@ -44,19 +39,23 @@ function App() {
       <Navbar />
       {verifiedGuest.verified && <Countdown />}
       <Routes>
-        {!verifiedToken ? (
+        {!verifiedToken && !verifiedGuest.verified ? (
           <Route path="/" element={<Home />} />
         ) : (
           <>
             <Route
-              exact
               path="/login"
               element={!user.id && verifiedGuest.checked && <Login />}
             />
-            <Route exact path="/register" element={<Register />} />
+            <Route
+              exact
+              path="/register"
+              element={!verifiedGuest.checked && <Register />}
+            />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/new-password/:id/:token" element={<NewPassword />} />
-            <Route path="/user" element={<User />} />
+            <Route path="/user" element={user.id && <User />} />
+            <Route path="/" element={<Home />} />
           </>
         )}
         {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
