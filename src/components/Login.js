@@ -7,12 +7,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../state/user/user';
 import { Welcome } from '../utils/sweetAlerts';
+import { useEffect } from 'react';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [tokenCap, settokenCap] = useState("");
+  const captcha = useRef(null);
+
   const handleSubmit = values => {
+    captcha.current.execute();
+
     dispatch(
       loginUser({
         email: values.email,
@@ -22,6 +29,11 @@ const Login = () => {
     Welcome();
     navigate('/');
   };
+
+  useEffect(() => {
+    if (tokenCap)
+      console.log(`hCaptcha Token: ${tokenCap}`);
+  }, [tokenCap]);
 
   const validate = Yup.object({
     email: Yup.string()
@@ -78,6 +90,15 @@ const Login = () => {
                     {formik.errors.password}
                   </div>
                 ) : null}
+              </div>
+
+              <div className='form-group'>
+                <HCaptcha
+                  ref={captcha}
+                  sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"
+                  onVerify={tokenCap => settokenCap(tokenCap)}
+                  onExpire={e => settokenCap("")}
+                />
               </div>
 
               <div className="mt-4 d-flex flex-row">
