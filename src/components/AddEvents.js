@@ -4,12 +4,13 @@ import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEvent } from '../state/admin/eventController/event';
+import AddGuests from './AddGuests';
 
-const Adminview = () => {
+const AddEvents = () => {
     const dispatch = useDispatch();
+    const [eventComplete, setEventsComplete] = useState(false);
 
     const handleSubmit = values => {
-        console.log('LLEGTUEB ESTAS ACA ', values);
         dispatch(
             addEvent({
                 title: values.title,
@@ -17,6 +18,7 @@ const Adminview = () => {
                 description: values.description,
             })
         );
+        setEventsComplete(true);
     };
     const validate = Yup.object({
         url: Yup.string().url().required('Se nesecita Link del evento '),
@@ -86,10 +88,16 @@ const Adminview = () => {
                                     </div>
                                 ) : null}
                             </div>
-
-                            <Button type="submit" variant="light">
-                                Crear evento
-                            </Button>
+                            {eventComplete && <AddGuests eventComplete={eventComplete} />}
+                            {!eventComplete && (
+                                <div className="mt-4 d-flex flex-row">
+                                    <div className="form-group me-4">
+                                        <Button type="submit" variant="light">
+                                            Crear evento
+                                        </Button>
+                                    </div>
+                                </div>
+                            )}
                         </Form>
                     </div>
                 )}
@@ -98,4 +106,4 @@ const Adminview = () => {
     );
 };
 
-export default Adminview;
+export default AddEvents;

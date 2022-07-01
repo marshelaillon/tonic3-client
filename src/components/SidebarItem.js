@@ -21,7 +21,7 @@ export default function SidebarItem({ index, item, setTypeOfUser }) {
               style={{
                 backgroundColor: 'transparent',
                 border: 'none',
-                color: 'inherit',
+                color: '#020122',
               }}
               id="dropdown-basic"
             >
@@ -34,7 +34,7 @@ export default function SidebarItem({ index, item, setTypeOfUser }) {
                 border: 'none',
               }}
             >
-              <Dropdown.Item style={{ color: '#f5f6f7' }} href="#/action-1">
+              <Dropdown.Item style={{ color: '#f5f6f7' }} href="/cosas-de-admin">
                 Crear evento
               </Dropdown.Item>
               <Dropdown.Item style={{ color: '#f5f6f7' }} href="#/action-2">
@@ -51,9 +51,9 @@ export default function SidebarItem({ index, item, setTypeOfUser }) {
           <Link
             to={item.path}
             onClick={e => {
-              if (item.title === t('login')) {
-                dispatch(checkCaptcha());
-              }
+              // if (item.title === t('login')) {
+              //   dispatch(checkCaptcha());
+              // }
               if (item.title === t('logout')) {
                 dispatch(logoutUser());
                 dispatch(checkUser());

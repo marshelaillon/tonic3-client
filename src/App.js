@@ -17,7 +17,7 @@ import { verifyToken } from './state/guests/verifyToken';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
 import { checkCaptcha } from './state/captcha/captcha';
-import Adminview from './components/Adminview';
+import AddEvents from './components/AddEvents';
 
 function App() {
   const navigate = useNavigate();
@@ -48,6 +48,7 @@ function App() {
           <Route path="/" element={<Home />} />
         ) : (
           <>
+            <Route path="/" element={<Home />} />
             <Route
               exact
               path="/login"
@@ -60,7 +61,7 @@ function App() {
           </>
         )}
         {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
-        <Route path="/cosas-de-admin" element={<Adminview />} />
+        <Route path="/cosas-de-admin" element={<AddEvents />} />
       </Routes>
     </div>
   );

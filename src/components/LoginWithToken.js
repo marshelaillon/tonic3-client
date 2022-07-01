@@ -44,7 +44,7 @@ const LoginWhitToken = () => {
         verifyToken({ email: values.email, token: values.token })
       ).then(state => {
         !state.payload?.data && tries >= 3
-          ? InvalidToken() && updateToken()
+          ? InvalidToken() && updateToken({ email: values.email })
           : setTries(tries + 1);
       });
     }
