@@ -1,58 +1,31 @@
 import React from 'react';
-import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
-import ReCAPTCHA from 'react-google-recaptcha';
-import { useRef, useState, useEffect } from 'react';
 import { registerUser } from '../state/user/user';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { checkCaptcha } from '../state/captcha/captcha';
-import {RegisterSuccessfully} from '../utils/sweetAlerts'
+import { RegisterSuccessfully } from '../utils/sweetAlerts';
+
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [cantSubmit, setCantSubmit] = useState(false);
-  const [captchaValido, setCaptchaValido] = useState(false);
-  const [usuarioValido, setUsuarioValido] = useState(false);
-  const captcha = useRef(null);
 
   const handleSubmit = values => {
-    if (!captchaValido) {
-      return setCantSubmit(true);
-    }
-
-    if (captcha.current.getValue()) {
-      console.log('el usuario no es un robot');
-      setUsuarioValido(true);
-      setCaptchaValido(true);
-    } else {
-      console.log('Aceptar el captcha');
-      setUsuarioValido(false);
-      setCaptchaValido(false);
-    }
-
-    captcha.current.reset();
-
     dispatch(
       registerUser({
-        firstName: values.firstName,
-        lastName: values.lastName,
+        userName: values.username,
         email: values.email,
         password: values.password,
         confirmpassword: values.confirmpassword,
       })
-    )
-    RegisterSuccessfully()
+    );
+    RegisterSuccessfully();
     navigate('/');
-
   };
 
   const validate = Yup.object({
-    firstName: Yup.string().required('Se requiere un nombre'),
-    lastName: Yup.string().required('Se requiere un apellido'),
+    userName: Yup.string().required('Se requiere un apellido'),
     email: Yup.string()
       .email('El email ingresado no es válido')
       .required('Se requiere un email'),
@@ -64,26 +37,10 @@ const Register = () => {
       .required('Se requiere confirmación de contraseña'),
   });
 
-  const onChange = () => {
-    const captchaToken = captcha.current.getValue();
-
-    dispatch(
-      checkCaptcha({
-        tokenCaptcha: captchaToken,
-      })
-    );
-    if (('hubo un cambio', captchaToken)) {
-      console.log('esto es el captcha', captcha);
-      console.log('el usuario no es un robot');
-      setCaptchaValido(true);
-    }
-  };
-
   return (
     <Formik
       initialValues={{
-        firstName: '',
-        lastName: '',
+        userName: '',
         email: '',
         password: '',
         confirmpassword: '',
@@ -91,17 +48,6 @@ const Register = () => {
       validationSchema={validate}
       onSubmit={values => {
         handleSubmit(values);
-        window.location.reload();
-        /* 
-        if (captcha.current.getValue()) {
-          console.log('el usuario no es un robot');
-          setfirstNameValido(true);
-          setCaptchaValido(true);
-        } else {
-          console.log('Aceptar el captcha');
-          setfirstNameValido(false);
-          setCaptchaValido(false);
-        } */
       }}
     >
       {formik => (
@@ -109,26 +55,9 @@ const Register = () => {
           <h3>Register</h3>
           <Form>
             <div className="form-group">
-              <label htmlFor="firstName">firstName</label>
+              <label htmlFor="lastName">Username</label>
               <Field
-                name="firstName"
-                className={
-                  formik.touched.firstName && formik.errors.firstName
-                    ? 'form-control is-invalid'
-                    : 'form-control'
-                }
-                type="text"
-              />
-              {formik.touched.firstName && formik.errors.firstName ? (
-                <div className="invalid-feedback">
-                  {formik.errors.firstName}
-                </div>
-              ) : null}
-            </div>
-            <div className="form-group">
-              <label htmlFor="lastName">lastName</label>
-              <Field
-                name="lastName"
+                name="userName"
                 className={
                   formik.touched.lastName && formik.errors.lastName
                     ? 'form-control is-invalid'
@@ -189,18 +118,7 @@ const Register = () => {
                 </div>
               ) : null}
             </div>
-            {!usuarioValido && (
-              <div className="recaptcha">
-                <ReCAPTCHA
-                  ref={captcha}
-                  sitekey="6LdOKZogAAAAAEhkSW2hDBgJlWOncF-Ivg8DSB_r"
-                  onChange={onChange}
-                />
-              </div>
-            )}
-            {cantSubmit && (
-              <div style={{ color: 'red' }}>Por favor acepta el captcha</div>
-            )}
+
             <div className="mt-4 d-flex flex-row">
               <div className="form-group me-4">
                 <Button type="submit" variant="dark">

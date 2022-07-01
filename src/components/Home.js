@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { verifyGuest } from '../state/guests/verifyGuest';
 import LoginWithToken from './LoginWithToken';
 
 const Home = () => {
@@ -22,3 +21,7 @@ const Home = () => {
 };
 
 export default Home;
+
+/*El estado de verifiedGuest deberia persistir durante el mismo tiempo que persista el user,
+si el usuario se desloguea, se desverifica automaticamente. El estado verifiedGuest DEBE persistir 
+junto con el estado de usuario. Guardarlo como un token e implementar la misma logica que con el user me huele a buen plan. */

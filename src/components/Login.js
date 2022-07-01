@@ -6,29 +6,20 @@ import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../state/user/user';
-import {Welcome} from '../utils/sweetAlerts'
-// import ReCAPTCHA from 'react-google-recaptcha';
+import { Welcome } from '../utils/sweetAlerts';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [captchaValido, setCaptchaValido] = useState(false);
-  // const [usuarioValido, setUsuarioValido] = useState(false);
-  // const [cantSubmit, setCantSubmit] = useState(false);
-  // const captcha = useRef();
 
   const handleSubmit = values => {
-    // if (!captchaValido) {
-    //   return setCantSubmit(true);
-    // }
-
     dispatch(
       loginUser({
         email: values.email,
         password: values.password,
       })
     );
-    Welcome()
+    Welcome();
     navigate('/');
   };
 
@@ -41,13 +32,6 @@ const Login = () => {
       .required('Se requiere contraseña'),
   });
 
-  // const onChange = () => {
-  //   if (('hubo un cambio', captcha.current.getValue())) {
-  //     console.log('el usuario no es un robot');
-  //     setCaptchaValido(true);
-  //   }
-  // };
-
   return (
     <>
       <Formik
@@ -58,15 +42,6 @@ const Login = () => {
         validationSchema={validate}
         onSubmit={values => {
           handleSubmit(values);
-          // if (captcha.current.getValue()) {
-          //   console.log('el usuario no es un robot');
-          //   setUsuarioValido(true);
-          //   setCaptchaValido(true);
-          // } else {
-          //   console.log('Aceptar el captcha');
-          //   setUsuarioValido(false);
-          //   setCaptchaValido(false);
-          // }
         }}
       >
         {formik => (
@@ -104,21 +79,6 @@ const Login = () => {
                   </div>
                 ) : null}
               </div>
-
-              {/* {!usuarioValido && (
-                <div className="recaptcha">
-                  <ReCAPTCHA
-                    ref={captcha}
-                    sitekey="6LdOKZogAAAAAEhkSW2hDBgJlWOncF-Ivg8DSB_r"
-                    onChange={onChange}
-                    style={{ width: '15px' }}
-                  />
-                </div>
-              )} */}
-
-              {/* {cantSubmit && (
-                <div style={{ color: 'red' }}>Por favor acepta el captcha</div>
-              )} */}
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
