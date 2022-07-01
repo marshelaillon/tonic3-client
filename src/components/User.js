@@ -1,27 +1,74 @@
 import { useSelector } from 'react-redux';
 import '../styles/user.css';
-function User() {
+import { PleaseRegister } from '../utils/sweetAlerts';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+export default function User() {
   const user = useSelector(state => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user.id) {
+      PleaseRegister();
+      navigate('/register');
+    }
+  }, []);
+  const handleEdit = () => {
+    console.log('edit active');
+  };
   return (
     <>
-      {user.isAdmin ? (
-        <h1>{user.firstName}</h1>
-      ) : (
-        <div className="container">
-          <div className="row">
-            <div className="perfil col-12 my-3 pt-3 shadow">
-              <img
-                src={user.profilePicture}
-                className="float-left rounder-circle mr-2 user-foto"
-              ></img>
-              <h1>{user.firstName}</h1>
-              <h3>{user.email} </h3>
-              <p />
+      <div className="container">
+        <div className="row">
+          <div className="card mb-9 perfil-card ">
+            <div className="card-header" style={{ background: 'black' }}>
+              <ul className="nav nav-tabs card-header-tabs">
+                <li className="imag">
+                  <img
+                    src={user.profilePicture}
+                    className="card-img user-foto"
+                  ></img>
+                </li>
+                <li className="nav-item">
+                  <p
+                    className="nav-link active text-white"
+                    style={{
+                      background: '#141321b2',
+                      border: 'solid 1px #212529',
+                    }}
+                    onClick={handleEdit()}
+                  >
+                    Edita tu perfil
+                  </p>
+                </li>
+              </ul>
             </div>
+            <p />
+            <label className=" text-white" htmlFor="email ">
+              <p>User Name</p>
+              <input className="perfil-input" value={user.userName}></input>
+            </label>
+
+            <label className="text-white" htmlFor="email ">
+              <p> Nombre</p>
+              <input className="perfil-input" value={user.firstName}></input>
+            </label>
+            <label className=" text-white" htmlFor="email ">
+              <p> Apellido</p>
+              <input className="perfil-input" value={user.lastName}></input>
+            </label>
+            <label className=" text-white" htmlFor="email ">
+              <p> E-mail</p>
+              <input className="perfil-input" value={user.email}></input>
+            </label>
+            <label className=" text-white" htmlFor="email ">
+              <p> genero</p>
+              <input className="perfil-input" value={user.genre}></input>
+            </label>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }
-export default User;

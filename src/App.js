@@ -39,6 +39,8 @@ function App() {
       <Navbar />
       {verifiedGuest.verified && <Countdown />}
       <Routes>
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/new-password/:id/:token" element={<NewPassword />} />
         {!verifiedToken && !verifiedGuest.verified ? (
           <Route path="/" element={<Home />} />
         ) : (
@@ -52,8 +54,6 @@ function App() {
               path="/register"
               element={!verifiedGuest.checked && <Register />}
             />
-            <Route path="/forgotPassword" element={<ForgotPassword />} />
-            <Route path="/new-password/:id/:token" element={<NewPassword />} />
             <Route path="/user" element={user.id && <User />} />
             <Route path="/" element={<Home />} />
           </>
@@ -64,5 +64,9 @@ function App() {
     </div>
   );
 }
+
+// DEMO 01/07
+// USO HORARIO POR IP ----> MOMENT
+// avetriguar sobre lenscrip ---> obtenes un certificado SSL.
 
 export default App;
