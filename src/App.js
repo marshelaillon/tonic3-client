@@ -39,14 +39,14 @@ function App() {
       <Navbar />
       {verifiedGuest.verified && <Countdown />}
       <Routes>
+        <Route
+          path="/login"
+          element={/* !user.id && verifiedGuest.checked && */ <Login />}
+        />
         {!verifiedToken && !verifiedGuest.verified ? (
           <Route path="/" element={<Home />} />
         ) : (
           <>
-            <Route
-              path="/login"
-              element={!user.id && verifiedGuest.checked && <Login />}
-            />
             <Route
               exact
               path="/register"

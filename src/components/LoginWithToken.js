@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
@@ -10,6 +10,8 @@ import { InvalidToken } from '../utils/sweetAlerts';
 import { verifyGuest } from '../state/guests/verifyGuest';
 import { loginUser } from '../state/user/user';
 import updateToken from '../services/updateToken';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
+
 
 const LoginWhitToken = () => {
   const navigate = useNavigate();
@@ -19,7 +21,11 @@ const LoginWhitToken = () => {
   const [usuarioValido, setUsuarioValido] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState(false);
 
+  const [tokenCap, settokenCap] = useState(null);
+  const captcha = useRef(null);
+
   const handleSubmit = values => {
+
     if (!checkedEmail) {
       return dispatch(verifyGuest({ email: values.email }))
         .then(({ payload }) => {
@@ -44,6 +50,14 @@ const LoginWhitToken = () => {
         })
       ).then(() => navigate('/'));
   };
+  const onLoad = () => {
+    captcha.current.execute();
+  };
+  useEffect(() => {
+    if (tokenCap)
+      console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
+  }, [tokenCap]);
+
   const validate = Yup.object({
     email: Yup.string()
       .email('El email ingresado no es válido')
@@ -63,6 +77,7 @@ const LoginWhitToken = () => {
         validationSchema={validate}
         onSubmit={values => {
           handleSubmit(values);
+
         }}
       >
         {formik => (
@@ -127,6 +142,14 @@ const LoginWhitToken = () => {
                   ) : null}
                 </div>
               )}
+              <div className='form-group'>
+                <HCaptcha
+                  ref={captcha}
+                  sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"
+                  onVerify={tokenCap => settokenCap(tokenCap)}
+                  onLoad={onLoad}
+                />
+              </div>
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">

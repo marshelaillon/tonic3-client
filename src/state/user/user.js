@@ -9,7 +9,7 @@ import { InvalidPassword, InvalidRegister} from '../../utils/sweetAlerts';
 export const registerUser = createAsyncThunk(
   'SEND_REGISTER_REQUEST',
   async registerBody => {
-    console.log('no me sale buaaaa', registerBody);
+    console.log('esto es el body', registerBody);
     try {
       const { data } = await axios.post(
         'http://localhost:3001/api/users/register',

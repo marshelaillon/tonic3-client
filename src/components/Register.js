@@ -12,12 +12,14 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleSubmit = values => {
+    console.log(values);
+
     dispatch(
       registerUser({
-        userName: values.username,
+        userName: values.userName,
         email: values.email,
         password: values.password,
-        confirmpassword: values.confirmpassword,
+        //confirmpassword: values.confirmpassword,
       })
     );
     RegisterSuccessfully();
@@ -55,18 +57,18 @@ const Register = () => {
           <h3>Register</h3>
           <Form>
             <div className="form-group">
-              <label htmlFor="lastName">Username</label>
+              <label htmlFor="userName">Username</label>
               <Field
                 name="userName"
                 className={
-                  formik.touched.lastName && formik.errors.lastName
+                  formik.touched.userName && formik.errors.userName
                     ? 'form-control is-invalid'
                     : 'form-control'
                 }
                 type="text"
               />
-              {formik.touched.lastName && formik.errors.lastName ? (
-                <div className="invalid-feedback">{formik.errors.lastName}</div>
+              {formik.touched.userName && formik.errors.userName ? (
+                <div className="invalid-feedback">{formik.errors.userName}</div>
               ) : null}
             </div>
             <div className="form-group">
