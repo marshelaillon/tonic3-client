@@ -1,0 +1,16 @@
+.header{
+    border-radius: 4px;
+    background-color: #FF521B;
+}
+
+.list ul{
+    display: inline;
+    padding: 0px 0px 0px 0px;
+    margin: 15px;
+}
+
+.list li{
+    list-style-type: none;
+    display: inline;
+    padding-right: 5px;
+}
