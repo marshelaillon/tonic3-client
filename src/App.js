@@ -39,16 +39,16 @@ function App() {
       <Navbar />
       {verifiedGuest.verified && <Countdown />}
       <Routes>
-        <Route
-          path="/login"
-          element={/* !user.id && verifiedGuest.checked && */ <Login />}
-        />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/new-password/:id/:token" element={<NewPassword />} />
         {!verifiedToken && !verifiedGuest.verified ? (
           <Route path="/" element={<Home />} />
-        ) : (
-          <>
+          ) : (
+            <>
+            <Route
+              path="/login"
+              element={ !user.id && verifiedGuest.checked && <Login />}
+            />
             <Route
               exact
               path="/register"

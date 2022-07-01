@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import { eventReducer } from './admin/eventController/event';
+import { guestsReducer } from './admin/guestController/guests';
 // import { captchaReducer } from './captcha/captcha';
 import { verifyGuestReducer } from './guests/verifyGuest';
 import { verifyTokenReducer } from './guests/verifyToken';
@@ -16,6 +17,7 @@ const store = configureStore({
     verifiedGuest: verifyGuestReducer,
     verifiedToken: verifyTokenReducer,
     currentEvent: eventReducer,
+    guests:guestsReducer,
   },
 });
 
