@@ -89,6 +89,16 @@ export const RegisterSuccessfully = () => {
     position: 'top',
     icon: 'success',
     text: 'Usuario creado!',
+    timer: 2500,
+    showConfirmButton: false,
+  });
+};
+
+export const PleaseRegister = () => {
+  Swal.fire({
+    position: 'top',
+    icon: 'info',
+    text: 'Porfavor registrese para acceder a su perfil!',
     showConfirmButton: false,
   });
 };
