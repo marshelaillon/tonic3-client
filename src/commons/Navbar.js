@@ -13,43 +13,44 @@ import { useEffect, useState } from 'react';
 function Navbar() {
   const { t } = useTranslation();
   const sidebar = useSelector(state => state.sidebar);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   return (
-
-    <div className= "nav-style">
-     
-        <NavLink to={'/'} className= "home-icon ">
-          <GoHome size={40} />
-        </NavLink>
-        <h2 className="welcome-msg">{t('welcome_msg')}</h2>
+    <div className="nav-style">
+      <NavLink to={'/'} className="home-icon ">
+        <GoHome size={40} />
+      </NavLink>
+      <h2 className="welcome-msg">
+        {user.userName ? `Welcome, ${user.userName}` : t('welcome_msg')}
+      </h2>
+      <div
+        className="home-icon"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'row',
+        }}
+      >
         <div
-          className= "home-icon" 
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: 'row',
+          onClick={() => {
+            dispatch(toggleSidebar());
           }}
         >
-          <div
-            onClick={() => {
-              dispatch(toggleSidebar());
+          <GoPerson
+            className="home-icon"
+            style={{
+              margin: '0 10px',
+              cursor: 'pointer',
             }}
-          >
-            <GoPerson
-              className="home-icon"
-              style={{
-                margin: '0 10px',
-                cursor: 'pointer',
-              }}
-              size={40}
-            />
-          </div>
-          <LanguageDropdown className="language-dropdown" />
+            size={40}
+          />
         </div>
-     
+        <LanguageDropdown className="language-dropdown" />
+      </div>
+
       {sidebar && <Sidebar />}
-     </div>
+    </div>
   );
 }
 export default Navbar;

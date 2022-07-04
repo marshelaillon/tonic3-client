@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,800');
+
 .nav-style {
   background-color: #ff521b;
   position: relative;
@@ -5,6 +7,8 @@
   padding-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 70px;
 }
 
 .home-icon {
@@ -21,32 +25,37 @@
   color: #ededf4;
 }
 
+.welcome-msg {
+  font-size: 1.75rem;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 800;
+}
+
 .nav-menu {
   background-color: #ff521b;
-  width: 250px;
+  width: 220px;
   height: 100vh;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  position: fixed;
-  top: auto;
+  justify-content: start;
+  /* position: fixed; */
+  position: absolute;
+  top: 0;
   left: -100%;
-    transition: .1s ease all;
   opacity: 1;
+  z-index: 999;
+  transition: 0.325s all;
 }
-.welcome-msg{
-  font-size:20px;
-  text-align: center;
-}
-
 
 .nav-menu.active {
-  margin-top: 47px;
+  margin-top: 70px;
   left: 0;
-  backdrop-filter: "static";
+  backdrop-filter: 'static';
   box-shadow: 0px 15px 11px 11px black;
 }
-
-
 
 .nav-text {
   display: flex;
@@ -71,20 +80,20 @@
   font-weight: bold;
 }
 
-
 @media (max-width: 500px) {
-  .welcome-msg{
-    font-size:0px;
-    
-  } 
+  .welcome-msg {
+    font-size: 0px;
+  }
   .home-icon {
     text-align: center;
     height: 25px;
   }
   .nav-menu {
-    width: 150px;
+    width: 100vw;
+    height: auto;
+    min-height: auto;
   }
-  .nav-style{
-    height: 57px;
+  .nav-style {
+    height: 70px;
   }
 }
