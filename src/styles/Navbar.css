@@ -79,6 +79,9 @@
   color: #ededf4;
   font-weight: bold;
 }
+.person-icon {
+  width: auto;
+}
 
 @media (max-width: 500px) {
   .welcome-msg {
