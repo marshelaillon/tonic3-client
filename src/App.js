@@ -69,7 +69,12 @@ function App() {
           </>
         )}
         {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
+
         <Route path="/admin/app/:type/*" element={<Adminview />} />
+
+
+        <Route path="/countdown" element={<Countdown />} />
+
       </Routes>
     </div>
   );
