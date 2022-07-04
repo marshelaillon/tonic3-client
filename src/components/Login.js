@@ -9,12 +9,14 @@ import { loginUser } from '../state/user/user';
 import { Welcome } from '../utils/sweetAlerts';
 import { useEffect } from 'react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [tokenCap, settokenCap] = useState("");
+  const [tokenCap, settokenCap] = useState('');
   const captcha = useRef(null);
 
   const handleSubmit = values => {
@@ -31,17 +33,16 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (tokenCap)
-      console.log(`hCaptcha Token: ${tokenCap}`);
+    if (tokenCap) console.log(`hCaptcha Token: ${tokenCap}`);
   }, [tokenCap]);
 
   const validate = Yup.object({
     email: Yup.string()
-      .email('El email ingresado no es válido')
-      .required('Se requiere un email'),
+      .email(t('not_valid_email'))
+      .required(t('required_email')),
     password: Yup.string()
-      .min(6, 'La contraseña debe tener al menos 6 caracteres')
-      .required('Se requiere contraseña'),
+      .min(6, t('password_min_length'))
+      .required(t('required_password')),
   });
 
   return (
@@ -60,7 +61,7 @@ const Login = () => {
           <div className="container w-75 mt-4">
             <Form>
               <div className="form-group">
-                <label htmlFor="email">E-mail</label>
+                <label htmlFor="email">{t('email')}</label>
                 <Field
                   name="email"
                   className={
@@ -75,7 +76,7 @@ const Login = () => {
                 ) : null}
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">{t('password')}</label>
                 <Field
                   name="password"
                   className={
@@ -92,25 +93,25 @@ const Login = () => {
                 ) : null}
               </div>
 
-              <div className='form-group'>
+              <div className="form-group">
                 <HCaptcha
                   ref={captcha}
                   sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"
                   onVerify={tokenCap => settokenCap(tokenCap)}
-                  onExpire={e => settokenCap("")}
+                  onExpire={e => settokenCap('')}
                 />
               </div>
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
-                    Login
+                    {t('login')}
                   </Button>
                 </div>
               </div>
               <p className="mt-4">
-                No tenés una cuenta?&nbsp;
-                <Link to="/register">Te invitamos a registrarte.</Link>
+                {t('dont_have_account')}&nbsp;
+                <Link to="/register">{t('invite_to_register')}</Link>
               </p>
             </Form>
           </div>

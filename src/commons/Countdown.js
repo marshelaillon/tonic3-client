@@ -9,6 +9,32 @@ function Countdown() {
       </h1>
 
       <div class="countdown">
+        <div class="bloc-time days" data-init-value="24">
+          <span class="count-title">Days</span>
+
+          <div class="figure days days-1">
+            <span class="top">1</span>
+            <span class="top-back">
+              <span>1</span>
+            </span>
+            <span class="bottom">1</span>
+            <span class="bottom-back">
+              <span>1</span>
+            </span>
+          </div>
+
+          <div class="figure days days-2">
+            <span class="top">7</span>
+            <span class="top-back">
+              <span>7</span>
+            </span>
+            <span class="bottom">7</span>
+            <span class="bottom-back">
+              <span>7</span>
+            </span>
+          </div>
+        </div>
+
         <div class="bloc-time hours" data-init-value="24">
           <span class="count-title">Hours</span>
 
@@ -39,24 +65,24 @@ function Countdown() {
           <span class="count-title">Minutes</span>
 
           <div class="figure min min-1">
-            <span class="top">0</span>
+            <span class="top">4</span>
             <span class="top-back">
-              <span>0</span>
+              <span>4</span>
             </span>
-            <span class="bottom">0</span>
+            <span class="bottom">4</span>
             <span class="bottom-back">
-              <span>0</span>
+              <span>4</span>
             </span>
           </div>
 
           <div class="figure min min-2">
-            <span class="top">0</span>
+            <span class="top">9</span>
             <span class="top-back">
-              <span>0</span>
+              <span>9</span>
             </span>
-            <span class="bottom">0</span>
+            <span class="bottom">9</span>
             <span class="bottom-back">
-              <span>0</span>
+              <span>9</span>
             </span>
           </div>
         </div>
@@ -76,13 +102,13 @@ function Countdown() {
           </div>
 
           <div class="figure sec sec-2">
-            <span class="top">0</span>
+            <span class="top">1</span>
             <span class="top-back">
-              <span>0</span>
+              <span>1</span>
             </span>
-            <span class="bottom">0</span>
+            <span class="bottom">1</span>
             <span class="bottom-back">
-              <span>0</span>
+              <span>1</span>
             </span>
           </div>
         </div>
