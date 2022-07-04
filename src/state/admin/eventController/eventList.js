@@ -10,7 +10,7 @@ export const getEvents = createAsyncThunk(
         const { data } = await axios.get(
           'http://localhost:3001/api/admin/get-all-events'
         );
-        return data;
+        return data?.data;
       }
     } catch (error) {
       console.error('/get-all-events ERROR ', error);

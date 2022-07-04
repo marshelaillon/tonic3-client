@@ -24,7 +24,7 @@ const Views = ({ current }) => {
   useEffect(() => {
     dispatch(getEvents()).then(({ payload }) =>
       setFilterEvents(
-        payload.data.rows.filter(item => item.status === 'pending')
+        payload.rows.filter(item => item.status === 'pending')
       )
     );
   }, [current]);
