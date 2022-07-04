@@ -4,8 +4,7 @@ import axios from 'axios';
 export const addEvent = createAsyncThunk(
   'SET_EVENT',
   async (body, thunkAPI) => {
-    console.log("ESTO ES EL BODI Q LLEGA DE POR AHI ",
-      body)
+    console.log('ESTO ES EL BODI Q LLEGA DE POR AHI ', body);
     const thunk = thunkAPI.getState();
 
     if (thunk.user.isAdmin) {
@@ -22,18 +21,6 @@ export const addEvent = createAsyncThunk(
   }
 );
 
-export const getEvents = createAsyncThunk('GET_EVENT', async data => {
-  try {
-    const { data } = await axios.get(
-      'http://localhost:3001/api/admin/get-all-events',
-      data
-    );
-    return data;
-  } catch (error) {
-    console.error('/get-all-events ERROR ', error);
-  }
-});
-
 export const editEvent = createAsyncThunk('EDIT_EVENT', async body => {
   try {
     const editedEvent = await axios.put(
@@ -48,7 +35,6 @@ export const eventReducer = createReducer(
   {},
   {
     [addEvent.fulfilled]: (state, action) => action.payload?.data,
-    [getEvents.fulfilled]: (state, action) => action.payload?.data,
     [editEvent.fulfilled]: (state, action) => action.payload?.data,
   }
 );
