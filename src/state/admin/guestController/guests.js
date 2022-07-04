@@ -29,7 +29,7 @@ export const getGuests = createAsyncThunk(
         const { data } = await axios.get(
           'http://localhost:3001/api/admin/get-all-guests'
         );
-        return data;
+        return data?.data;
       } catch (error) {
         console.error('/user/login ERROR ', error);
       }

@@ -47,24 +47,21 @@ function App() {
   return (
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar />
-      {verifiedGuest.verified && <Countdown />}
+      {/* {verifiedGuest.verified && <Countdown />} */}
       <Routes>
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/new-password/:id/:token" element={<NewPassword />} />
+        <Route path="/login" element={!user.id && <Login />} />
+        <Route path="/user" element={user.id && <User />} />
         {!verifiedToken && !verifiedGuest.verified ? (
           <Route path="/" element={<Home />} />
         ) : (
           <>
             <Route
-              path="/login"
-              element={!user.id && verifiedGuest.checked && <Login />}
-            />
-            <Route
               exact
               path="/register"
               element={!verifiedGuest.checked && <Register />}
             />
-            <Route path="/user" element={user.id && <User />} />
             <Route path="/" element={<Home />} />
           </>
         )}
@@ -72,9 +69,7 @@ function App() {
 
         <Route path="/admin/app/:type/*" element={<Adminview />} />
 
-
-        <Route path="/countdown" element={<Countdown />} />
-
+        {/* <Route path="/countdown" element={<Countdown />} /> */}
       </Routes>
     </div>
   );
