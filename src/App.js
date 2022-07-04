@@ -80,6 +80,9 @@ function App() {
 
           <Route path="/admin/app/:type/*" element={<Adminview />} />
           <Route path="/countdown" element={<Countdown />} />
+          </>
+          )
+          }
         </Routes>
       </div>
     </div>
