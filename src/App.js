@@ -13,6 +13,8 @@ import { checkUser } from './state/user/user';
 import Home from './components/Home';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
+// import { checkCaptcha } from './state/captcha/captcha';
+import AddEvents from './components/adminView/AddEvents';
 import Adminview from './components/adminView/Adminview';
 import { setCurrentList } from './state/admin/adminUI/currentList';
 import { listener } from './state/admin/adminUI/listener';
@@ -49,14 +51,19 @@ function App() {
       <Navbar />
       {/* {verifiedGuest.verified && <Countdown />} */}
       <Routes>
-        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/user" element={user.id && <User />} />
         <Route path="/new-password/:id/:token" element={<NewPassword />} />
         <Route path="/login" element={!user.id && <Login />} />
-        <Route path="/user" element={user.id && <User />} />
         {!verifiedToken && !verifiedGuest.verified ? (
           <Route path="/" element={<Home />} />
         ) : (
           <>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/login"
+              element={!user.id && verifiedGuest.checked && <Login />}
+            />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route
               exact
               path="/register"
@@ -68,8 +75,7 @@ function App() {
         {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
 
         <Route path="/admin/app/:type/*" element={<Adminview />} />
-
-        {/* <Route path="/countdown" element={<Countdown />} /> */}
+        <Route path="/countdown" element={<Countdown />} />
       </Routes>
     </div>
   );

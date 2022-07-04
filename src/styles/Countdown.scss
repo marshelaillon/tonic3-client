@@ -1,19 +1,26 @@
 @import 'https://fonts.googleapis.com/css?family=Lato:400,700';
 
 .wrap {
-  position: absolute;
-  bottom: 0;
+  //position: absolute;
+  /* bottom: 0;
   top: 0;
   left: 0;
-  right: 0;
+  right: 0; */
+
   margin: auto;
-  height: 310px;
+  //height: 310px;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 // Title
 h1 {
   margin-bottom: 60px;
   text-align: center;
+  letter-spacing: 0.15em;
   font: 300 2.25em 'Lato', sans-serif;
   text-transform: uppercase;
   color: #e7d6d6;
@@ -22,6 +29,11 @@ h1 {
     font-weight: 400;
     color: #ff521b;
   }
+}
+
+.event-title {
+  font-size: 4rem;
+  margin-bottom: 50px;
 }
 
 // Countdown
@@ -41,7 +53,8 @@ h1 {
   .count-title {
     display: block;
     margin-bottom: 15px;
-    font: normal 0.94em 'Lato', sans-serif;
+    letter-spacing: 0.2em;
+    font: normal 1.3rem 'Lato', sans-serif;
     color: #f0e8e8;
     //color: #1a1a1a;
     text-transform: uppercase;
@@ -50,23 +63,18 @@ h1 {
   .figure {
     position: relative;
     float: left;
-    height: 110px;
-    width: 100px;
+    height: 120px;
+    width: 110px;
     margin-right: 10px;
     background-color: #fff;
     border-radius: 8px;
-    /*     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2),
-      inset 2px 4px 0 0 rgba(255, 255, 255, 0.08);
-    &:last-child {
-      margin-right: 0;
-    } */
 
     > span {
       position: absolute;
       left: 0;
       right: 0;
       margin: auto;
-      font: normal 5.94em/107px 'Lato', sans-serif;
+      font: normal 6em/115px 'Lato', sans-serif;
       font-weight: 700;
       color: #de4848;
     }
@@ -150,4 +158,20 @@ h1 {
       }
     }
   }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.description {
+  width: 800px;
+  font-size: 1.65rem;
+  color: aliceblue;
+  font-family: 'Lato';
+  margin-top: 60px;
+  text-align: justify;
+  letter-spacing: 0.5px;
 }

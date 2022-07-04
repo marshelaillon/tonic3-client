@@ -6,6 +6,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import '../styles/adminView.css';
 
 const List = ({ refresh, list }) => {
+  console.log(list);
   return (
     <>
       <div className="container border">

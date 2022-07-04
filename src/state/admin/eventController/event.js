@@ -4,16 +4,16 @@ import axios from 'axios';
 export const addEvent = createAsyncThunk(
   'SET_EVENT',
   async (body, thunkAPI) => {
-    console.log('ESTO ES EL BODI Q LLEGA DE POR AHI ', body);
     const thunk = thunkAPI.getState();
 
     if (thunk.user.isAdmin) {
       try {
-        const { data } = await axios.post(
+        const data = await axios.post(
           'http://localhost:3001/api/admin/add-event',
           body
         );
-        console.log(data);
+        console.log('ESTO ES LA DTA', data);
+        return data?.data;
       } catch (error) {
         console.error('/add-event ERROR ', error);
       }

@@ -2,19 +2,18 @@ import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const addGuests = createAsyncThunk(
-  'ADD_EVENT',
+  'ADD_GUESTS',
   async (body, thunkAPI) => {
     const thunk = thunkAPI.getState();
-    // {eventId: eventid, emails: ["asda@asf.com"]}
     if (thunk.user.isAdmin) {
       try {
         const { data } = await axios.post(
-          'http://localhost:3001/api/admin/add-event',
+          'http://localhost:3001/api/admin/add-guest',
           body
         );
         console.log(data);
       } catch (error) {
-        console.error('/user/login ERROR ', error);
+        console.error('/ADD-GUESTS ERROR ', error);
       }
     }
   }
@@ -31,7 +30,7 @@ export const getGuests = createAsyncThunk(
         );
         return data?.data;
       } catch (error) {
-        console.error('/user/login ERROR ', error);
+        console.error('/GET-ALL-GUESTS ERROR ', error);
       }
     }
   }
