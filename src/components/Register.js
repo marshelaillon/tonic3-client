@@ -6,23 +6,39 @@ import { registerUser } from '../state/user/user';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { RegisterSuccessfully } from '../utils/sweetAlerts';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
+import { useState, useEffect, useRef } from 'react';
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [tokenCap, settokenCap] = useState(null);
+  const captcha = useRef(null);
+
+
   const handleSubmit = values => {
+    console.log(values);
+
     dispatch(
       registerUser({
         userName: values.userName,
         email: values.email,
         password: values.password,
-        confirmpassword: values.confirmpassword,
+        //confirmpassword: values.confirmpassword,
       })
     );
     RegisterSuccessfully();
     navigate('/');
   };
+
+  const onLoad = () => {
+    captcha.current.execute();
+  };
+  useEffect(() => {
+    if (tokenCap)
+      console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
+  }, [tokenCap]);
 
   const validate = Yup.object({
     userName: Yup.string().required('Se requiere un apellido'),
@@ -55,18 +71,18 @@ const Register = () => {
           <h3>Register</h3>
           <Form>
             <div className="form-group">
-              <label htmlFor="lastName">Username</label>
+              <label htmlFor="userName">Username</label>
               <Field
                 name="userName"
                 className={
-                  formik.touched.lastName && formik.errors.lastName
+                  formik.touched.userName && formik.errors.userName
                     ? 'form-control is-invalid'
                     : 'form-control'
                 }
                 type="text"
               />
-              {formik.touched.lastName && formik.errors.lastName ? (
-                <div className="invalid-feedback">{formik.errors.lastName}</div>
+              {formik.touched.userName && formik.errors.userName ? (
+                <div className="invalid-feedback">{formik.errors.userName}</div>
               ) : null}
             </div>
             <div className="form-group">
@@ -118,6 +134,17 @@ const Register = () => {
                 </div>
               ) : null}
             </div>
+
+            <div className='form-group'>
+                <HCaptcha
+                  ref={captcha}
+                  sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"
+                  onVerify={tokenCap => settokenCap(tokenCap)}
+                  onLoad={onLoad}
+                />
+              </div>
+
+            {!captcha && <div style={{color: "red"}} >Por favor, acepta el captcha</div>}
 
             <div className="mt-4 d-flex flex-row">
               <div className="form-group me-4">

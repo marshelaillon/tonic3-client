@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
@@ -13,17 +13,24 @@ import { checkUser } from './state/user/user';
 import Home from './components/Home';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
-import { checkCaptcha } from './state/captcha/captcha';
+// import { checkCaptcha } from './state/captcha/captcha';
 import AddEvents from './components/AddEvents';
+import Adminview from './components/adminView/Adminview';
+import { setCurrentList } from './state/admin/adminUI/currentList';
+import { listener } from './state/admin/adminUI/listener';
 
 function App() {
   axios.defaults.withCredentials = true;
-  const navigate = useNavigate();
   const user = useSelector(state => state.user);
   const verifiedGuest = useSelector(state => state.verifiedGuest);
-  const sidebar = useSelector(state => state.sidebar);
   const verifiedToken = useSelector(state => state.verifiedToken);
+  const _listener = useSelector(state => state.listener);
+  const sidebar = useSelector(state => state.sidebar);
+  const currentList = useSelector(state => state.currentList);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { type } = useParams();
+
   useEffect(() => {
     if (verifiedToken) {
       navigate('/register');
@@ -35,11 +42,17 @@ function App() {
     dispatch(checkUser());
   }, [user.id]);
 
+  useEffect(() => {
+    console.log('type is', type);
+    // dispatch(listener(type));
+  }, [type]);
   return (
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar />
       {verifiedGuest.verified && <Countdown />}
       <Routes>
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/new-password/:id/:token" element={<NewPassword />} />
         {!verifiedToken && !verifiedGuest.verified ? (
           <Route path="/" element={<Home />} />
         ) : (
@@ -54,17 +67,21 @@ function App() {
               path="/register"
               element={!verifiedGuest.checked && <Register />}
             />
-            <Route path="/forgotPassword" element={<ForgotPassword />} />
-            <Route path="/new-password/:id/:token" element={<NewPassword />} />
             <Route path="/user" element={user.id && <User />} />
             <Route path="/" element={<Home />} />
           </>
         )}
         {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
-        <Route path="/cosas-de-admin" element={<AddEvents />} />
+
+        <Route path="/admin/app/:type/*" element={<Adminview />} />
+        <Route path="/countdown" element={<Countdown />} />
       </Routes>
     </div>
   );
 }
+
+// DEMO 01/07
+// USO HORARIO POR IP ----> MOMENT
+// avetriguar sobre lenscrip ---> obtenes un certificado SSL.
 
 export default App;
