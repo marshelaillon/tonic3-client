@@ -5,5 +5,16 @@
   "register": "Registrarse",
   "login": "Ingresar",
   "logout": "Cerrar sesión",
-  "language": "Idioma"
+  "language": "Idioma",
+
+  "email": "Correo electrónico",
+  "password": "Contraseña",
+  "confirm_password": "Confirmar contraseña",
+  "dont_have_account": "¿No tenés una cuenta?",
+  "invite_to_register": "Te invitamos a registrarte",
+
+  "not_valid_email": "Correo electrónico no válido",
+  "required_email": "Correo electrónico requerido",
+  "password_min_length": "La contraseña debe tener al menos 6 caracteres",
+  "required_password": "La contraseña es requerida"
 }

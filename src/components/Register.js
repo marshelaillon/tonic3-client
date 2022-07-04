@@ -121,14 +121,14 @@ const Register = () => {
                 name="confirmpassword"
                 className={
                   formik.touched.confirmpassword &&
-                  formik.errors.confirmpassword
+                    formik.errors.confirmpassword
                     ? 'form-control is-invalid'
                     : 'form-control'
                 }
                 type="password"
               />
               {formik.touched.confirmpassword &&
-              formik.errors.confirmpassword ? (
+                formik.errors.confirmpassword ? (
                 <div className="invalid-feedback">
                   {formik.errors.confirmpassword}
                 </div>
