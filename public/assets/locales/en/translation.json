@@ -5,5 +5,16 @@
   "register": "Register",
   "login": "Login",
   "logout": "Logout",
-  "language": "Language"
+  "language": "Language",
+
+  "email": "Email",
+  "password": "Password",
+  "confirm_password": "Confirm password",
+  "dont_have_account": "Don't have an account?",
+  "invite_to_register": "Invite to register",
+
+  "not_valid_email": "Email is not valid",
+  "required_email": "Email is required",
+  "password_min_length": "Password must be at least 6 characters long",
+  "required_password": "Password is required"
 }

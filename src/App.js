@@ -39,28 +39,28 @@ function App() {
       <Navbar />
       {verifiedGuest.verified && <Countdown />}
       <Routes>
-         
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/new-password/:id/:token" element={<NewPassword />} />
         {!verifiedToken && !verifiedGuest.verified ? (
           <Route path="/" element={<Home />} />
-          ) : (
-            <>
+        ) : (
+          <>
             <Route
               path="/login"
-              element={ !user.id && verifiedGuest.checked && <Login />}
+              element={!user.id && verifiedGuest.checked && <Login />}
             />
             <Route
               exact
               path="/register"
               element={!verifiedGuest.checked && <Register />}
             />
-           <Route path="/user" element={user.id && <User />} />
+            <Route path="/user" element={user.id && <User />} />
             <Route path="/" element={<Home />} />
           </>
         )}
         {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
         <Route path="/cosas-de-admin" element={<Adminview />} />
+        <Route path="/countdown" element={<Countdown />} />
       </Routes>
     </div>
   );
