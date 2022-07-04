@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addGuests, getGuests } from '../state/admin/guestController/guests';
 import { Dropdown } from 'react-bootstrap';
+import { invitationsSuccessfully } from '../utils/sweetAlerts';
 
 const AddGuests = ({ filterEvents }) => {
     const [selectEvent, setSelectEvent] = useState({});
@@ -14,10 +15,13 @@ const AddGuests = ({ filterEvents }) => {
         console.log('HICISTE CLICK');
         dispatch(
             addGuests({
-                emails: values.email.split(","),
+                emails: values.email.split(','),
                 eventId: selectEvent.id,
             })
         );
+        invitationsSuccessfully(values.email.split(',').length, selectEvent.title);
+        values.email = '';
+        setSelectEvent({});
     };
 
     const validate = Yup.object({
@@ -90,7 +94,7 @@ const AddGuests = ({ filterEvents }) => {
                                     variant="light"
                                     disabled={!selectEvent.title}
                                 >
-                                    Enviar invitaciones
+                                    Añadir invitaciones
                                 </Button>
                             </div>
                         </div>

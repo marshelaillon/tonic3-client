@@ -4,12 +4,13 @@ import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../state/user/user';
 import { Welcome } from '../utils/sweetAlerts';
 import { useEffect } from 'react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useTranslation } from 'react-i18next';
+import '../styles/App.css';
 
 const Login = () => {
   const { t } = useTranslation();

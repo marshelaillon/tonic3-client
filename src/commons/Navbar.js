@@ -8,9 +8,8 @@ import { useSelector } from 'react-redux';
 import Sidebar from '../components/Sidebar';
 import { toggleSidebar } from '../state/UI/sidebar';
 import LanguageDropdown from '../components/LanguageDropdown';
-import { useEffect, useState } from 'react';
 
-function Navbar() {
+function Navbar({ onClickOutside }) {
   const { t } = useTranslation();
   const sidebar = useSelector(state => state.sidebar);
   const user = useSelector(state => state.user);
@@ -33,12 +32,13 @@ function Navbar() {
         }}
       >
         <div
+          className="person-icon"
           onClick={() => {
             dispatch(toggleSidebar());
           }}
         >
           <GoPerson
-            className="home-icon"
+            className="home-icon person-icon"
             style={{
               margin: '0 10px',
               cursor: 'pointer',
@@ -49,7 +49,7 @@ function Navbar() {
         <LanguageDropdown className="language-dropdown" />
       </div>
 
-      {sidebar && <Sidebar />}
+      {sidebar && <Sidebar onClickOutside={onClickOutside} />}
     </div>
   );
 }
