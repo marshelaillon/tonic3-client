@@ -53,7 +53,10 @@ function App() {
       <Routes>
         <Route path="/new-password/:id/:token" element={<NewPassword />} />
         {!verifiedToken && !verifiedGuest.verified ? (
-          <Route path="/" element={<Home />} />
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/user" element={user.id && <User />} />
+          </>
         ) : (
           <>
             <Route path="/" element={<Home />} />
@@ -67,7 +70,6 @@ function App() {
               path="/register"
               element={!verifiedGuest.checked && <Register />}
             />
-            <Route path="/user" element={user.id && <User />} />
             <Route path="/" element={<Home />} />
           </>
         )}
