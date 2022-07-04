@@ -21,7 +21,7 @@ const ForgotPassword = () => {
                 email: value.email,
             })
         );
-        EmailPassword()
+        EmailPassword();
         navigate('/login');
     };
     return (
@@ -46,9 +46,13 @@ const ForgotPassword = () => {
                                 }
                                 type="email"
                             />
-                            <Button type="submit" variant="dark" >
-                                Submit
-                            </Button>
+                            <div className="mt-4 d-flex flex-row">
+                                <div className="form-group me-4">
+                                    <Button type="submit" variant="dark">
+                                        Submit
+                                    </Button>
+                                </div>
+                            </div>
                         </Form>
                     </div>
                 )}

@@ -14,7 +14,7 @@ const Adminview = () => {
 
   const dispatchAndSetCurrent = () => {
     dispatch(fillingList[_listener || type]())
-      .then(({ payload }) => setCurrentList(payload?.data || []))
+      .then(({ payload }) => setCurrentList(payload || []))
       .catch(error => console.log('dispatchAndSetCurrent ERROR', error));
   };
   useEffect(() => {
@@ -25,7 +25,7 @@ const Adminview = () => {
       <Header />
       <List refresh={dispatchAndSetCurrent} list={currentList?.rows || []} />
       <Routes>
-        <Route path={`/:action`} element={<Views />} />
+        <Route path={`/:action`} element={<Views current={currentList} />} />
       </Routes>
     </>
   );
