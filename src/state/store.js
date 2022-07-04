@@ -23,6 +23,7 @@ const store = configureStore({
     // currentList: currentListReducer,
     listener: listenerReducer,
     currentEvent: eventReducer,
+    event: eventReducer,
     events: eventsReducer,
     guests: guestsReducer,
     users: usersReducer,

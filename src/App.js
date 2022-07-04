@@ -13,6 +13,8 @@ import { checkUser } from './state/user/user';
 import Home from './components/Home';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
+// import { checkCaptcha } from './state/captcha/captcha';
+import AddEvents from './components/AddEvents';
 import Adminview from './components/adminView/Adminview';
 import { setCurrentList } from './state/admin/adminUI/currentList';
 import { listener } from './state/admin/adminUI/listener';
@@ -54,6 +56,7 @@ function App() {
           <Route path="/" element={<Home />} />
         ) : (
           <>
+            <Route path="/" element={<Home />} />
             <Route
               path="/login"
               element={!user.id && verifiedGuest.checked && <Login />}

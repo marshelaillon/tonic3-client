@@ -77,9 +77,13 @@ const NewPassword = () => {
                                     {formik.errors.password2}
                                 </div>
                             ) : null}
-                            <Button type="submit" variant="dark">
-                                Submit
-                            </Button>
+                            <div className="mt-4 d-flex flex-row">
+                                <div className="form-group me-4">
+                                    <Button type="submit" variant="dark">
+                                        Submit
+                                    </Button>
+                                </div>
+                            </div>
                         </Form>
                     </div>
                 )}
