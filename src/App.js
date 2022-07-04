@@ -18,6 +18,7 @@ import AddEvents from './components/AddEvents';
 import Adminview from './components/adminView/Adminview';
 import { setCurrentList } from './state/admin/adminUI/currentList';
 import { listener } from './state/admin/adminUI/listener';
+import { toggleSidebar } from './state/UI/sidebar';
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -29,6 +30,11 @@ function App() {
   const currentList = useSelector(state => state.currentList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  let onClickOutside = () => {
+    dispatch(toggleSidebar());
+  };
+
   const { type } = useParams();
 
   useEffect(() => {
@@ -46,17 +52,16 @@ function App() {
     console.log('type is', type);
     // dispatch(listener(type));
   }, [type]);
+
   return (
     <div className={sidebar ? 'overlap' : ''}>
-      <Navbar />
-      {verifiedGuest.verified && <Countdown />}
-      <Routes>
-        <Route path="/new-password/:id/:token" element={<NewPassword />} />
-        {!verifiedToken && !verifiedGuest.verified ? (
-          <>
-            <Route path="/" element={<Home />} />
-            <Route path="/user" element={user.id && <User />} />
-          </>
+      <Navbar onClickOutside={onClickOutside} />
+      <div className={sidebar ? 'blur' : ''}>
+        {verifiedGuest.verified && <Countdown />}
+        <Routes>
+          <Route path="/new-password/:id/:token" element={<NewPassword />} />
+          {!verifiedToken && !verifiedGuest.verified ? (
+          <Route path="/" element={<Home />} />
         ) : (
           <>
             <Route path="/" element={<Home />} />
@@ -70,14 +75,13 @@ function App() {
               path="/register"
               element={!verifiedGuest.checked && <Register />}
             />
-            <Route path="/" element={<Home />} />
-          </>
-        )}
-        {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
+            <Route path="/user" element={user.id && <User />} />
+          {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
 
-        <Route path="/admin/app/:type/*" element={<Adminview />} />
-        <Route path="/countdown" element={<Countdown />} />
-      </Routes>
+          <Route path="/admin/app/:type/*" element={<Adminview />} />
+          <Route path="/countdown" element={<Countdown />} />
+        </Routes>
+      </div>
     </div>
   );
 }
