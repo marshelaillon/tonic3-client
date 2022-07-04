@@ -5,6 +5,9 @@ import SidebarItem from './SidebarItem';
 import { useTranslation } from 'react-i18next';
 
 export default function Sidebar() {
+  const user = useSelector(state => state.user);
+  const listener = useSelector(state => state.listener);
+  const [typeOfUser, setTypeOfUser] = useState('notLogged');
   const { t } = useTranslation();
   const SIDEBAR_ITEMS = {
     logged: [
@@ -60,8 +63,8 @@ export default function Sidebar() {
         cNm: 'nav-text',
       },
       {
-        title: 'Cosas de admin',
-        path: '/cosas-de-admin',
+        title: 'Admin',
+        path: `/admin`,
         cNm: 'nav-text',
       },
       {
@@ -71,8 +74,6 @@ export default function Sidebar() {
       },
     ],
   };
-  const user = useSelector(state => state.user);
-  const [typeOfUser, setTypeOfUser] = useState('notLogged');
 
   useEffect(() => {
     if (!user.id) setTypeOfUser('notLogged');
