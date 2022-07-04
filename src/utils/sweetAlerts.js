@@ -102,3 +102,13 @@ export const PleaseRegister = () => {
     showConfirmButton: false,
   });
 };
+
+export const invitationsSuccessfully = (num, event) => {
+  Swal.fire({
+    position: 'top',
+    icon: 'success',
+    text: `Haz añadido ${num} invitados al evento ${event}`,
+    showConfirmButton: false,
+    timer: 2500
+  });
+};
