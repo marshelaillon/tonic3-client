@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import LoginWithToken from './LoginWithToken';
+import Countdown from '../commons/Countdown';
 
 const Home = () => {
   const user = useSelector(state => state.user);
@@ -10,11 +11,7 @@ const Home = () => {
     <div>
       {/* si no hay usuario mostrar el primer ingreso con acces code */}
       {/* {(!verifiedGuest.verified || !verifiedToken) && <LoginWithToken />} */}
-      {user.id || verifiedToken ? (
-        <h1>todo el contenido de home</h1>
-      ) : (
-        <LoginWithToken />
-      )}
+      {user.id || verifiedToken ? <Countdown /> : <LoginWithToken />}
       {/* si hay usuario mostrar evento en pending */}
     </div>
   );
