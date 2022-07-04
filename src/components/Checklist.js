@@ -6,48 +6,21 @@ import { getNotSendGuests } from '../state/admin/guestController/guests'
 
 const Checklist = () => {
 
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   return (
     <>
 
       <div className='container'>
-
-
-        {/*  <div>checklist</div>
-
-
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" ></input>
-          <label class="form-check-label" for="flexCheckDisabled">
-            Invitado 1
-          </label>
+        <div>
+        <Button onClick={() => dispatch(getNotSendGuests())}>Llamar a los invitados</Button>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled"  ></input>
-          <label class="form-check-label" for="flexCheckCheckedDisabled">
-            Invitado 2
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" ></input>
-          <label class="form-check-label" for="flexCheckDisabled">
-            Invitado 3
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" ></input>
-          <label class="form-check-label" for="flexCheckCheckedDisabled">
-            Invitado 4
-          </label>
-        </div>
- */}
-<Button onClick={()=> dispatch(getNotSendGuests())}>Llamar a los invitados</Button>
+
         <div >
           <Container>
             <div style={{ justifyContent: 'center', alignItems: "center" }}>
 
-              <h1 className="" >My Profile</h1>
+              <h1 className="" >Lista de invitados </h1>
               <Table>
                 <thead>
                   <tr style={{ color: "white" }}>
