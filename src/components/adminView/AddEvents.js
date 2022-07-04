@@ -3,8 +3,8 @@ import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { addEvent } from '../state/admin/eventController/event';
-import { addGuests } from '../state/admin/guestController/guests';
+import { addEvent } from '../../state/admin/eventController/event';
+import { addGuests } from '../../state/admin/guestController/guests';
 import AddGuests from './AddGuests';
 
 const AddEvents = () => {
