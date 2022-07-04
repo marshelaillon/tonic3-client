@@ -4,9 +4,11 @@ import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEvent } from '../state/admin/eventController/event';
+import { addGuests } from '../state/admin/guestController/guests';
 import AddGuests from './AddGuests';
 
 const AddEvents = () => {
+    const event = useSelector(state => state.event);
     const dispatch = useDispatch();
     const [eventComplete, setEventsComplete] = useState(false);
 
@@ -17,13 +19,29 @@ const AddEvents = () => {
                 url: values.url,
                 description: values.description,
             })
-        );
-        setEventsComplete(true);
+        ); setEventsComplete(true);
+        // if (!eventComplete) {
+        //     console.log(eventComplete);
+        //     dispatch(
+        //         addEvent({
+        //             title: values.title,
+        //             url: values.url,
+        //             description: values.description,
+        //         })
+        //     );
+        //     setEventsComplete(true);
+        // }
+        // dispatch(
+        //     addGuests({
+        //         email: values.email,
+        //     })
+        // );
     };
     const validate = Yup.object({
         url: Yup.string().url().required('Se nesecita Link del evento '),
         descrition: Yup.string(),
         title: Yup.string().required('Titulo/Nombre del evento requerido'),
+        email: Yup.string(),
     });
 
     return (
@@ -88,16 +106,28 @@ const AddEvents = () => {
                                     </div>
                                 ) : null}
                             </div>
-                            {eventComplete && <AddGuests eventComplete={eventComplete} />}
-                            {!eventComplete && (
-                                <div className="mt-4 d-flex flex-row">
-                                    <div className="form-group me-4">
-                                        <Button type="submit" variant="light">
-                                            Crear evento
-                                        </Button>
-                                    </div>
+                            {/* // requeri esto maxi */}
+                            {
+                                eventComplete && <AddGuests />
+                                /* (
+                                                    <Field
+                                                        name="email"
+                                                        className={
+                                                            formik.touched.email && formik.errors.email
+                                                                ? 'form-control is-invalid'
+                                                                : 'form-control'
+                                                        }
+                                                        type="email"
+                                                    /> */
+                            }
+
+                            <div className="mt-4 d-flex flex-row">
+                                <div className="form-group me-4">
+                                    <Button type="submit" variant="light">
+                                        "Crear evento"
+                                    </Button>
                                 </div>
-                            )}
+                            </div>
                         </Form>
                     </div>
                 )}

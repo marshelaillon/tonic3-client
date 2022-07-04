@@ -16,6 +16,7 @@ const store = configureStore({
     verifiedGuest: verifyGuestReducer,
     verifiedToken: verifyTokenReducer,
     currentEvent: eventReducer,
+    event: eventReducer,
   },
 });
 

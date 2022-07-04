@@ -7,13 +7,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken } from '../state/guests/verifyToken';
 import { InvalidToken } from '../utils/sweetAlerts';
-// import ReCAPTCHA from 'react-google-recaptcha';
-
-// import { checkCaptcha } from '../state/user/user';
-
 import { verifyGuest } from '../state/guests/verifyGuest';
 import { loginUser } from '../state/user/user';
-import axios from 'axios';
 import updateToken from '../services/updateToken';
 
 const LoginWhitToken = () => {
@@ -21,17 +16,10 @@ const LoginWhitToken = () => {
   const verifiedGuest = useSelector(state => state.verifiedGuest);
   const dispatch = useDispatch();
   const [tries, setTries] = useState(0);
-  // const [captchaValido, setCaptchaValido] = useState(false);
   const [usuarioValido, setUsuarioValido] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState(false);
-  // const [cantSubmit, setCantSubmit] = useState(false);
-  // const captcha = useRef();
 
   const handleSubmit = values => {
-    // if (!captchaValido) {
-    //   return setCantSubmit(true);
-    // }
-
     if (!checkedEmail) {
       return dispatch(verifyGuest({ email: values.email }))
         .then(({ payload }) => {
@@ -60,27 +48,9 @@ const LoginWhitToken = () => {
     email: Yup.string()
       .email('El email ingresado no es válido')
       .required('Se requiere un email'),
-    token:
-      usuarioValido &&
-      // !verifiedGuest.checked &&
-      Yup.string().required('se requiere un token'),
-    password:
-      usuarioValido &&
-      // verifiedGuest.checked &&
-      Yup.string().required('Se requiere contraseña'),
+    token: usuarioValido && Yup.string().required('se requiere un token'),
+    password: usuarioValido && Yup.string().required('Se requiere contraseña'),
   });
-
-  // const onChange = () => {
-  //   const captchaToken = captcha.current.getValue();
-  //   dispatch(checkCaptcha({
-  //     tokenCaptcha: captchaToken
-  //   }))
-  //   if (('hubo un cambio', captchaToken)) {
-  //     console.log('esto es el captcha', captcha);
-  //     console.log('el usuario no es un robot');
-  //     setCaptchaValido(true);
-  //   }
-  // };
 
   return (
     <>
@@ -93,15 +63,6 @@ const LoginWhitToken = () => {
         validationSchema={validate}
         onSubmit={values => {
           handleSubmit(values);
-          // if (captcha.current?.getValue()) {
-          //   console.log('el usuario no es un robot');
-          //   setUsuarioValido(true);
-          //   setCaptchaValido(true);
-          // } else {
-          //   console.log('Aceptar el captcha');
-          //   setUsuarioValido(false);
-          //   setCaptchaValido(false);
-          // }
         }}
       >
         {formik => (
@@ -122,15 +83,6 @@ const LoginWhitToken = () => {
                   <div className="invalid-feedback">{formik.errors.email}</div>
                 ) : null}
               </div>
-              {/* {!usuarioValido && (
-                <div className="recaptcha">
-                  <ReCAPTCHA
-                    ref={captcha}
-                    sitekey="6LdOKZogAAAAAEhkSW2hDBgJlWOncF-Ivg8DSB_r"
-                    onChange={onChange}
-                  />
-                </div>
-              )} */}
 
               {/* si el usuario NO esta registrado, se lo verifica con el token
                 y se lo redirige a /register */}
@@ -176,10 +128,6 @@ const LoginWhitToken = () => {
                 </div>
               )}
 
-              {/* {cantSubmit && (
-                <div style={{ color: 'red' }}>Por favor acepta el captcha</div>
-              )} */}
-
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
@@ -191,7 +139,6 @@ const LoginWhitToken = () => {
           </div>
         )}
       </Formik>
-      {/* {!verifiedToken && tries >= 3 && <>{InvalidToken()}</>} */}
     </>
   );
 };

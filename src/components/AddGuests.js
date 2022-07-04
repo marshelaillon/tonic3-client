@@ -5,12 +5,11 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addGuests } from '../state/admin/guestController/guests';
 
-const AddGuests = ({ eventComplete }) => {
+const AddGuests = () => {
     const dispatch = useDispatch();
 
-    const handleSubmit = (e, values) => {
+    const handleSubmit = values => {
         console.log('HICISTE CLICK');
-        e.preventDefault();
         dispatch(
             addGuests({
                 email: values.email,
@@ -19,7 +18,7 @@ const AddGuests = ({ eventComplete }) => {
     };
 
     const validate = Yup.object({
-        email: eventComplete && Yup.string(),
+        email: Yup.string(),
     });
 
     return (
@@ -29,7 +28,7 @@ const AddGuests = ({ eventComplete }) => {
                     email: '',
                 }}
                 validationSchema={validate}
-                onSubmit={values => handleSubmit(values)}
+                onSubmit={handleSubmit}
             >
                 {formik => (
                     <Form>
