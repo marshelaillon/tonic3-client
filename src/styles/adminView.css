@@ -1,6 +1,26 @@
 .header{
     border-radius: 4px;
     background-color: #FF521B;
+    margin-bottom: 25px;
+    
+}
+.content{
+    border-radius: 4px;
+    border-color: whitesmoke;
+}
+
+.table{
+    border-radius: 2;
+}
+
+.info{
+    display: flex;
+    /* flex-direction: row-reverse; */
+    justify-content: space-between;
+}
+.refresh-btn {
+    width: 20px;
+    height: 25px;
 }
 
 .list ul{
@@ -13,4 +33,5 @@
     list-style-type: none;
     display: inline;
     padding-right: 5px;
+
 }
