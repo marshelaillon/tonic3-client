@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
@@ -13,11 +13,7 @@ import { checkUser } from './state/user/user';
 import Home from './components/Home';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
-// import { checkCaptcha } from './state/captcha/captcha';
-import AddEvents from './components/AddEvents';
 import Adminview from './components/adminView/Adminview';
-import { setCurrentList } from './state/admin/adminUI/currentList';
-import { listener } from './state/admin/adminUI/listener';
 import { toggleSidebar } from './state/UI/sidebar';
 
 function App() {
@@ -25,17 +21,13 @@ function App() {
   const user = useSelector(state => state.user);
   const verifiedGuest = useSelector(state => state.verifiedGuest);
   const verifiedToken = useSelector(state => state.verifiedToken);
-  const _listener = useSelector(state => state.listener);
   const sidebar = useSelector(state => state.sidebar);
-  const currentList = useSelector(state => state.currentList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
-
-  const { type } = useParams();
 
   useEffect(() => {
     if (verifiedToken) {
@@ -48,11 +40,6 @@ function App() {
     dispatch(checkUser());
   }, [user.id]);
 
-  useEffect(() => {
-    console.log('type is', type);
-    // dispatch(listener(type));
-  }, [type]);
-
   return (
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar onClickOutside={onClickOutside} />
@@ -60,7 +47,8 @@ function App() {
       {verifiedGuest.verified && verifiedToken && <Countdown />}
         <Routes>
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
-          {!verifiedToken && !verifiedGuest.verified ? (
+          {verifiedToken && verifiedGuest.verified ? (
+
             <Route path="/" element={<Home />} />
           ) : (
             <>
@@ -81,12 +69,17 @@ function App() {
               <Route path="/admin/app/:type/*" element={<Adminview />} />
               <Route path="/countdown" element={<Countdown />} />
             </>
-          )}
+          )
+          }
+
         </Routes>
+
       </div>
     </div>
-  );
+  )
 }
+
+
 
 // DEMO 01/07
 // USO HORARIO POR IP ----> MOMENT

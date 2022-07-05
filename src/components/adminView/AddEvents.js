@@ -3,8 +3,8 @@ import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { addEvent } from '../state/admin/eventController/event';
-import { addGuests } from '../state/admin/guestController/guests';
+import { addEvent } from '../../state/admin/eventController/event';
+import { addGuests } from '../../state/admin/guestController/guests';
 import AddGuests from './AddGuests';
 
 const AddEvents = () => {
@@ -19,7 +19,8 @@ const AddEvents = () => {
                 url: values.url,
                 description: values.description,
             })
-        ); setEventsComplete(true);
+        );
+        setEventsComplete(true);
         // if (!eventComplete) {
         //     console.log(eventComplete);
         //     dispatch(
@@ -110,21 +111,21 @@ const AddEvents = () => {
                             {
                                 eventComplete && <AddGuests />
                                 /* (
-                                                    <Field
-                                                        name="email"
-                                                        className={
-                                                            formik.touched.email && formik.errors.email
-                                                                ? 'form-control is-invalid'
-                                                                : 'form-control'
-                                                        }
-                                                        type="email"
-                                                    /> */
+                                                                    <Field
+                                                                        name="email"
+                                                                        className={
+                                                                            formik.touched.email && formik.errors.email
+                                                                                ? 'form-control is-invalid'
+                                                                                : 'form-control'
+                                                                        }
+                                                                        type="email"
+                                                                    /> */
                             }
 
                             <div className="mt-4 d-flex flex-row">
                                 <div className="form-group me-4">
                                     <Button type="submit" variant="light">
-                                        "Crear evento"
+                                        Crear evento
                                     </Button>
                                 </div>
                             </div>
