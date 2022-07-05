@@ -112,3 +112,13 @@ export const invitationsSuccessfully = (num, event) => {
     timer: 2500
   });
 };
+
+export const sendInvi = () => {
+  Swal.fire({
+    position: 'top',
+    icon: 'success',
+    text: `Haz enviado las invitaciones a los eventos `,
+    showConfirmButton: false,
+    timer: 2500
+  });
+};

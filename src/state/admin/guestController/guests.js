@@ -32,11 +32,24 @@ export const getGuests = createAsyncThunk(
                 );
                 return data?.data;
             } catch (error) {
-                console.error('/user/login ERROR ', error);
+                console.error('/get-all-guests ERROR ', error);
             }
         }
     }
 );
+
+export const sendInvitations = createAsyncThunk(
+    'SEND_INVITATIONS', async (undefined, thunkAPI) => {
+        const thunk = thunkAPI.getState();
+        if (thunk.user.isAdmin) {
+            try {
+                await axios.get('http://localhost:3001/api/admin/send-invitations')
+            } catch (error) {
+                console.error('send-invitations', error)
+            }
+        }
+    }
+)
 
 export const guestsReducer = createReducer(
     {},
