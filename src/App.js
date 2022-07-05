@@ -57,10 +57,11 @@ function App() {
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar onClickOutside={onClickOutside} />
       <div className={sidebar ? 'blur' : ''}>
-        {verifiedGuest.verified && <Countdown />}
+        {verifiedGuest.verified && verifiedToken && <Countdown />}
         <Routes>
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
-          {!verifiedToken && !verifiedGuest.verified ? (
+          {verifiedToken && verifiedGuest.verified ? (
+
             <Route path="/" element={<Home />} />
           ) : (
             <>
@@ -81,12 +82,17 @@ function App() {
               <Route path="/admin/app/:type/*" element={<Adminview />} />
               <Route path="/countdown" element={<Countdown />} />
             </>
-          )}
+          )
+          }
+
         </Routes>
+
       </div>
     </div>
-  );
+  )
 }
+
+
 
 // DEMO 01/07
 // USO HORARIO POR IP ----> MOMENT
