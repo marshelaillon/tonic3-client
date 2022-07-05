@@ -106,5 +106,4 @@ const AddGuests = ({ filterEvents }) => {
     );
 
 };
-
 export default AddGuests;
