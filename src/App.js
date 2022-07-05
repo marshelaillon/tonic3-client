@@ -13,6 +13,7 @@ import { checkUser } from './state/user/user';
 import Home from './components/Home';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
+
 import Adminview from './components/adminView/Adminview';
 import { toggleSidebar } from './state/UI/sidebar';
 
@@ -40,15 +41,20 @@ function App() {
     dispatch(checkUser());
   }, [user.id]);
 
+
   return (
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar onClickOutside={onClickOutside} />
       <div className={sidebar ? 'blur' : ''}>
-      {verifiedGuest.verified && verifiedToken && <Countdown />}
+
+
+        {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
+
+
         <Routes>
+          <Route path="/user" element={user.id && <User />} />
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
           {verifiedToken && verifiedGuest.verified ? (
-
             <Route path="/" element={<Home />} />
           ) : (
             <>
@@ -69,17 +75,12 @@ function App() {
               <Route path="/admin/app/:type/*" element={<Adminview />} />
               <Route path="/countdown" element={<Countdown />} />
             </>
-          )
-          }
-
+          )}
         </Routes>
-
       </div>
     </div>
-  )
+  );
 }
-
-
 
 // DEMO 01/07
 // USO HORARIO POR IP ----> MOMENT

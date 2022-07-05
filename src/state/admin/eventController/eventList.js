@@ -21,6 +21,6 @@ export const getEvents = createAsyncThunk(
 export const eventsReducer = createReducer(
   {},
   {
-    [getEvents.fulfilled]: (state, action) => action.payload?.data,
+    [getEvents.fulfilled]: (state, action) => action.payload,
   }
 );

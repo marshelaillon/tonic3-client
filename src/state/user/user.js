@@ -4,18 +4,16 @@ import {
   createReducer,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { InvalidPassword, InvalidRegister} from '../../utils/sweetAlerts';
+import { InvalidPassword, InvalidRegister } from '../../utils/sweetAlerts';
 
 export const registerUser = createAsyncThunk(
   'SEND_REGISTER_REQUEST',
   async registerBody => {
-    console.log('esto es el body', registerBody);
     try {
       const { data } = await axios.post(
         'http://localhost:3001/api/users/register',
         registerBody
       );
-      console.log('esta es la data del registerbody', data);
       return data;
     } catch (error) {
       console.error('/user/register ERROR ', error);
@@ -26,7 +24,6 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'SEND_LOGIN_REQUEST',
   async credentials => {
-    console.log('credentials', credentials);
     const { error, data } = await axios.post(
       'http://localhost:3001/api/users/login',
       credentials
@@ -53,6 +50,23 @@ export const checkUser = createAsyncThunk('CHECK_USER_BY_COOKIES', async () => {
   }
 });
 
+export const updateUser = createAsyncThunk(
+  'UPDATE_REQUEST',
+  async updateBody => {
+    console.log('esto es el updatebody', updateBody);
+    try {
+      const { data } = await axios.put(
+        `http://localhost:3001/api/users/update/${updateBody.id}`,
+        updateBody
+      );
+      console.log('esta es la data del update', data);
+      return data;
+    } catch (error) {
+      console.error('/user/update/:id ERROR ', error);
+    }
+  }
+);
+
 export const forgotPassword = createAsyncThunk(
   'SEND_EMAIL_CHANGE_PASSWORD',
   async dataEmail => {
@@ -61,8 +75,6 @@ export const forgotPassword = createAsyncThunk(
         'http://localhost:3001/api/users/forgot-password',
         dataEmail
       );
-      console.log('LLEGE ATA ACA ', data);
-
       return data;
     } catch (error) {
       console.log('forgotPassword ERROR', error);
@@ -99,6 +111,7 @@ export const userReducer = createReducer(
       return action.payload?.data;
     },
     [logoutUser.fulfilled]: (state, action) => action.payload,
+    [updateUser.fulfilled]: (state, action) => action.payload,
     [checkUser.fulfilled]: (state, action) => action.payload?.data,
     [forgotPassword.fulfilled]: (state, action) => action.payload?.data,
   }

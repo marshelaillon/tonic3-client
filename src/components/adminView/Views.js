@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getEvents } from '../../state/admin/eventController/eventList';
+
 import AddEvents from './AddEvents';
+
 import AddGuests from './AddGuests';
 
 const Views = ({ current }) => {
@@ -23,9 +25,7 @@ const Views = ({ current }) => {
 
   useEffect(() => {
     dispatch(getEvents()).then(({ payload }) =>
-      setFilterEvents(
-        payload.rows.filter(item => item.status === 'pending')
-      )
+      setFilterEvents(payload.rows.filter(item => item.status === 'pending'))
     );
   }, [current]);
   return (

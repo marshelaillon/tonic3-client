@@ -5,17 +5,14 @@ export const addGuests = createAsyncThunk(
     'ADD_GUESTS',
     async (body, thunkAPI) => {
         const thunk = thunkAPI.getState();
-        console.log('\n ESTO ES EL BODY', body);
-        // {eventId: eventid, emails: ["asda@asf.com"]}
         if (thunk.user.isAdmin) {
             try {
                 const { data } = await axios.post(
                     'http://localhost:3001/api/admin/add-guest',
                     body
                 );
-                console.log(data);
             } catch (error) {
-                console.error('/user/login ERROR ', error);
+                console.error('/ADD-GUESTS ERROR ', error);
             }
         }
     }
@@ -30,9 +27,41 @@ export const getGuests = createAsyncThunk(
                 const { data } = await axios.get(
                     'http://localhost:3001/api/admin/get-all-guests'
                 );
+                console.log('REDUX GUESTS', data?.data);
                 return data?.data;
             } catch (error) {
-                console.error('/user/login ERROR ', error);
+                console.error('/GET-ALL-GUESTS ERROR ', error);
+            }
+        }
+    }
+);
+
+export const sendInvitations = createAsyncThunk(
+    'SEND_INVITATIONS',
+    async (undefined, thunkAPI) => {
+        const thunk = thunkAPI.getState();
+        if (thunk.user.isAdmin) {
+            try {
+                await axios.get('http://localhost:3001/api/admin/send-invitations');
+            } catch (error) {
+                console.error('send-invitations', error);
+            }
+        }
+    }
+);
+
+export const removeInvitations = createAsyncThunk(
+    'REMOVE_INVITATIONS',
+    async (body, thunkAPI) => {
+        const thunk = thunkAPI.getState();
+        if (thunk.user.isAdmin) {
+            try {
+                await axios.delete(
+                    `http://localhost:3001/api/admin/remove-guest/${body.id}`,
+
+                );
+            } catch (error) {
+                console.error('remove-guest', error);
             }
         }
     }
@@ -41,7 +70,8 @@ export const getGuests = createAsyncThunk(
 export const guestsReducer = createReducer(
     {},
     {
-        [addGuests.fulfilled]: (state, action) => action.payload?.data,
-        [getGuests.fulfilled]: (state, action) => action.payload?.data,
+        // [addGuests.fulfilled]: (state, action) => action.payload?.data,
+        [getGuests.fulfilled]: (state, action) =>
+            console.log('action.payload?.data', action.payload),
     }
 );

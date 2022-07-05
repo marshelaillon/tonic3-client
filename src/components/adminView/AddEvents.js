@@ -19,8 +19,10 @@ const AddEvents = () => {
                 url: values.url,
                 description: values.description,
             })
+
         );
         setEventsComplete(true);
+
         // if (!eventComplete) {
         //     console.log(eventComplete);
         //     dispatch(
@@ -111,6 +113,7 @@ const AddEvents = () => {
                             {
                                 eventComplete && <AddGuests />
                                 /* (
+
                                                                     <Field
                                                                         name="email"
                                                                         className={
@@ -120,12 +123,15 @@ const AddEvents = () => {
                                                                         }
                                                                         type="email"
                                                                     /> */
+
                             }
 
                             <div className="mt-4 d-flex flex-row">
                                 <div className="form-group me-4">
                                     <Button type="submit" variant="light">
+
                                         Crear evento
+
                                     </Button>
                                 </div>
                             </div>
