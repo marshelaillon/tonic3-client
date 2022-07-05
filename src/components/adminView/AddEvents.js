@@ -19,7 +19,10 @@ const AddEvents = () => {
                 url: values.url,
                 description: values.description,
             })
-        ); setEventsComplete(true);
+
+        );
+        setEventsComplete(true);
+
         // if (!eventComplete) {
         //     console.log(eventComplete);
         //     dispatch(
@@ -110,21 +113,25 @@ const AddEvents = () => {
                             {
                                 eventComplete && <AddGuests />
                                 /* (
-                                                    <Field
-                                                        name="email"
-                                                        className={
-                                                            formik.touched.email && formik.errors.email
-                                                                ? 'form-control is-invalid'
-                                                                : 'form-control'
-                                                        }
-                                                        type="email"
-                                                    /> */
+
+                                                                    <Field
+                                                                        name="email"
+                                                                        className={
+                                                                            formik.touched.email && formik.errors.email
+                                                                                ? 'form-control is-invalid'
+                                                                                : 'form-control'
+                                                                        }
+                                                                        type="email"
+                                                                    /> */
+
                             }
 
                             <div className="mt-4 d-flex flex-row">
                                 <div className="form-group me-4">
                                     <Button type="submit" variant="light">
-                                        "Crear evento"
+
+                                        Crear evento
+
                                     </Button>
                                 </div>
                             </div>

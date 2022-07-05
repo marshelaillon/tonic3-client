@@ -1,8 +1,21 @@
 import React from 'react';
-import { Button, Container, Table } from 'react-bootstrap';
-import '../styles/adminView.css';
+import { Button, Container } from 'react-bootstrap';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
+import '../styles/adminView.css';
+import { GrRefresh, GrSend } from 'react-icons/gr'
+import { useDispatch } from 'react-redux'
+import { sendInvitations } from '../state/admin/guestController/guests';
+import { sendInvi } from '../utils/sweetAlerts';
 const List = ({ refresh, list }) => {
+  const dispatch = useDispatch()
+  console.log(list.map(item => item.eventId))
+
+  const handlerClick = () => {
+    dispatch(sendInvitations())
+    sendInvi()
+  }
   return (
     <>
       <div className="container border">
@@ -11,11 +24,11 @@ const List = ({ refresh, list }) => {
             POR ACA DEBERIA ESTAR UN CONTADOR, ALGO DE INFO SOBRE LA SECCION QUE
             ESTA VISITANDO EL ADMIN Y DEMAS INFO RELEVANTE.
           </div>
-          <div className="col-sm-2 refresh-btn my-2">
+          <div /* className="col-sm-2 refresh-btn my-2" */>
             <Button
-              className="refresh-btn rounded-circle"
+              /* className="refresh-btn rounded-circle" */
               onClick={() => refresh()}
-            ></Button>
+            >{<GrRefresh />}</Button>
           </div>
         </div>
         <Container>
@@ -53,10 +66,11 @@ const List = ({ refresh, list }) => {
                   )}
                 </>
               </tbody>
-              <Button className="">Send</Button>
+              <Button onClick={handlerClick} className="" >Send {<GrSend />}</Button>
             </Table>
           </div>
         </Container>
+
       </div>
     </>
   );
