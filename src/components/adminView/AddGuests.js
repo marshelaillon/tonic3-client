@@ -8,25 +8,25 @@ import { Dropdown } from 'react-bootstrap';
 import { invitationsSuccessfully } from '../../utils/sweetAlerts';
 
 const AddGuests = ({ filterEvents }) => {
-  const [selectEvent, setSelectEvent] = useState({});
-  const dispatch = useDispatch();
+    const [selectEvent, setSelectEvent] = useState({});
+    const dispatch = useDispatch();
 
-  const handleSubmit = values => {
-    console.log('HICISTE CLICK');
-    dispatch(
-      addGuests({
-        emails: values.email.split(','),
-        eventId: selectEvent.id,
-      })
-    );
-    invitationsSuccessfully(values.email.split(',').length, selectEvent.title);
-    values.email = '';
-    setSelectEvent({});
-  };
+    const handleSubmit = values => {
+        console.log('HICISTE CLICK');
+        dispatch(
+            addGuests({
+                emails: values.email.split(','),
+                eventId: selectEvent.id,
+            })
+        );
+        invitationsSuccessfully(values.email.split(',').length, selectEvent.title);
+        values.email = '';
+        setSelectEvent({});
+    };
 
-  const validate = Yup.object({
-    email: Yup.string(),
-  });
+    const validate = Yup.object({
+        email: Yup.string(),
+    });
 
   return (
     <div>
@@ -106,6 +106,7 @@ const AddGuests = ({ filterEvents }) => {
       </Formik>
     </div>
   );
+
 };
 
 export default AddGuests;
