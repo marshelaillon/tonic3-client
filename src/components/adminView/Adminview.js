@@ -22,6 +22,8 @@ const Adminview = () => {
   useEffect(() => {
     dispatchAndSetCurrent();
   }, [_listener]);
+
+
   return (
     <>
       <Header />
