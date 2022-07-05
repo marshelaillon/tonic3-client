@@ -19,7 +19,8 @@ const Adminview = () => {
   };
   useEffect(() => {
     dispatchAndSetCurrent();
-  }, [_listener, currentList]);
+  }, [_listener]);
+
   return (
     <>
       <Header />
