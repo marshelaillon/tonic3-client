@@ -3,9 +3,9 @@ import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { addGuests } from '../state/admin/guestController/guests';
+import { addGuests } from '../../state/admin/guestController/guests';
 import { Dropdown } from 'react-bootstrap';
-import { invitationsSuccessfully } from '../utils/sweetAlerts';
+import { invitationsSuccessfully } from '../../utils/sweetAlerts';
 
 const AddGuests = ({ filterEvents }) => {
     const [selectEvent, setSelectEvent] = useState({});
