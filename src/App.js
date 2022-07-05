@@ -14,7 +14,7 @@ import Home from './components/Home';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
 // import { checkCaptcha } from './state/captcha/captcha';
-import AddEvents from './components/AddEvents';
+//import AddEvents from './components/AddEvents';
 import Adminview from './components/adminView/Adminview';
 import { setCurrentList } from './state/admin/adminUI/currentList';
 import { listener } from './state/admin/adminUI/listener';
@@ -48,16 +48,13 @@ function App() {
     dispatch(checkUser());
   }, [user.id]);
 
-  useEffect(() => {
-    console.log('type is', type);
-    // dispatch(listener(type));
-  }, [type]);
+
 
   return (
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar onClickOutside={onClickOutside} />
       <div className={sidebar ? 'blur' : ''}>
-        {verifiedGuest.verified && <Countdown />}
+        {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
         <Routes>
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
           {!verifiedToken && !verifiedGuest.verified ? (

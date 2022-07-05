@@ -53,6 +53,23 @@ export const checkUser = createAsyncThunk('CHECK_USER_BY_COOKIES', async () => {
   }
 });
 
+export const updateUser = createAsyncThunk(
+  'UPDATE_REQUEST',
+  async updateBody => {
+    console.log('esto es el updatebody', updateBody);
+    try {
+      const { data } = await axios.put(
+        `http://localhost:3001/api/users/update/${updateBody.id}`,
+        updateBody
+      );
+      console.log('esta es la data del update', data);
+      return data;
+    } catch (error) {
+      console.error('/user/update/:id ERROR ', error);
+    }
+  }
+);
+
 export const forgotPassword = createAsyncThunk(
   'SEND_EMAIL_CHANGE_PASSWORD',
   async dataEmail => {
@@ -99,6 +116,7 @@ export const userReducer = createReducer(
       return action.payload?.data;
     },
     [logoutUser.fulfilled]: (state, action) => action.payload,
+    [updateUser.fulfilled]: (state, action) => action.payload,
     [checkUser.fulfilled]: (state, action) => action.payload?.data,
     [forgotPassword.fulfilled]: (state, action) => action.payload?.data,
   }
