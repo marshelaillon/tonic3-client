@@ -48,6 +48,7 @@ function App() {
         <Routes>
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
           {verifiedToken && verifiedGuest.verified ? (
+
             <Route path="/" element={<Home />} />
           ) : (
             <>
@@ -70,6 +71,7 @@ function App() {
             </>
           )
           }
+
         </Routes>
 
       </div>
