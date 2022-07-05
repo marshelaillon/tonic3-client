@@ -8,6 +8,7 @@ import { fillingList } from '../../utils/enviroment';
 
 const Adminview = () => {
   const _listener = useSelector(state => state.listener);
+  const guests = useSelector(state => state.guests);
   const [currentList, setCurrentList] = useState({});
   const dispatch = useDispatch();
   const { type } = useParams();
@@ -16,6 +17,7 @@ const Adminview = () => {
     dispatch(fillingList[_listener || type]())
       .then(({ payload }) => setCurrentList(payload || []))
       .catch(error => console.log('dispatchAndSetCurrent ERROR', error));
+    console.log('guests', guests);
   };
   useEffect(() => {
     dispatchAndSetCurrent();
