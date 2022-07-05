@@ -46,9 +46,9 @@ function App() {
       <div className={sidebar ? 'blur' : ''}>
         {verifiedGuest.verified && verifiedToken && <Countdown />}
         <Routes>
+          <Route path="/user" element={user.id && <User />} />
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
           {verifiedToken && verifiedGuest.verified ? (
-
             <Route path="/" element={<Home />} />
           ) : (
             <>
@@ -69,17 +69,12 @@ function App() {
               <Route path="/admin/app/:type/*" element={<Adminview />} />
               <Route path="/countdown" element={<Countdown />} />
             </>
-          )
-          }
-
+          )}
         </Routes>
-
       </div>
     </div>
-  )
+  );
 }
-
-
 
 // DEMO 01/07
 // USO HORARIO POR IP ----> MOMENT

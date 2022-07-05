@@ -1,8 +1,12 @@
 import React from 'react';
-import { Button, Container, Table } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+
 import '../styles/adminView.css';
 
 const List = ({ refresh, list }) => {
+  console.log(list);
   return (
     <>
       <div className="container border">
@@ -18,45 +22,47 @@ const List = ({ refresh, list }) => {
             ></Button>
           </div>
         </div>
-        <Container>
-          <div
-            style={{ justifyContent: 'center', alignItems: 'center' }}
-            className=""
-          >
-            <Table>
-              <thead>
-                <tr style={{ color: 'white' }}>
-                  {list &&
-                    Object.keys(list[0] || []).map((item, i) => (
-                      <>
-                        <th key={`th-${i}`} className="">
-                          {item}
-                        </th>
-                      </>
-                    ))}
-                </tr>
-              </thead>
-              <tbody>
-                <>
-                  {list.length ? (
-                    list.map((item, i) => (
-                      <tr style={{ color: 'white' }} key={`tr=${i}`}>
-                        {Object.keys(item).map((key, j) => (
-                          <td key={`td=${i}-${j}`} className="">
-                            {item[key]?.toString()}
-                          </td>
-                        ))}
-                      </tr>
-                    ))
-                  ) : (
-                    <tr></tr>
-                  )}
-                </>
-              </tbody>
-              <Button className="">Send</Button>
-            </Table>
-          </div>
-        </Container>
+        {/* <Container> */}
+        <div
+          style={{ justifyContent: 'center', alignItems: 'center' }}
+          className=""
+        >
+          <Table className="container-sm">
+            {/* <div className="row-sm justify-content-around"> */}
+            <Thead>
+              <Tr style={{ color: 'white' }}>
+                {list &&
+                  Object.keys(list[0] || []).map((item, i) => (
+                    <>
+                      <Th key={`th-${i}`} className="">
+                        {item}
+                      </Th>
+                    </>
+                  ))}
+              </Tr>
+            </Thead>
+            {/* </div> */}
+            <Tbody className="row-sm">
+              <>
+                {list.length ? (
+                  list.map((item, i) => (
+                    <Tr style={{ color: 'white' }} key={`tr=${i}`}>
+                      {Object.keys(item).map((key, j) => (
+                        <Td key={`td=${i}-${j}`} className="">
+                          {item[key]?.toString()}
+                        </Td>
+                      ))}
+                    </Tr>
+                  ))
+                ) : (
+                  <Tr></Tr>
+                )}
+              </>
+            </Tbody>
+            <Button className="">Send</Button>
+          </Table>
+        </div>
+        {/* </Container> */}
       </div>
     </>
   );
