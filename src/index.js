@@ -58,6 +58,8 @@ root.render(
 );
 
 serviceWorkerRegistration.register();
+//   window.location.origin + '/service-worker.js'
+// );
 // serviceWorkerRegistration.unregister();
 
 // serviceWorkerRegistration.register({
