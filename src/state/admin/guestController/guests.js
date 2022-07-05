@@ -38,6 +38,19 @@ export const getGuests = createAsyncThunk(
   }
 );
 
+export const sendInvitations = createAsyncThunk(
+    'SEND_INVITATIONS', async (undefined, thunkAPI) => {
+        const thunk = thunkAPI.getState();
+        if (thunk.user.isAdmin) {
+            try {
+                await axios.get('http://localhost:3001/api/admin/send-invitations')
+            } catch (error) {
+                console.error('send-invitations', error)
+            }
+        }
+    }
+)
+
 export const guestsReducer = createReducer(
   {},
   {
