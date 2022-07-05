@@ -39,9 +39,10 @@ const AddGuests = ({ filterEvents }) => {
       >
         {formik => (
           <Form>
-            <div className="form-group">
+            <div className="form-group container w-75 mt-4 ">
               <label htmlFor="email">E-mail</label>
               <Field
+                placeholder="coloque los email separados por una coma "
                 multiple
                 name="email"
                 className={
@@ -55,86 +56,56 @@ const AddGuests = ({ filterEvents }) => {
                 <div className="invalid-feedback">{formik.errors.email}</div>
               ) : null}
             </div>
-            <Dropdown>
-              {selectEvent.title || 'Eventos'}
-              <Dropdown.Toggle
-                style={{
-                  backgroundColor: 'orange',
-                  border: 'none',
-                  color: 'inherit',
-                }}
-                validationSchema={validate}
-                onSubmit={handleSubmit}
-            >
-                {formik => (
-                    <Form>
-                        <div className="form-group container w-75 mt-4 ">
-                            <label htmlFor="email">E-mail</label>
-                            <Field
-                                placeholder="coloque los email separados por una coma "
-                                multiple
-                                name="email"
-                                className={
-                                    formik.touched.email && formik.errors.email
-                                        ? 'form-control is-invalid'
-                                        : 'form-control'
-                                }
-                                type="email"
-                            />
-                            {formik.touched.email && formik.errors.email ? (
-                                <div className="invalid-feedback">{formik.errors.email}</div>
-                            ) : null}
-                        </div>
-                        <div className="container w-75 mt-4 form">
-                            <Dropdown>
-                                {selectEvent.title || 'Elija un Event \on'}
-                                <Dropdown.Toggle
-                                    style={{
-                                        backgroundColor: 'orange',
-                                        border: 'none',
-                                        color: 'inherit',
-                                    }}
-                                    id="dropdown-basic"
-                                ></Dropdown.Toggle>
-                                <Dropdown.Menu
-                                    key={`dropd.menu`}
-                                    style={{
-                                        backgroundColor: '#020122',
-                                        border: 'none',
-                                    }}
-                                >
-                                    {filterEvents.map((event, i) => (
-                                        <span>
-                                            <Dropdown.Item
-                                                key={`dropd.item ${i}`}
-                                                style={{ color: '#f5f6f7' }}
-                                                onClick={e => {
-                                                    setSelectEvent({ id: event.id, title: event.title });
-                                                }}
-                                            >
-                                                {event.title}
-                                            </Dropdown.Item>
-                                        </span>
-                                    ))}
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
-                        <div className="mt-4 d-flex flex-row">
-                            <div className="form-group me-4">
-                                <Button
-                                    type="submit"
-                                    variant="light"
-                                    disabled={!selectEvent.title}
-                                >
-                                    Añadir invitaciones
-                                </Button>
-                            </div>
-                        </div>
-                    </Form>
-                )}
-            </Formik>
-        </div>
-    );
+            <div className="container w-75 mt-4 form">
+              <Dropdown>
+                {selectEvent.title || 'Elija un Evento \n'}
+                <Dropdown.Toggle
+                  style={{
+                    backgroundColor: 'orange',
+                    border: 'none',
+                    color: 'inherit',
+                  }}
+                  id="dropdown-basic"
+                ></Dropdown.Toggle>
+                <Dropdown.Menu
+                  key={`dropd.menu`}
+                  style={{
+                    backgroundColor: '#020122',
+                    border: 'none',
+                  }}
+                >
+                  {filterEvents.map((event, i) => (
+                    <span>
+                      <Dropdown.Item
+                        key={`dropd.item ${i}`}
+                        style={{ color: '#f5f6f7' }}
+                        onClick={e => {
+                          setSelectEvent({ id: event.id, title: event.title });
+                        }}
+                      >
+                        {event.title}
+                      </Dropdown.Item>
+                    </span>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+            <div className="mt-4 d-flex flex-row">
+              <div className="form-group me-4">
+                <Button
+                  type="submit"
+                  variant="light"
+                  disabled={!selectEvent.title}
+                >
+                  Añadir invitaciones
+                </Button>
+              </div>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
 };
 
 export default AddGuests;
