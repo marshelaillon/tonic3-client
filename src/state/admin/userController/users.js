@@ -21,6 +21,6 @@ export const getUsers = createAsyncThunk(
 export const usersReducer = createReducer(
   {},
   {
-    [getUsers.fulfilled]: (state, action) => action.payload?.data,
+    [getUsers.fulfilled]: (state, action) => action.payload,
   }
 );

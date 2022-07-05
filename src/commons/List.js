@@ -1,5 +1,8 @@
 import React from 'react';
-import { Button, Container, Table } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+
 import '../styles/adminView.css';
 import { GrRefresh, GrSend } from 'react-icons/gr'
 import { useDispatch } from 'react-redux'
@@ -67,6 +70,7 @@ const List = ({ refresh, list }) => {
             </Table>
           </div>
         </Container>
+
       </div>
     </>
   );

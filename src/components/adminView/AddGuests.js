@@ -8,31 +8,60 @@ import { Dropdown } from 'react-bootstrap';
 import { invitationsSuccessfully } from '../../utils/sweetAlerts';
 
 const AddGuests = ({ filterEvents }) => {
-    const [selectEvent, setSelectEvent] = useState({});
-    const dispatch = useDispatch();
+  const [selectEvent, setSelectEvent] = useState({});
+  const dispatch = useDispatch();
 
-    const handleSubmit = values => {
-        console.log('HICISTE CLICK');
-        dispatch(
-            addGuests({
-                emails: values.email.split(','),
-                eventId: selectEvent.id,
-            })
-        );
-        invitationsSuccessfully(values.email.split(',').length, selectEvent.title);
-        values.email = '';
-        setSelectEvent({});
-    };
+  const handleSubmit = values => {
+    console.log('HICISTE CLICK');
+    dispatch(
+      addGuests({
+        emails: values.email.split(','),
+        eventId: selectEvent.id,
+      })
+    );
+    invitationsSuccessfully(values.email.split(',').length, selectEvent.title);
+    values.email = '';
+    setSelectEvent({});
+  };
 
-    const validate = Yup.object({
-        email: Yup.string(),
-    });
+  const validate = Yup.object({
+    email: Yup.string(),
+  });
 
-    return (
-        <div>
-            <Formik
-                initialValues={{
-                    email: '',
+  return (
+    <div>
+      <Formik
+        initialValues={{
+          email: '',
+        }}
+        validationSchema={validate}
+        onSubmit={handleSubmit}
+      >
+        {formik => (
+          <Form>
+            <div className="form-group">
+              <label htmlFor="email">E-mail</label>
+              <Field
+                multiple
+                name="email"
+                className={
+                  formik.touched.email && formik.errors.email
+                    ? 'form-control is-invalid'
+                    : 'form-control'
+                }
+                type="email"
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <div className="invalid-feedback">{formik.errors.email}</div>
+              ) : null}
+            </div>
+            <Dropdown>
+              {selectEvent.title || 'Eventos'}
+              <Dropdown.Toggle
+                style={{
+                  backgroundColor: 'orange',
+                  border: 'none',
+                  color: 'inherit',
                 }}
                 validationSchema={validate}
                 onSubmit={handleSubmit}
@@ -58,7 +87,7 @@ const AddGuests = ({ filterEvents }) => {
                         </div>
                         <div className="container w-75 mt-4 form">
                             <Dropdown>
-                                {selectEvent.title || 'Elija un Evento \n'}
+                                {selectEvent.title || 'Elija un Event \on'}
                                 <Dropdown.Toggle
                                     style={{
                                         backgroundColor: 'orange',
