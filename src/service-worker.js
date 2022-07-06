@@ -30,16 +30,15 @@ registerRoute(
     } // Return true to signal that we want to use the handler.
     return true;
   },
-  createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
+  createHandlerBoundToURL(process.env.REACT_APP_PUBLIC_URL + '/index.html')
 );
-
 // HAY QUE ESTUDIARLO MAS A FONDO, PERO PROTEGE ALGUNAS RUTAS DEL
 // ALMACENAMIENTO EN CACHE, DEBIDO A QUE HAY ALGUNOS ARCHIVOS QUE NO PUEDE MANEJAR.
 // ESTOS NECESITAN UN TRATAMIENTO PERSONALIZADO.
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
   ({ url }) =>
-    url.origin === self.location.origin && uprl.athname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+    url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
     plugins: [

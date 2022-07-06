@@ -2,13 +2,16 @@ body {
   background-color: #020122;
 }
 .container {
-  background-color: #141321b2;
+  background-color: rgba(179, 175, 175, 0.452);
   border: solid 1px #212529;
   border-top: none;
   border-right: none;
   border-left: none;
   border-radius: 10px;
   color: white;
+  font-size: 20px;
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
   /* height:260px; */
 }
 .recaptcha,

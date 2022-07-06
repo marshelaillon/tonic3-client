@@ -13,7 +13,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import httpApi from 'i18next-http-backend';
 import 'flag-icon-css/css/flag-icons.min.css';
-// hola llegue bien
+
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .use(LanguageDetector)
@@ -57,20 +57,20 @@ root.render(
   </Suspense>
 );
 
-serviceWorkerRegistration.register();
+// serviceWorkerRegistration.register();
 //   window.location.origin + '/service-worker.js'
 // );
 // serviceWorkerRegistration.unregister();
 
-// serviceWorkerRegistration.register({
-//   onUpdate: async registration => {
-//     console.log('Te registraste al service worker');
-//     // Detalles en: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
-//     if (registration && registration.waiting) {
-//       await registration.unregister();
-//       registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-//       // Des-registramos el SW para recargar la página y obtener la nueva versión. Lo cual permite que el navegador descargue lo nuevo y que invalida la cache que tenía previamente.
-//       window.location.reload();
-//     }
-//   },
-// });
+serviceWorkerRegistration.register({
+  onUpdate: async registration => {
+    console.log('Te registraste al service worker');
+    // Detalles en: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
+    if (registration && registration.waiting) {
+      await registration.unregister();
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      // Des-registramos el SW para recargar la página y obtener la nueva versión. Lo cual permite que el navegador descargue lo nuevo y que invalida la cache que tenía previamente.
+      window.location.reload();
+    }
+  },
+});
