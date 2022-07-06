@@ -20,13 +20,14 @@ const List = ({ refresh, list }) => {
     sendInvi();
   };
 
-  const handlerDelete = item => {
+  const handlerDelete = async item => {
     listener &&
-      dispatch(
+      await dispatch(
         removeItem({
           id: item.id,
         })
       );
+    await refresh()
   };
 
   return (

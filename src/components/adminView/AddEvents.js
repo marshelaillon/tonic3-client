@@ -7,7 +7,7 @@ import { addEvent } from '../../state/admin/eventController/event';
 import { addGuests } from '../../state/admin/guestController/guests';
 import AddGuests from './AddGuests';
 
-const AddEvents = () => {
+const AddEvents = ({ refresh }) => {
     const event = useSelector(state => state.event);
     const dispatch = useDispatch();
     const [eventComplete, setEventsComplete] = useState(false);
@@ -22,23 +22,9 @@ const AddEvents = () => {
 
         );
         setEventsComplete(true);
-
-        // if (!eventComplete) {
-        //     console.log(eventComplete);
-        //     dispatch(
-        //         addEvent({
-        //             title: values.title,
-        //             url: values.url,
-        //             description: values.description,
-        //         })
-        //     );
-        //     setEventsComplete(true);
-        // }
-        // dispatch(
-        //     addGuests({
-        //         email: values.email,
-        //     })
-        // );
+        (async () => {
+            await refresh()
+        })()
     };
     const validate = Yup.object({
         url: Yup.string().url().required('Se nesecita Link del evento '),
