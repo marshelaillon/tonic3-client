@@ -30,7 +30,7 @@ const AddGuests = ({ filterEvents }) => {
     });
 
     return (
-        <div>
+        <div className='container div-add-guest'>
             <Formik
                 initialValues={{
                     email: '',
@@ -44,6 +44,7 @@ const AddGuests = ({ filterEvents }) => {
                             <label htmlFor="email">E-mail</label>
                             <Field
                                 multiple
+                                placeholder="separar los mails con coma"
                                 name="email"
                                 className={
                                     formik.touched.email && formik.errors.email
@@ -56,7 +57,12 @@ const AddGuests = ({ filterEvents }) => {
                                 <div className="invalid-feedback">{formik.errors.email}</div>
                             ) : null}
                         </div>
-                        <Dropdown>
+                        <Dropdown
+                        key={"direction"}
+                        id={`dropdown-button-drop-end`}
+                        drop={"end"}
+                        variant="secondary"
+                        title={`Drop end`}>
                             {selectEvent.title || 'Eventos'}
                             <Dropdown.Toggle
                                 style={{
