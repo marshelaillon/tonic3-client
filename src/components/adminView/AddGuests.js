@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
@@ -8,21 +7,23 @@ import { addGuests } from '../../state/admin/guestController/guests';
 import { Dropdown } from 'react-bootstrap';
 import { invitationsSuccessfully } from '../../utils/sweetAlerts';
 
-const AddGuests = ({ filterEvents }) => {
+const AddGuests = ({ filterEvents, refresh }) => {
     const [selectEvent, setSelectEvent] = useState({});
     const dispatch = useDispatch();
 
-    const handleSubmit = values => {
-        console.log('HICISTE CLICK');
-        dispatch(
+    const handleSubmit = async values => {
+        const response = await dispatch(
             addGuests({
                 emails: values.email.split(','),
                 eventId: selectEvent.id,
             })
         );
+        //bugaty2.0{team t3}
+        response && await refresh()
         invitationsSuccessfully(values.email.split(',').length, selectEvent.title);
         values.email = '';
         setSelectEvent({});
+
     };
 
     const validate = Yup.object({
@@ -80,7 +81,7 @@ const AddGuests = ({ filterEvents }) => {
                                 }}
                             >
                                 {filterEvents.map((event, i) => (
-                                    <span>
+                                    <span key={`dropd.item ${i}`}>
                                         <Dropdown.Item
                                             key={`dropd.item ${i}`}
                                             style={{ color: '#f5f6f7' }}
@@ -110,6 +111,5 @@ const AddGuests = ({ filterEvents }) => {
             </Formik>
         </div>
     );
-
 };
 export default AddGuests;

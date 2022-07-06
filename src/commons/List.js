@@ -9,6 +9,8 @@ import { GrRefresh, GrSend } from 'react-icons/gr';
 import { sendInvitations } from '../state/admin/guestController/guests';
 import { IoMdRefreshCircle } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
+import { sendInvitations } from '../state/admin/guestController/guests';
+import { removeItem } from '../state/admin/adminUI/removeItem';
 import { sendInvi } from '../utils/sweetAlerts';
 import { MdDeleteForever } from 'react-icons/md';
 const List = ({ refresh, list }) => {
@@ -20,12 +22,14 @@ const List = ({ refresh, list }) => {
     sendInvi();
   };
 
-  const handlerDelete = item => {
-    dispatch(
-      removeInvitations({
-        id: item.id
-      })
-    );
+  const handlerDelete = async item => {
+    listener &&
+      await dispatch(
+        removeItem({
+          id: item.id,
+        })
+      );
+    await refresh()
   };
 
 
@@ -60,7 +64,7 @@ const List = ({ refresh, list }) => {
                         </th>
                       </>
                     ))}
-                  <th>eliminar</th>
+                  {list[0] && <th>eliminar</th>}
                 </tr>
               </thead>
               <tbody>
