@@ -12,7 +12,6 @@ export const addEvent = createAsyncThunk(
           'http://localhost:3001/api/admin/add-event',
           body
         );
-        console.log('ESTO ES LA DTA', data);
         return data?.data;
       } catch (error) {
         console.error('/add-event ERROR ', error);

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
@@ -28,85 +29,87 @@ const AddGuests = ({ filterEvents }) => {
         email: Yup.string(),
     });
 
-  return (
-    <div>
-      <Formik
-        initialValues={{
-          email: '',
-        }}
-        validationSchema={validate}
-        onSubmit={handleSubmit}
-      >
-        {formik => (
-          <Form>
-            <div className="form-group container w-75 mt-4 ">
-              <label htmlFor="email">E-mail</label>
-              <Field
-                placeholder="coloque los email separados por una coma "
-                multiple
-                name="email"
-                className={
-                  formik.touched.email && formik.errors.email
-                    ? 'form-control is-invalid'
-                    : 'form-control'
-                }
-                type="email"
-              />
-              {formik.touched.email && formik.errors.email ? (
-                <div className="invalid-feedback">{formik.errors.email}</div>
-              ) : null}
-            </div>
-            <div className="container w-75 mt-4 form">
-              <Dropdown>
-                {selectEvent.title || 'Elija un Evento \n'}
-                <Dropdown.Toggle
-                  style={{
-                    backgroundColor: 'orange',
-                    border: 'none',
-                    color: 'inherit',
-                  }}
-                  id="dropdown-basic"
-                ></Dropdown.Toggle>
-                <Dropdown.Menu
-                  key={`dropd.menu`}
-                  style={{
-                    backgroundColor: '#020122',
-                    border: 'none',
-                  }}
-                >
-                  {filterEvents.map((event, i) => (
-                    <span>
-                      <Dropdown.Item
-                        key={`dropd.item ${i}`}
-                        style={{ color: '#f5f6f7' }}
-                        onClick={e => {
-                          setSelectEvent({ id: event.id, title: event.title });
-                        }}
-                      >
-                        {event.title}
-                      </Dropdown.Item>
-                    </span>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-            <div className="mt-4 d-flex flex-row">
-              <div className="form-group me-4">
-                <Button
-                  type="submit"
-                  variant="light"
-                  disabled={!selectEvent.title}
-                >
-                  Añadir invitaciones
-                </Button>
-              </div>
-            </div>
-          </Form>
-        )}
-      </Formik>
-    </div>
-  );
+    return (
+        <div className='container div-add-guest'>
+            <Formik
+                initialValues={{
+                    email: '',
+                }}
+                validationSchema={validate}
+                onSubmit={handleSubmit}
+            >
+                {formik => (
+                    <Form>
+                        <div className="form-group">
+                            <label htmlFor="email">E-mail</label>
+                            <Field
+                                multiple
+                                placeholder="separar los mails con coma"
+                                name="email"
+                                className={
+                                    formik.touched.email && formik.errors.email
+                                        ? 'form-control is-invalid'
+                                        : 'form-control'
+                                }
+                                type="email"
+                            />
+                            {formik.touched.email && formik.errors.email ? (
+                                <div className="invalid-feedback">{formik.errors.email}</div>
+                            ) : null}
+                        </div>
+                        <Dropdown
+                        key={"direction"}
+                        id={`dropdown-button-drop-end`}
+                        drop={"end"}
+                        variant="secondary"
+                        title={`Drop end`}>
+                            {selectEvent.title || 'Eventos'}
+                            <Dropdown.Toggle
+                                style={{
+                                    backgroundColor: 'orange',
+                                    border: 'none',
+                                    color: 'inherit',
+                                }}
+                                id="dropdown-basic"
+                            ></Dropdown.Toggle>
+                            <Dropdown.Menu
+                                key={`dropd.menu`}
+                                style={{
+                                    backgroundColor: '#020122',
+                                    border: 'none',
+                                }}
+                            >
+                                {filterEvents.map((event, i) => (
+                                    <span>
+                                        <Dropdown.Item
+                                            key={`dropd.item ${i}`}
+                                            style={{ color: '#f5f6f7' }}
+                                            onClick={e => {
+                                                setSelectEvent({ id: event.id, title: event.title });
+                                            }}
+                                        >
+                                            {event.title}
+                                        </Dropdown.Item>
+                                    </span>
+                                ))}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <div className="mt-4 d-flex flex-row">
+                            <div className="form-group me-4">
+                                <Button
+                                    type="submit"
+                                    variant="light"
+                                    disabled={!selectEvent.title}
+                                >
+                                    Añadir invitaciones
+                                </Button>
+                            </div>
+                        </div>
+                    </Form>
+                )}
+            </Formik>
+        </div>
+    );
 
 };
-
 export default AddGuests;

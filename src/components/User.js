@@ -6,12 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import { BsFillGearFill, BsCheckCircleFill } from 'react-icons/bs';
 import { Button } from 'react-bootstrap';
 import { useInput } from '../hooks/useInput';
+import { updateUser } from '../state/user/user';
 
 export default function User() {
   const [editInput, setEdit] = useState(false);
   const user = useSelector(state => state.user);
   const navigate = useNavigate();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
   const userName = useInput();
   const firstName = useInput();
   const lastName = useInput();
@@ -28,14 +29,16 @@ export default function User() {
   };
   const handleSubmit = value => {
     //crear estado para la ruta
-  // dispatch(
-  //   updateUser({
-  //     userName:userName.value,
-  //     firstName:firstName.value,
-  //     lastName:lastName.value,
-  //     genre:genre.value
-  //   })
-  // )
+    dispatch(
+      updateUser({
+        id: user.id,
+        userName: userName.value || user.userName,
+        firstName: firstName.value || user.firstName,
+        lastName: lastName.value || user.lastName,
+        genre: genre.value || user.genre
+      })
+    )
+    handleEdit()
 
   };
 
@@ -43,7 +46,7 @@ export default function User() {
     <>
       <div className="container porfile">
         <div className="card mb-9 perfil-card ">
-          <div className="card-header" style={{ background: 'black' }}>
+          <div className="card-header" style={{ background: 'black'}}>
             <ul className="nav nav-tabs card-header-tabs">
               <li className="imag">
                 <img
@@ -63,6 +66,7 @@ export default function User() {
                   {!editInput ? (
                     <BsFillGearFill
                       onClick={handleEdit}
+                      
                       style={{
                         margin: '1px  10px 2px',
                         cursor: 'pointer',
@@ -71,7 +75,8 @@ export default function User() {
                     />
                   ) : (
                     <BsCheckCircleFill
-                      onClick={handleEdit}
+                    onClick={handleSubmit}
+                      type= "submit"
                       style={{
                         margin: '1px  10px 2px',
                         cursor: 'pointer',
@@ -88,43 +93,48 @@ export default function User() {
             <p>User Name</p>
             <input
               {...userName}
-              defaultValue={user.userName}
+              placeholder={user.userName.toString()}
+              
               name="userName"
               className="perfil-input"
               disabled={!editInput}
             />
+            
           </label>
           <label className="text-white" htmlFor="text ">
             <p>Name</p>
             <input
-            name='firstName'
+              name='firstName'
               className="perfil-input"
-              {...firstName}
-              defaultValue={user.firstName}
+             {...firstName}
+              placeholder={user.firstName.toString()}
+           
               disabled={!editInput}
             />
           </label>
           <label className="text-white" htmlFor="text ">
             <p> Apellido</p>
             <input
-            name='lastName'
+              name='lastName'
               className="perfil-input"
+              placeholder={user.lastName.toString()}
               {...lastName}
-              defaultValue={user.lastName}
+              
               disabled={!editInput}
             />
           </label>
           <label className=" text-white" htmlFor="email">
             <p> E-mail</p>
-            <input className="perfil-input" value={user.email} disabled />
+            <input className="perfil-input" value={user.email}/>
           </label>
           <label className=" text-white" name="text">
             <p> Genero</p>
             <input
-            name='genre'
+              name='genre'
               className="perfil-input"
+              
+              placeholder={user.genre.toString()}
               {...genre}
-              defaultValue={user.genre}
               disabled={!editInput}
             />
           </label>
