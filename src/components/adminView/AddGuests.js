@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
@@ -74,7 +73,7 @@ const AddGuests = ({ filterEvents }) => {
                                 }}
                             >
                                 {filterEvents.map((event, i) => (
-                                    <span>
+                                    <span key={`dropd.item ${i}`}>
                                         <Dropdown.Item
                                             key={`dropd.item ${i}`}
                                             style={{ color: '#f5f6f7' }}
@@ -104,6 +103,5 @@ const AddGuests = ({ filterEvents }) => {
             </Formik>
         </div>
     );
-
 };
 export default AddGuests;

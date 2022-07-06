@@ -8,12 +8,12 @@ import AddEvents from './AddEvents';
 import AddGuests from './AddGuests';
 
 const Views = ({ current }) => {
+  const events = useSelector(state => state.events);
   const listener = useSelector(state => state.listener);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { type } = useParams();
   const [filterEvents, setFilterEvents] = useState([]);
-
   // useEffect(() => {
   //   listener && navigate();
   // }, [listener]);
@@ -24,9 +24,14 @@ const Views = ({ current }) => {
   };
 
   useEffect(() => {
-    dispatch(getEvents()).then(({ payload }) =>
-      setFilterEvents(payload.rows.filter(item => item.status === 'pending'))
-    );
+    if (events.rows) {
+      setFilterEvents(events.rows.filter(item => item.status === 'pending'));
+    } else {
+      dispatch(getEvents()).then(({ payload }) => {
+        setFilterEvents(payload.rows.filter(item => item.status === 'pending'));
+      })
+        .catch(err => console.error(err));
+    }
   }, [current]);
   return (
     <>

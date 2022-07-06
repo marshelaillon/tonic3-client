@@ -50,28 +50,11 @@ export const sendInvitations = createAsyncThunk(
     }
 );
 
-export const removeInvitations = createAsyncThunk(
-    'REMOVE_INVITATIONS',
-    async (body, thunkAPI) => {
-        const thunk = thunkAPI.getState();
-        if (thunk.user.isAdmin) {
-            try {
-                await axios.delete(
-                    `http://localhost:3001/api/admin/remove-guest/${body.id}`,
-
-                );
-            } catch (error) {
-                console.error('remove-guest', error);
-            }
-        }
-    }
-);
-
 export const guestsReducer = createReducer(
     {},
     {
         // [addGuests.fulfilled]: (state, action) => action.payload?.data,
         [getGuests.fulfilled]: (state, action) =>
-            console.log('action.payload?.data', action.payload),
+            console.log('action.payload?.data', action.payload?.data),
     }
 );

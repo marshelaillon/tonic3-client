@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 function Countdown() {
 
-  
+
   const [timerDays, setTimerDays] = useState();
   const [timerHours, setTimerHours] = useState();
   const [timerMinutes, setTimerMinutes] = useState();
@@ -15,7 +15,7 @@ function Countdown() {
   let interval = useRef();
 
   const startTimer = () => {
-    const countDownDate = new Date("september 21, 2022").getTime();
+    const countDownDate = new Date("july 15, 2022").getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();
@@ -23,11 +23,11 @@ function Countdown() {
       const distance = countDownDate - now;
 
       const days = Math.floor(distance / (24 * 60 * 60 * 1000));
-      
+
       const hours = Math.floor(
         (distance % (24 * 60 * 60 * 1000)) / (1000 * 60 * 60)
       );
-      
+
       const minutes = Math.floor((distance % (60 * 60 * 1000)) / (1000 * 60));
       const seconds = Math.floor((distance % (60 * 1000)) / 1000);
 
@@ -46,7 +46,7 @@ function Countdown() {
 
   useEffect(() => {
     startTimer();
-    return () =>{
+    return () => {
       clearInterval(interval.current);
     }
   });
@@ -65,7 +65,7 @@ function Countdown() {
             <div className="bloc-time days" data-init-value="24">
               <span className="count-title">Days</span>
 
-             {/*  <div className="figure days days-1">
+              {/*  <div className="figure days days-1">
                 <span className="top">{timerDays}</span>
                 <span className="top-back">
                   <span>{timerDays}</span>

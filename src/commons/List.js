@@ -7,10 +7,8 @@ import '../styles/adminView.css';
 import { GrSend } from 'react-icons/gr';
 import { IoMdRefreshCircle } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  removeInvitations,
-  sendInvitations,
-} from '../state/admin/guestController/guests';
+import { sendInvitations } from '../state/admin/guestController/guests';
+import { removeItem } from '../state/admin/adminUI/removeItem';
 import { sendInvi } from '../utils/sweetAlerts';
 import { MdDeleteForever } from 'react-icons/md';
 const List = ({ refresh, list }) => {
@@ -23,11 +21,12 @@ const List = ({ refresh, list }) => {
   };
 
   const handlerDelete = item => {
-    dispatch(
-      removeInvitations({
-        id: item.id
-      })
-    );
+    listener &&
+      dispatch(
+        removeItem({
+          id: item.id,
+        })
+      );
   };
 
   return (
@@ -73,7 +72,7 @@ const List = ({ refresh, list }) => {
                         </th>
                       </>
                     ))}
-                  <th>eliminar</th>
+                  {list[0] && <th>eliminar</th>}
                 </tr>
               </thead>
               <tbody>
@@ -92,7 +91,7 @@ const List = ({ refresh, list }) => {
                           <td>
                             <Button
                               variant="link"
-                              onClick={() => handlerDelete(item)}
+                              onClick={e => handlerDelete(item)}
                             >
                               {
                                 <MdDeleteForever
