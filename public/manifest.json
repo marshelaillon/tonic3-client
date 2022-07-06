@@ -18,12 +18,11 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "http://localhost:3000/?mode=pwa",
+  "start_url": "/",
   "theme_color": "orange",
   "background_color": "#020122",
   "categories": ["entertainment", "streming", "virtual content"],
   "descripcion": "",
   "dir": "ltr",
-  "display_override": ["standalone", "fullscreen"],
-  "scope": "/"
+  "display_override": ["standalone", "fullscreen"]
 }

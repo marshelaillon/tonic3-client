@@ -4,13 +4,11 @@ import { Table} from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 import '../styles/adminView.css';
-import { GrSend } from 'react-icons/gr';
+
+import { GrRefresh, GrSend } from 'react-icons/gr';
+import { sendInvitations } from '../state/admin/guestController/guests';
 import { IoMdRefreshCircle } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  removeInvitations,
-  sendInvitations,
-} from '../state/admin/guestController/guests';
 import { sendInvi } from '../utils/sweetAlerts';
 import { MdDeleteForever } from 'react-icons/md';
 const List = ({ refresh, list }) => {
@@ -30,6 +28,7 @@ const List = ({ refresh, list }) => {
     );
   };
 
+
   return (
     <>
       <div className="container border">
@@ -38,21 +37,13 @@ const List = ({ refresh, list }) => {
             POR ACA DEBERIA ESTAR UN CONTADOR, ALGO DE INFO SOBRE LA SECCION QUE
             ESTA VISITANDO EL ADMIN Y DEMAS INFO RELEVANTE.
           </div>
-
-          {/* <Button
-              variant="link"
-              /* className="refresh-btn rounded-circle" 
-              onClick={() => refresh()}
-            >*/}
-
+          
           <IoMdRefreshCircle
             className='button-refresh'
             size={60}
             onClick={() => refresh()}
           />
-
-          {/* </Button> */}
-
+          
         </div>
         <Container>
           <div
@@ -104,6 +95,7 @@ const List = ({ refresh, list }) => {
                   )}
                 </>
               </tbody>
+
               {listener === 'guests' && (
                 
                 <button onClick={handlerClick} className="send-button">
