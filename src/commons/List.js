@@ -4,18 +4,17 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 import '../styles/adminView.css';
-import { GrRefresh, GrSend } from 'react-icons/gr'
-import { useDispatch } from 'react-redux'
+import { GrRefresh, GrSend } from 'react-icons/gr';
+import { useDispatch } from 'react-redux';
 import { sendInvitations } from '../state/admin/guestController/guests';
 import { sendInvi } from '../utils/sweetAlerts';
 const List = ({ refresh, list }) => {
-  const dispatch = useDispatch()
-  console.log(list.map(item => item.eventId))
+  const dispatch = useDispatch();
 
   const handlerClick = () => {
-    dispatch(sendInvitations())
-    sendInvi()
-  }
+    dispatch(sendInvitations());
+    sendInvi();
+  };
   return (
     <>
       <div className="container border">
@@ -28,7 +27,9 @@ const List = ({ refresh, list }) => {
             <Button
               /* className="refresh-btn rounded-circle" */
               onClick={() => refresh()}
-            >{<GrRefresh />}</Button>
+            >
+              {<GrRefresh />}
+            </Button>
           </div>
         </div>
         <Container>
@@ -66,11 +67,12 @@ const List = ({ refresh, list }) => {
                   )}
                 </>
               </tbody>
-              <Button onClick={handlerClick} className="" >Send {<GrSend />}</Button>
+              <Button onClick={handlerClick} className="">
+                Send {<GrSend />}
+              </Button>
             </Table>
           </div>
         </Container>
-
       </div>
     </>
   );
