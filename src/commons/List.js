@@ -10,7 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeItem } from '../state/admin/adminUI/removeItem';
 import { sendInvi } from '../utils/sweetAlerts';
 import { MdDeleteForever } from 'react-icons/md';
-const List = ({ refresh, list }) => {
+const List = ({ refresh, currentList }) => {
+  const { count, list } = currentList;
+  console.log(list, count);
   const dispatch = useDispatch();
   const listener = useSelector(state => state.listener);
 
@@ -32,10 +34,10 @@ const List = ({ refresh, list }) => {
   return (
     <>
       <div className="container border">
-        <div className="head-list row-sm info my-2">
-          <div className="col-sm-10 mx-2">
-            POR ACA DEBERIA ESTAR UN CONTADOR, ALGO DE INFO SOBRE LA SECCION QUE
-            ESTA VISITANDO EL ADMIN Y DEMAS INFO RELEVANTE.
+        <div className="head-list row-sm info my-2 d-flex justify-content-between">
+          <div className="col-sm-1 mx-2 border text-center my-2">
+            <div className="row-sm">{count}</div>
+            <div className="row-sm">total</div>
           </div>
 
           <IoMdRefreshCircle
