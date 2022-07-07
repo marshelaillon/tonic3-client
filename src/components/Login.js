@@ -12,6 +12,8 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useTranslation } from 'react-i18next';
 import '../styles/App.css';
 
+
+
 const Login = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -102,6 +104,7 @@ const Login = () => {
                   onExpire={e => settokenCap('')}
                 />
               </div>
+              {!captcha && <div style={{color: "red"}} >Por favor, acepta el captcha</div>}
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
