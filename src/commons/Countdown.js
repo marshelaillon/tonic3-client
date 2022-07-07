@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import '../styles/Countdown.scss';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 
 
 
 function Countdown() {
+  const { t } = useTranslation();
 
 
   const [timerDays, setTimerDays] = useState();
@@ -56,14 +59,14 @@ function Countdown() {
     <>
       <div className="wrap container-sm">
         <div>
-          <h1 className="event-title">My Event Title!</h1>
+          <h1 className="event-title">{t("my_event_title")}</h1>
           <h1>
             Event <strong>Countdown</strong>
           </h1>
 
           <div className="countdown row-sm">
             <div className="bloc-time days" data-init-value="24">
-              <span className="count-title">Days</span>
+              <span className="count-title">{t("days")}</span>
 
               {/*  <div className="figure days days-1">
                 <span className="top">{timerDays}</span>
@@ -89,7 +92,7 @@ function Countdown() {
             </div>
 
             <div className="bloc-time hours" data-init-value="24">
-              <span className="count-title">Hours</span>
+              <span className="count-title">{t("hours")}</span>
 
               {/* <div className="figure hours hours-1">
                 <span className="top">{timerHours}</span>
@@ -115,7 +118,7 @@ function Countdown() {
             </div>
 
             <div className="bloc-time min" data-init-value="0">
-              <span className="count-title">Minutes</span>
+              <span className="count-title">{t("minutes")}</span>
 
               {/* <div className="figure min min-1">
                 <span className="top">{timerMinutes}</span>
@@ -141,7 +144,7 @@ function Countdown() {
             </div>
 
             <div className="bloc-time sec" data-init-value="0">
-              <span className="count-title">Seconds</span>
+              <span className="count-title">{t("seconds")}</span>
 
               {/* <div className="figure sec sec-1">
                 <span className="top">{timerSeconds}</span>

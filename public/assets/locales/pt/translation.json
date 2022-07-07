@@ -6,6 +6,12 @@
   "login": "Entre",
   "logout": "Sair",
   "language": "Idioma",
+  "my_event_title":"Título Do Evento!",
+  "title":"Título",
+  "link_event":"Link do evento",
+  "description":"Descriptión",
+  "create_event":"Criar evento",
+  "add_invitations":"Adicionar convites",
 
   "email": "Correio electrónico",
   "password": "Senha",
@@ -13,8 +19,20 @@
   "dont_have_account": "¿Não tem uma conta?",
   "invite_to_register": "Convide-nos para registrar",
 
+  "enter_your_email":"Digite seu e-mail",
   "not_valid_email": "Email inválido",
   "required_email": "Email é obrigatório",
   "password_min_length": "Senha deve ter no mínimo 6 caracteres",
-  "required_password": "Senha é obrigatória"
+  "required_password": "Senha é obrigatória",
+
+  "btn_submit":"Enviar",
+  "btn_remove":"Remover",
+
+  "days":"Dias",
+  "hours":"Horas",
+  "minutes":"Minutos",
+  "seconds":"Segundos"
+
+
+
 }

@@ -6,13 +6,13 @@ import { useDispatch } from 'react-redux';
 import { addGuests } from '../../state/admin/guestController/guests';
 import { Dropdown } from 'react-bootstrap';
 import { invitationsSuccessfully } from '../../utils/sweetAlerts';
+import { useTranslation } from 'react-i18next';
 
 const AddGuests = ({ filterEvents }) => {
     const [selectEvent, setSelectEvent] = useState({});
     const dispatch = useDispatch();
-
+    const { t } = useTranslation();
     const handleSubmit = values => {
-        console.log('HICISTE CLICK');
         dispatch(
             addGuests({
                 emails: values.email.split(','),
@@ -94,7 +94,7 @@ const AddGuests = ({ filterEvents }) => {
                                     variant="light"
                                     disabled={!selectEvent.title}
                                 >
-                                    Añadir invitaciones
+                                    {t("add_invitations")}
                                 </Button>
                             </div>
                         </div>
