@@ -7,7 +7,7 @@ import AddEvents from './AddEvents';
 
 import AddGuests from './AddGuests';
 
-const Views = ({ current }) => {
+const Views = ({ current, refresh }) => {
   const events = useSelector(state => state.events);
   const listener = useSelector(state => state.listener);
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const Views = ({ current }) => {
   //   listener && navigate();
   // }, [listener]);
   const getGuests = {
-    events: <AddEvents />,
-    guests: <AddGuests filterEvents={filterEvents} />,
+    events: <AddEvents refresh={refresh} />,
+    guests: <AddGuests filterEvents={filterEvents} refresh={refresh} />,
     users: <h1>Estoy en users</h1>,
   };
 

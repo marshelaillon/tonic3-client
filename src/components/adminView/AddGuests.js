@@ -8,20 +8,24 @@ import { Dropdown } from 'react-bootstrap';
 import { invitationsSuccessfully } from '../../utils/sweetAlerts';
 import { useTranslation } from 'react-i18next';
 
-const AddGuests = ({ filterEvents }) => {
+const AddGuests = ({ filterEvents, refresh }) => {
     const [selectEvent, setSelectEvent] = useState({});
     const dispatch = useDispatch();
+
     const { t } = useTranslation();
-    const handleSubmit = values => {
-        dispatch(
+    const handleSubmit = async values => {
+        const response = await dispatch(
             addGuests({
                 emails: values.email.split(','),
                 eventId: selectEvent.id,
             })
         );
+        //bugaty2.0{team t3}
+        response && await refresh()
         invitationsSuccessfully(values.email.split(',').length, selectEvent.title);
         values.email = '';
         setSelectEvent({});
+
     };
 
     const validate = Yup.object({
@@ -29,7 +33,7 @@ const AddGuests = ({ filterEvents }) => {
     });
 
     return (
-        <div>
+        <div className='container div-add-guest'>
             <Formik
                 initialValues={{
                     email: '',
@@ -43,6 +47,7 @@ const AddGuests = ({ filterEvents }) => {
                             <label htmlFor="email">E-mail</label>
                             <Field
                                 multiple
+                                placeholder="separar los mails con coma"
                                 name="email"
                                 className={
                                     formik.touched.email && formik.errors.email
@@ -55,7 +60,12 @@ const AddGuests = ({ filterEvents }) => {
                                 <div className="invalid-feedback">{formik.errors.email}</div>
                             ) : null}
                         </div>
-                        <Dropdown>
+                        <Dropdown
+                        key={"direction"}
+                        id={`dropdown-button-drop-end`}
+                        drop={"end"}
+                        variant="secondary"
+                        title={`Drop end`}>
                             {selectEvent.title || 'Eventos'}
                             <Dropdown.Toggle
                                 style={{

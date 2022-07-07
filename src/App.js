@@ -29,7 +29,7 @@ function App() {
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
-
+  console.log(verifiedToken, " TTTTTTT ", verifiedGuest.verified)
   useEffect(() => {
     if (verifiedToken) {
       navigate('/register');

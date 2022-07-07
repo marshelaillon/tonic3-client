@@ -8,8 +8,9 @@ import { addGuests } from '../../state/admin/guestController/guests';
 import AddGuests from './AddGuests';
 import { useTranslation } from 'react-i18next';
 
-const AddEvents = () => {
-    const { t } = useTranslation();
+
+const AddEvents = ({ refresh }) => {
+ const { t } = useTranslation();
     const event = useSelector(state => state.event);
     const dispatch = useDispatch();
     const [eventComplete, setEventsComplete] = useState(false);
@@ -24,6 +25,10 @@ const AddEvents = () => {
 
         );
         setEventsComplete(true);
+        (async () => {
+            await refresh()
+        })()
+
     };
     const validate = Yup.object({
         url: Yup.string().url().required('Se nesecita Link del evento '),

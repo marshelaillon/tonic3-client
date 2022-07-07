@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 
 
-
 function Countdown() {
   const { t } = useTranslation();
 
@@ -18,7 +17,9 @@ function Countdown() {
   let interval = useRef();
 
   const startTimer = () => {
+
     const countDownDate = new Date("july 15, 2022").getTime();
+
 
     interval = setInterval(() => {
       const now = new Date().getTime();
@@ -95,6 +96,7 @@ function Countdown() {
               <span className="count-title">{t("hours")}</span>
 
               {/* <div className="figure hours hours-1">
+
                 <span className="top">{timerHours}</span>
                 <span className="top-back">
                   <span>{timerHours}</span>
@@ -120,7 +122,7 @@ function Countdown() {
             <div className="bloc-time min" data-init-value="0">
               <span className="count-title">{t("minutes")}</span>
 
-              {/* <div className="figure min min-1">
+             {/*  <div className="figure min min-1">
                 <span className="top">{timerMinutes}</span>
                 <span className="top-back">
                   <span>{timerMinutes}</span>
@@ -147,13 +149,14 @@ function Countdown() {
               <span className="count-title">{t("seconds")}</span>
 
               {/* <div className="figure sec sec-1">
+
                 <span className="top">{timerSeconds}</span>
                 <span className="top-back">
                   <span>{timerSeconds}</span>
                 </span>
                 <span className="bottom">{timerSeconds}</span>
                 <span className="bottom-back">
-                  <span>{timerSeconds}</span>
+                  <span>0</span>
                 </span>
               </div> */}
 

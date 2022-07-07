@@ -7,23 +7,34 @@ const isLocalhost = Boolean(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
     )
 );
+
 export function register(config) {
-  console.log('ENTRE', process.env.PUBLIC_URL);
+  console.log('node_env', process.env.NODE_ENV);
   console.log('CONFIG', config);
-  if (process.env.NODE_ENV === 'development' && 'serviceWorker' in navigator) {
+  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+    const publicUrl = new URL(
+      process.env.REACT_APP_PUBLIC_URL,
+      window.location.href
+    );
+    console.log('primer if, publicUrl', publicUrl);
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
       // serve assets; see https://github.com/facebook/create-react-app/issues/2374
+      console.log(
+        'publicUrl.origin !== window.location.origin si estoy aca probablemente algo salio mal.'
+      );
       return;
     }
+
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.REACT_APP_PUBLIC_URL}//service-worker.js`;
+      const swUrl = `${process.env.REACT_APP_PUBLIC_URL}/service-worker.js`;
+
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
+
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
         navigator.serviceWorker.ready.then(() => {
@@ -33,15 +44,16 @@ export function register(config) {
           );
         });
       } else {
+        console.log('como no soy localhost pude entrar');
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config);
       }
     });
-  } else {
-    console.log('todo mal con el SW');
   }
 }
+
 function registerValidSW(swUrl, config) {
+  console.log('HASTA ACA OTODO BIEN! SWuRL', swUrl);
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
@@ -60,6 +72,7 @@ function registerValidSW(swUrl, config) {
                 'New content is available and will be used when all ' +
                   'tabs for this page are closed. See https://cra.link/PWA.'
               );
+
               // Execute callback
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
@@ -69,6 +82,7 @@ function registerValidSW(swUrl, config) {
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
               console.log('Content is cached for offline use.');
+
               // Execute callback
               if (config && config.onSuccess) {
                 config.onSuccess(registration);
@@ -112,6 +126,7 @@ function checkValidServiceWorker(swUrl, config) {
       );
     });
 }
+
 export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready
