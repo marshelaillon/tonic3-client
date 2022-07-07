@@ -100,26 +100,12 @@ const AddEvents = ({ refresh }) => {
                   </div>
                 ) : null}
               </div>
-              {/* // requeri esto maxi */}
               {
                 eventComplete && <AddGuests />
-                /* (
-                <Field
-                    name="email"
-                    className={
-                        formik.touched.email && formik.errors.email
-                            ? 'form-control is-invalid'
-                            : 'form-control'
-                    }
-                    type="email"
-                /> */
               }
-
-              {/* Añadir fecha acá */}
 
               <div className="form-group">
                 <label htmlFor="date">{t('event_date')}</label>
-
                 <DatePicker
                   wrapperClassName="date-picker"
                   selected={date}
@@ -127,19 +113,6 @@ const AddEvents = ({ refresh }) => {
                   showTimeSelect
                   dateFormat="dd-MMMM-yyyy, hh:mm aa"
                 />
-
-                {/* <Field
-                  name="date"
-                  className={
-                    formik.touched.date && formik.errors.date
-                      ? 'form-control is-invalid'
-                      : 'form-control'
-                  }
-                  type="text"
-                /> */}
-                {/* {formik.touched.date && formik.errors.date ? (
-                  <div className="invalid-feedback">{formik.errors.date}</div>
-                ) : null} */}
               </div>
 
               <div className="mt-4 d-flex flex-row">
