@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { Table} from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-
+import { useTranslation } from 'react-i18next';
 import '../styles/adminView.css';
 
 import { GrRefresh, GrSend } from 'react-icons/gr';
@@ -13,7 +13,9 @@ import { sendInvitations } from '../state/admin/guestController/guests';
 import { removeItem } from '../state/admin/adminUI/removeItem';
 import { sendInvi } from '../utils/sweetAlerts';
 import { MdDeleteForever } from 'react-icons/md';
+
 const List = ({ refresh, list }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const listener = useSelector(state => state.listener);
 
@@ -64,7 +66,7 @@ const List = ({ refresh, list }) => {
                         </th>
                       </>
                     ))}
-                  {list[0] && <th>eliminar</th>}
+                  {list[0] && <th>{t("btn_remove")}</th>}
                 </tr>
               </thead>
               <tbody>

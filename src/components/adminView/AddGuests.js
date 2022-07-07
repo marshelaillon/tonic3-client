@@ -6,11 +6,13 @@ import { useDispatch } from 'react-redux';
 import { addGuests } from '../../state/admin/guestController/guests';
 import { Dropdown } from 'react-bootstrap';
 import { invitationsSuccessfully } from '../../utils/sweetAlerts';
+import { useTranslation } from 'react-i18next';
 
 const AddGuests = ({ filterEvents, refresh }) => {
     const [selectEvent, setSelectEvent] = useState({});
     const dispatch = useDispatch();
 
+    const { t } = useTranslation();
     const handleSubmit = async values => {
         const response = await dispatch(
             addGuests({
@@ -102,7 +104,7 @@ const AddGuests = ({ filterEvents, refresh }) => {
                                     variant="light"
                                     disabled={!selectEvent.title}
                                 >
-                                    Añadir invitaciones
+                                    {t("add_invitations")}
                                 </Button>
                             </div>
                         </div>
