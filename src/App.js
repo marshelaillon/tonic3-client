@@ -29,7 +29,7 @@ function App() {
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
-  console.log(verifiedToken, " TTTTTTT ", verifiedGuest.verified)
+
   useEffect(() => {
     if (verifiedToken) {
       navigate('/register');
@@ -41,7 +41,6 @@ function App() {
     dispatch(checkUser());
   }, [user.id]);
 
-
   return (
 
 <div className='container-all'>
@@ -49,7 +48,6 @@ function App() {
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar onClickOutside={onClickOutside} />
       <div className={sidebar ? 'blur' : ''}>
-
         {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
 
         <Routes>
