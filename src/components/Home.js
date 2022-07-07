@@ -8,7 +8,7 @@ const Home = () => {
   const verifiedGuest = useSelector(state => state.verifiedGuest);
   const verifiedToken = useSelector(state => state.verifiedToken);
   return (
-    <div>
+    <div className='home-content row-sm'>
       {/* si no hay usuario mostrar el primer ingreso con acces code */}
       {/* {(!verifiedGuest.verified || !verifiedToken) && <LoginWithToken />} */}
       {user.id || verifiedToken ? <Countdown /> : <LoginWithToken />}

@@ -42,6 +42,9 @@ function App() {
   }, [user.id]);
 
   return (
+
+<div className='container-all'>
+
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar onClickOutside={onClickOutside} />
       <div className={sidebar ? 'blur' : ''}>
@@ -65,7 +68,7 @@ function App() {
                 path="/register"
                 element={!verifiedGuest.checked && <Register />}
               />
-              <Route path="/user" element={user.id && <User />} />
+             
               {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
 
               <Route path="/admin/app/:type/*" element={<Adminview />} />
@@ -75,6 +78,7 @@ function App() {
         </Routes>
       </div>
     </div>
+</div>
   );
 }
 
