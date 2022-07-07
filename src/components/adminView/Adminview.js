@@ -29,7 +29,7 @@ const Adminview = () => {
       <Header />
       <List refresh={dispatchAndSetCurrent} list={currentList?.rows || []} />
       <Routes>
-        <Route path={`/:action`} element={<Views current={currentList} />} />
+        <Route path={`/:action`} element={<Views current={currentList} refresh={dispatchAndSetCurrent} />} />
       </Routes>
     </>
   );

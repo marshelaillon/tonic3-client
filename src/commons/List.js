@@ -1,16 +1,13 @@
 import React from 'react';
 import { Button, Container } from 'react-bootstrap';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import { Table } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-
 import '../styles/adminView.css';
-import { GrSend } from 'react-icons/gr';
+import { GrRefresh, GrSend } from 'react-icons/gr';
+import { sendInvitations } from '../state/admin/guestController/guests';
 import { IoMdRefreshCircle } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  removeInvitations,
-  sendInvitations,
-} from '../state/admin/guestController/guests';
+import { removeItem } from '../state/admin/adminUI/removeItem';
 import { sendInvi } from '../utils/sweetAlerts';
 import { MdDeleteForever } from 'react-icons/md';
 const List = ({ refresh, list }) => {
@@ -22,47 +19,34 @@ const List = ({ refresh, list }) => {
     sendInvi();
   };
 
-  const handlerDelete = item => {
-    dispatch(
-      removeInvitations({
-        id: item.id
-      })
-    );
+  const handlerDelete = async item => {
+    listener &&
+      (await dispatch(
+        removeItem({
+          id: item.id,
+        })
+      ));
+    await refresh();
   };
 
   return (
     <>
       <div className="container border">
-        <div className="row-sm info my-2 ">
-          <div className="col-sm-10 bg-warning mx-2">
+        <div className="head-list row-sm info my-2">
+          <div className="col-sm-10 mx-2">
             POR ACA DEBERIA ESTAR UN CONTADOR, ALGO DE INFO SOBRE LA SECCION QUE
             ESTA VISITANDO EL ADMIN Y DEMAS INFO RELEVANTE.
           </div>
-          <div /* className="col-sm-2 refresh-btn my-2" */>
-            <Button
-              variant="link"
-              /* className="refresh-btn rounded-circle" */
-              onClick={() => refresh()}
-            >
-              {
-                <IoMdRefreshCircle
-                  style={{
-                    border: '0.3px outset #ff521b',
-                    color: '#ff521b',
-                    fontSize: '40px',
-                    justifyContent: 'center',
-                  }}
-                />
-              }
-            </Button>
-          </div>
+
+          <IoMdRefreshCircle
+            className="button-refresh"
+            size={60}
+            onClick={() => refresh()}
+          />
         </div>
         <Container>
-          <div
-            style={{ justifyContent: 'center', alignItems: 'center' }}
-            className=""
-          >
-            <Table>
+          <div style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Table variant="light">
               <thead>
                 <tr style={{ color: 'white' }}>
                   {list &&
@@ -73,7 +57,7 @@ const List = ({ refresh, list }) => {
                         </th>
                       </>
                     ))}
-                  <th>eliminar</th>
+                  {list[0] && <th>eliminar</th>}
                 </tr>
               </thead>
               <tbody>
@@ -90,20 +74,11 @@ const List = ({ refresh, list }) => {
                             </>
                           ))}
                           <td>
-                            <Button
-                              variant="link"
+                            <MdDeleteForever
+                              className="trashcan"
+                              style={{}}
                               onClick={() => handlerDelete(item)}
-                            >
-                              {
-                                <MdDeleteForever
-                                  style={{
-                                    color: '#ff521b',
-                                    fontSize: '30px',
-                                    justifyContent: 'center',
-                                  }}
-                                />
-                              }
-                            </Button>
+                            />
                           </td>
                         </tr>
                       </>
@@ -113,10 +88,11 @@ const List = ({ refresh, list }) => {
                   )}
                 </>
               </tbody>
+
               {listener === 'guests' && (
-                <Button onClick={handlerClick} className="">
-                  Send {<GrSend />}
-                </Button>
+                <button onClick={handlerClick} className="send-button">
+                  Send {<GrSend value={{ color: 'red' }} />}
+                </button>
               )}
             </Table>
           </div>
