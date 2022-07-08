@@ -13,23 +13,29 @@ const Adminview = () => {
   const dispatch = useDispatch();
   const { type } = useParams();
 
-  const dispatchAndSetCurrent = () => {
-    dispatch(fillingList[_listener || type]())
-      .then(({ payload }) => setCurrentList(payload || []))
-      .catch(error => console.log('dispatchAndSetCurrent ERROR', error));
-    console.log('guests', guests);
+  const dispatchAndSetCurrent = async () => {
+    try {
+      const { payload } = await dispatch(fillingList[_listener || type]());
+      setCurrentList(payload || []);
+    } catch (error) {
+      console.error('REFRESH ', error);
+    }
   };
   useEffect(() => {
     dispatchAndSetCurrent();
   }, [_listener]);
-
 
   return (
     <>
       <Header />
       <List refresh={dispatchAndSetCurrent} list={currentList?.rows || []} />
       <Routes>
-        <Route path={`/:action`} element={<Views current={currentList} refresh={dispatchAndSetCurrent} />} />
+        <Route
+          path={`/:action`}
+          element={
+            <Views current={currentList} refresh={dispatchAndSetCurrent} />
+          }
+        />
       </Routes>
     </>
   );

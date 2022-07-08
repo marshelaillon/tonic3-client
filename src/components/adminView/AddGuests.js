@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -11,21 +11,20 @@ import { useTranslation } from 'react-i18next';
 const AddGuests = ({ filterEvents, refresh }) => {
     const [selectEvent, setSelectEvent] = useState({});
     const dispatch = useDispatch();
-
     const { t } = useTranslation();
+    console.log("REFRESH ", refresh)
     const handleSubmit = async values => {
-        const response = await dispatch(
+        const refresco = await dispatch(
             addGuests({
                 emails: values.email.split(','),
                 eventId: selectEvent.id,
             })
         );
-        //bugaty2.0{team t3}
-        response && await refresh()
+        console.log(refresco, "ESRTO ES EL CLG")
+        await refresh();
         invitationsSuccessfully(values.email.split(',').length, selectEvent.title);
         values.email = '';
         setSelectEvent({});
-
     };
 
     const validate = Yup.object({
@@ -33,13 +32,15 @@ const AddGuests = ({ filterEvents, refresh }) => {
     });
 
     return (
-        <div className='container div-add-guest'>
+        <div className="container div-add-guest">
             <Formik
                 initialValues={{
                     email: '',
                 }}
                 validationSchema={validate}
-                onSubmit={handleSubmit}
+                onSubmit={values => {
+                    handleSubmit(values);
+                }}
             >
                 {formik => (
                     <Form>
@@ -61,11 +62,12 @@ const AddGuests = ({ filterEvents, refresh }) => {
                             ) : null}
                         </div>
                         <Dropdown
-                        key={"direction"}
-                        id={`dropdown-button-drop-end`}
-                        drop={"end"}
-                        variant="secondary"
-                        title={`Drop end`}>
+                            key={'direction'}
+                            id={`dropdown-button-drop-end`}
+                            drop={'end'}
+                            variant="secondary"
+                            title={`Drop end`}
+                        >
                             {selectEvent.title || 'Eventos'}
                             <Dropdown.Toggle
                                 style={{
@@ -104,7 +106,7 @@ const AddGuests = ({ filterEvents, refresh }) => {
                                     variant="light"
                                     disabled={!selectEvent.title}
                                 >
-                                    {t("add_invitations")}
+                                    {t('add_invitations')}
                                 </Button>
                             </div>
                         </div>

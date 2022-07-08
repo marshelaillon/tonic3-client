@@ -22,11 +22,13 @@ export default function SidebarItem({ index, item, setTypeOfUser }) {
           }
           onClick={e => {
             if (item.title === t('logout')) {
-              dispatch(logoutUser());
-              dispatch(checkUser());
-              dispatch(toggleSidebar());
-              setTypeOfUser('notLogged');
-              navigate('/');
+              (async () => {
+                await dispatch(logoutUser());
+                await dispatch(checkUser());
+                await dispatch(toggleSidebar());
+                setTypeOfUser('notLogged');
+                navigate('/');
+              })();
             }
           }}
         >
