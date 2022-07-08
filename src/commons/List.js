@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { Container } from 'react-bootstrap';
 import { Table } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { useTranslation } from 'react-i18next';
 import '../styles/adminView.css';
 import { GrSend } from 'react-icons/gr';
+
 import { sendInvitations } from '../state/admin/guestController/guests';
 import { IoMdRefreshCircle } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,12 +26,12 @@ const List = ({ refresh, list }) => {
 
   const handlerDelete = async item => {
     listener &&
-      await dispatch(
+      (await dispatch(
         removeItem({
           id: item.id,
         })
-      );
-    await refresh()
+      ));
+    await refresh();
   };
 
   return (
@@ -42,16 +44,14 @@ const List = ({ refresh, list }) => {
           </div>
 
           <IoMdRefreshCircle
-            className='button-refresh'
+            className="button-refresh"
             size={60}
             onClick={() => refresh()}
           />
 
         </div>
         <Container>
-          <div
-            style={{ justifyContent: 'center', alignItems: 'center' }}
-          >
+          <div style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Table variant="light">
               <thead>
                 <tr style={{ color: 'white' }}>
@@ -80,15 +80,11 @@ const List = ({ refresh, list }) => {
                             </>
                           ))}
                           <td>
-
                             <MdDeleteForever
-                              className='trashcan'
-                              style={{
-
-                              }}
+                              className="trashcan"
+                              style={{}}
                               onClick={() => handlerDelete(item)}
                             />
-
                           </td>
                         </tr>
                       </>
@@ -102,7 +98,8 @@ const List = ({ refresh, list }) => {
               {listener === 'guests' && (
 
                 <button onClick={handlerClick} className="send-button">
-                  Send {<GrSend value={{ color: "red" }} />}
+                  Send {<GrSend value={{ color: 'red' }} />}
+
                 </button>
               )}
             </Table>
