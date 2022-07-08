@@ -13,6 +13,7 @@ import { checkUser } from './state/user/user';
 import Home from './components/Home';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
+import NotFound from './components/NotFound';
 
 import Adminview from './components/adminView/Adminview';
 import { toggleSidebar } from './state/UI/sidebar';
@@ -72,6 +73,7 @@ function App() {
               <Route path="/countdown" element={<Countdown />} />
             </>
           )}
+          <Route path="/not-found" element={<NotFound />} />
         </Routes>
       </div>
     </div>
