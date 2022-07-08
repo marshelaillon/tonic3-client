@@ -63,7 +63,10 @@ const LoginWhitToken = () => {
       .email('El email ingresado no es válido')
       .required('Se requiere un email'),
     token: usuarioValido && Yup.string().required('se requiere un token'),
-    password: usuarioValido && Yup.string().required('Se requiere contraseña'),
+    password: usuarioValido && Yup.string().required('Se requiere contraseña').matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
+    ),
   });
 
   return (
