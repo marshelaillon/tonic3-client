@@ -55,7 +55,11 @@ function App() {
           <Route path="/user" element={user.id && <User />} />
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
           {verifiedToken && verifiedGuest.verified ? (
-            <Route path="/" element={<Home />} />
+            <>
+             <Route path="/" element={<Home />} />
+             
+            </>
+           
           ) : (
             <>
               <Route path="/" element={<Home />} />
