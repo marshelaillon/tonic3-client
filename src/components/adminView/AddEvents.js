@@ -6,8 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addEvent } from '../../state/admin/eventController/event';
 import { addGuests } from '../../state/admin/guestController/guests';
 import AddGuests from './AddGuests';
+import { useTranslation } from 'react-i18next';
+
 
 const AddEvents = ({ refresh }) => {
+ const { t } = useTranslation();
     const event = useSelector(state => state.event);
     const dispatch = useDispatch();
     const [eventComplete, setEventsComplete] = useState(false);
@@ -25,6 +28,7 @@ const AddEvents = ({ refresh }) => {
         (async () => {
             await refresh()
         })()
+
     };
     const validate = Yup.object({
         url: Yup.string().url().required('Se nesecita Link del evento '),
@@ -48,7 +52,7 @@ const AddEvents = ({ refresh }) => {
                     <div className="container w-75 mt-4 form">
                         <Form>
                             <div className="form-group">
-                                <label htmlFor="title">Titulo </label>
+                                <label htmlFor="title">{t("title")} </label>
                                 <Field
                                     name="title"
                                     className={
@@ -63,7 +67,7 @@ const AddEvents = ({ refresh }) => {
                                 ) : null}
                             </div>
                             <div className="form-group">
-                                <label htmlFor="url">Link del evento </label>
+                                <label htmlFor="url">{t("link_event")}</label>
                                 <Field
                                     name="url"
                                     className={
@@ -78,7 +82,7 @@ const AddEvents = ({ refresh }) => {
                                 ) : null}
                             </div>
                             <div className="form-group">
-                                <label htmlFor="description">Descripción </label>
+                                <label htmlFor="description">{t("description")} </label>
                                 <Field
                                     name="description"
                                     as="textarea"
@@ -95,28 +99,15 @@ const AddEvents = ({ refresh }) => {
                                     </div>
                                 ) : null}
                             </div>
-                            {/* // requeri esto maxi */}
                             {
                                 eventComplete && <AddGuests />
-                                /* (
-
-                                                                    <Field
-                                                                        name="email"
-                                                                        className={
-                                                                            formik.touched.email && formik.errors.email
-                                                                                ? 'form-control is-invalid'
-                                                                                : 'form-control'
-                                                                        }
-                                                                        type="email"
-                                                                    /> */
-
                             }
 
                             <div className="mt-4 d-flex flex-row">
                                 <div className="form-group me-4">
                                     <Button type="submit" variant="light">
 
-                                        Crear evento
+                                        {t("create_event")}
 
                                     </Button>
                                 </div>

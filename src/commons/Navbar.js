@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import '../styles/Navbar.css';
 import '../styles/LanguageDropdown.css';
 import { useTranslation } from 'react-i18next';
@@ -49,7 +50,6 @@ function Navbar({ onClickOutside }) {
     // Hide the install button.
     setIsReadyForInstall(false);
   }
-
   return (
     <div className="nav-style">
       <NavLink to={'/'} className="home-icon ">

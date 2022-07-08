@@ -26,13 +26,13 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  console.log("TOKEN", verifiedToken, " GUESTS ", verifiedGuest)
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
-  console.log(verifiedToken, " TTTTTTT ", verifiedGuest.verified)
   useEffect(() => {
     if (verifiedToken) {
-      navigate('/register');
+      navigate('/Register');
       RegisterRequest();
     }
   }, [verifiedToken]);
@@ -41,32 +41,41 @@ function App() {
     dispatch(checkUser());
   }, [user.id]);
 
-
   return (
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar onClickOutside={onClickOutside} />
       <div className={sidebar ? 'blur' : ''}>
-
         {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
 
         <Routes>
           <Route path="/user" element={user.id && <User />} />
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
           {verifiedToken && verifiedGuest.verified ? (
-            <Route path="/" element={<Home />} />
+            <>
+              <Route
+                exact
+                path="/Register"
+                element={<Register />}
+              />
+
+              {!user.id && (
+                <Route path="/Login" element={<Login />} />
+              )}
+              <Route path="/" element={<Home />} />
+            </>
           ) : (
             <>
               <Route path="/" element={<Home />} />
-              <Route
-                path="/login"
-                element={!user.id && verifiedGuest.checked && <Login />}
-              />
+
+
+
+
+
               <Route path="/forgotPassword" element={<ForgotPassword />} />
-              <Route
-                exact
-                path="/register"
-                element={!verifiedGuest.checked && <Register />}
-              />
+
+
+
+
               <Route path="/user" element={user.id && <User />} />
               {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
 

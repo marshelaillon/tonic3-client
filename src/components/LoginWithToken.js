@@ -104,7 +104,7 @@ const LoginWhitToken = () => {
               {checkedEmail && !verifiedGuest.checked && (
                 <div className="form-group">
                   <label htmlFor="loginToken">
-                    Token
+                    Access Code
                     <Field
                       name="token"
                       className={
