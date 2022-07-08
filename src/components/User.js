@@ -62,6 +62,7 @@ export default function User() {
                   }}
                 >
                   {!editInput ? (
+                  
                     <>
                       Edita tu perfil
                       <BsFillGearFill
@@ -75,8 +76,8 @@ export default function User() {
                     </>
                   ) : (
                     <>
-                      {' '}
-                      Guarda
+                  
+                      Guarda tus cambios
                       <BsCheckCircleFill
                         onClick={handleSubmit}
                         type="submit"
@@ -97,7 +98,9 @@ export default function User() {
             <p>User Name</p>
             <input
               {...userName}
-              placeholder={user.userName}
+
+              placeholder={user.userName?.toString()}
+
               name="userName"
               className="perfil-input"
               disabled={!editInput}
@@ -108,8 +111,10 @@ export default function User() {
             <input
               name="firstName"
               className="perfil-input"
-              {...firstName}
-              placeholder={user.firstName}
+
+             {...firstName}
+              placeholder={user.firstName?.toString()}
+
               disabled={!editInput}
             />
           </label>
@@ -118,7 +123,9 @@ export default function User() {
             <input
               name="lastName"
               className="perfil-input"
-              placeholder={user.lastName}
+
+              placeholder={user.lastName?.toString()}
+
               {...lastName}
               disabled={!editInput}
             />
@@ -132,7 +139,9 @@ export default function User() {
             <input
               name="genre"
               className="perfil-input"
-              placeholder={user.genre}
+
+              placeholder={user.genre?.toString()}
+
               {...genre}
               disabled={!editInput}
             />

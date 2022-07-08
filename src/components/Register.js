@@ -9,6 +9,7 @@ import { RegisterSuccessfully } from '../utils/sweetAlerts';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useState, useEffect, useRef } from 'react';
 
+
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const Register = () => {
       .oneOf([Yup.ref('password'), null], 'La contraseña no coincide')
       .required('Se requiere confirmación de contraseña'),
   });
+
 
   return (
     <Formik
@@ -138,15 +140,15 @@ const Register = () => {
             </div>
 
             <div className='form-group'>
-                <HCaptcha
-                  ref={captcha}
-                  sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"
-                  onVerify={tokenCap => settokenCap(tokenCap)}
-                  onLoad={onLoad}
-                />
-              </div>
+              <HCaptcha
+                ref={captcha}
+                sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"
+                onVerify={tokenCap => settokenCap(tokenCap)}
+                onLoad={onLoad}
+              />
+            </div>
 
-       {/*      {!captcha && <div style={{color: "red"}} >Por favor, acepta el captcha</div>} */}
+           {!captcha && <div style={{color: "red"}} >Por favor, acepta el captcha</div>}
 
             <div className=" btn mt-4 d-flex flex-row">
               <div className="form-group me-4">

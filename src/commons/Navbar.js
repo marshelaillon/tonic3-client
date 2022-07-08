@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import Sidebar from '../components/Sidebar';
 import { toggleSidebar } from '../state/UI/sidebar';
 import LanguageDropdown from '../components/LanguageDropdown';
-import { Button } from 'react-bootstrap';
+import { Button, Nav } from 'react-bootstrap';
 
 function Navbar({ onClickOutside }) {
   const { t } = useTranslation();
@@ -51,7 +51,8 @@ function Navbar({ onClickOutside }) {
   }
 
   return (
-    <div className="nav-style">
+   
+    <div className="nav-style row-sm">
       <NavLink to={'/'} className="home-icon ">
         <GoHome size={40} />
       </NavLink>
@@ -82,13 +83,11 @@ function Navbar({ onClickOutside }) {
           />
         </div>
         <LanguageDropdown className="language-dropdown" />
-        <Button onClick={download} disabled={!isReadyForInstall}>
-          DESCARGAR PESHO
-        </Button>
       </div>
 
       {sidebar && <Sidebar onClickOutside={onClickOutside} />}
     </div>
+   
   );
 }
 export default Navbar;
