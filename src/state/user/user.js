@@ -24,11 +24,15 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'SEND_LOGIN_REQUEST',
   async credentials => {
-    const { error, data } = await axios.post(
-      'http://localhost:3001/api/users/login',
-      credentials
-    );
-    if (!error) return data;
+    try {
+      const { data } = await axios.post(
+        'http://localhost:3001/api/users/login',
+        credentials
+      );
+      return data.data;
+    } catch (error) {
+      console.error('USER-LOGIN ERROR', error);
+    }
   }
 );
 

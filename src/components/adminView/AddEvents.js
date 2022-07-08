@@ -11,17 +11,17 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/DatePicker.scss';
 
 const AddEvents = ({ refresh }) => {
+  //new Date().getTime() + 86400000
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date().getTime() + 86400000);
   const { t } = useTranslation();
-
   const handleSubmit = async values => {
     await dispatch(
       addEvent({
         title: values.title,
         url: values.url,
         description: values.description,
-        date: values.date,
+        date: date,
       })
     );
     await refresh();
@@ -31,6 +31,7 @@ const AddEvents = ({ refresh }) => {
     description: Yup.string().required(t('required_event_description')),
     title: Yup.string().required(t('required_event_title')),
     date: Yup.string().required(t('required_event_date')),
+    // yup.date().nullable().required('Start Date is required')
   });
 
   return (
@@ -43,7 +44,11 @@ const AddEvents = ({ refresh }) => {
           date,
         }}
         validationSchema={validate}
-        onSubmit={values => handleSubmit(values)}
+        onSubmit={values => {
+          // console.log('values', values);
+          // console.log('date', date);
+          handleSubmit(values);
+        }}
       >
         {formik => (
           <div className="container w-75 mt-4 form">
@@ -99,7 +104,9 @@ const AddEvents = ({ refresh }) => {
 
               <div className="form-group">
                 <label htmlFor="date">{t('event_date')}</label>
+
                 <DatePicker
+                  name="date"
                   wrapperClassName="date-picker"
                   selected={date}
                   onChange={date => setDate(date)}

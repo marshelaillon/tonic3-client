@@ -13,10 +13,11 @@ import { sendInvi } from '../utils/sweetAlerts';
 import { MdDeleteForever } from 'react-icons/md';
 
 const List = ({ refresh, currentList }) => {
+  const listener = useSelector(state => state.listener);
+  const user = useSelector(state => state.user);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { count, list } = currentList;
-  const listener = useSelector(state => state.listener);
 
   const handlerClick = () => {
     dispatch(sendInvitations());
