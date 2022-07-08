@@ -25,6 +25,17 @@
   "password_min_length": "Senha deve ter no mínimo 6 caracteres",
   "required_password": "Senha é obrigatória",
 
+  "required_event_link": "Link do evento é obrigatório",
+  "required_event_title": "Título do evento é obrigatório",
+  "required_event_description": "Descrição do evento é obrigatória",
+  "required_event_date": "Data do evento é obrigatória",
+
+  "event_title": "Título do evento",
+  "event_link": "Link do evento",
+  "event_description": "Descrição do evento",
+  "event_date": "Data",
+  "create_event": "Criar evento"
+
   "btn_submit":"Enviar",
   "btn_remove":"Remover",
 
@@ -32,7 +43,4 @@
   "hours":"Horas",
   "minutes":"Minutos",
   "seconds":"Segundos"
-
-
-
 }

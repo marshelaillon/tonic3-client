@@ -3,17 +3,19 @@ import axios from 'axios';
 import { WithoutInvitation } from '../../utils/sweetAlerts';
 
 export const verifyGuest = createAsyncThunk('VERIFY_GUEST', async body => {
+ 
   const { data } = await axios.post(
     'http://localhost:3001/api/users/verify-email',
     body
   );
-  return data;
+  return {data:data.data, email: body.email
+  }
 });
 
 export const verifyGuestReducer = createReducer(
   {},
   {
-    [verifyGuest.fulfilled]: (state, action) => action.payload?.data,
+    [verifyGuest.fulfilled]: (state, action) => action.payload,
     [verifyGuest.rejected]: (state, action) => {
       WithoutInvitation();
       return action.payload?.data;

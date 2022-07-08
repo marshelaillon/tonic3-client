@@ -13,6 +13,7 @@ import { checkUser } from './state/user/user';
 import Home from './components/Home';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
+import NotFound from './components/NotFound';
 
 import Adminview from './components/adminView/Adminview';
 import { toggleSidebar } from './state/UI/sidebar';
@@ -30,6 +31,7 @@ function App() {
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
+
   useEffect(() => {
     if (verifiedToken) {
       navigate('/Register');
@@ -42,22 +44,33 @@ function App() {
   }, [user.id]);
 
   return (
+
+<div className='container-all'>
+
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar onClickOutside={onClickOutside} />
       <div className={sidebar ? 'blur' : ''}>
         {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
 
+
         <Routes>
           <Route path="/user" element={user.id && <User />} />
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
           {verifiedToken && verifiedGuest.verified ? (
+
+            <>
+             <Route path="/" element={<Home />} />
+             
+            </>
+           
+          ) : (
+
             <>
               <Route
                 exact
                 path="/Register"
                 element={<Register />}
               />
-
               {!user.id && (
                 <Route path="/Login" element={<Login />} />
               )}
@@ -66,16 +79,7 @@ function App() {
           ) : (
             <>
               <Route path="/" element={<Home />} />
-
-
-
-
-
               <Route path="/forgotPassword" element={<ForgotPassword />} />
-
-
-
-
               <Route path="/user" element={user.id && <User />} />
               {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
 
@@ -83,9 +87,11 @@ function App() {
               <Route path="/countdown" element={<Countdown />} />
             </>
           )}
+          <Route path="/not-found" element={<NotFound />} />
         </Routes>
       </div>
     </div>
+</div>
   );
 }
 

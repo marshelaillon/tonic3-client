@@ -36,10 +36,26 @@ h1 {
   margin-bottom: 50px;
 }
 
+.contain-countdown{
+  margin: auto;
+}
+
 // Countdown
 .countdown {
   display: flex;
-  justify-content: center;
+  justify-content:center;
+  flex-direction: row;
+
+  .box-1{
+    display: flex;
+flex-direction: row;
+
+  }
+
+  .box-2{
+    display: flex;
+flex-direction: row;
+  }
 
   .bloc-time {
     margin-right: 45px;
@@ -84,7 +100,7 @@ h1 {
       &:after {
         content: '';
         position: absolute;
-        z-index: -1;
+         z-index: -1; 
         left: 0;
         bottom: 0;
         width: 100%;
@@ -94,7 +110,7 @@ h1 {
     }
 
     .top {
-      z-index: 3;
+       z-index: 3; 
       background-color: #f7f7f7;
       transform-origin: 50% 100%;
       -webkit-transform-origin: 50% 100%;
@@ -103,7 +119,7 @@ h1 {
     }
 
     .bottom {
-      z-index: 1;
+       z-index: 1; 
 
       &:before {
         content: '';
@@ -126,7 +142,7 @@ h1 {
       /* @include border-top-radius(10px); */
 
       span {
-        position: absolute;
+        /* position: absolute; */
         top: 0;
         left: 0;
         right: 0;
@@ -160,18 +176,50 @@ h1 {
   }
 }
 
-.center {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-}
 
 .description {
-  width: 800px;
+  display: flex;
+  justify-content: center;
+
+  width: auto;
   font-size: 1.65rem;
   color: aliceblue;
   font-family: 'Lato';
   margin-top: 60px;
   text-align: justify;
+  
   letter-spacing: 0.5px;
+}
+
+.contain-countdown-description{
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 700px) {
+
+  .countdown{
+    flex-flow: column wrap;
+    align-items: center;
+    width: auto;
+
+
+    .contain-countdown{
+      margin: 30px;
+
+      .contain-countdown-description{
+        flex-direction: row;
+      }
+
+    
+
+    }
+}
+
+/* .center{
+  flex-direction: column;
+  align-items: flex-end;
+  width: 75%;
+}
+ */
 }

@@ -25,6 +25,17 @@
   "password_min_length": "La contraseña debe tener al menos 6 caracteres",
   "required_password": "La contraseña es requerida",
 
+  "required_event_link": "El enlace es requerido",
+  "required_event_title": "El título es requerido",
+  "required_event_description": "La descripción es requerida",
+  "required_event_date": "La fecha es requerida",
+
+  "event_title": "Título",
+  "event_link": "Enlace",
+  "event_description": "Descripción",
+  "event_date": "Fecha",
+  "create_event": "Crear evento"
+
   "btn_submit":"Enviar",
   "btn_remove":"Eliminar",
 
@@ -32,5 +43,4 @@
   "hours":"Horas",
   "minutes":"Minutos",
   "seconds":"Segundos"
-
 }
