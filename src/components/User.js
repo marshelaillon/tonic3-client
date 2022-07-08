@@ -17,7 +17,7 @@ export default function User() {
   const firstName = useInput();
   const lastName = useInput();
   const genre = useInput();
-
+  console.log(user.profilePicture);
   useEffect(() => {
     if (!user.id) {
       PleaseRegister();
@@ -53,44 +53,41 @@ export default function User() {
                   className="card-img user-foto"
                 ></img>
               </li>
-             
-                <p
-                  className="nav-link active text-white"
-                  style={{
-                    background: '#141321b2',
-                    border: 'solid 1px #212529',
-                  }}
-                >
-                  {!editInput ? (
-                  
-                    <>
-                      Edita tu perfil
-                      <BsFillGearFill
-                        onClick={handleEdit}
-                        style={{
-                          margin: '1px  10px 2px',
-                          cursor: 'pointer',
-                        }}
-                        size={20}
-                      />
-                    </>
-                  ) : (
-                    <>
-                  
-                      Guarda tus cambios
-                      <BsCheckCircleFill
-                        onClick={handleSubmit}
-                        type="submit"
-                        style={{
-                          margin: '1px  10px 2px',
-                          cursor: 'pointer',
-                        }}
-                        size={20}
-                      />
-                    </>
-                  )}
-                </p>
-            
+
+              <p
+                className="nav-link active text-white"
+                style={{
+                  background: '#141321b2',
+                  border: 'solid 1px #212529',
+                }}
+              >
+                {!editInput ? (
+                  <>
+                    Edita tu perfil
+                    <BsFillGearFill
+                      onClick={handleEdit}
+                      style={{
+                        margin: '1px  10px 2px',
+                        cursor: 'pointer',
+                      }}
+                      size={20}
+                    />
+                  </>
+                ) : (
+                  <>
+                    Guarda tus cambios
+                    <BsCheckCircleFill
+                      onClick={handleSubmit}
+                      type="submit"
+                      style={{
+                        margin: '1px  10px 2px',
+                        cursor: 'pointer',
+                      }}
+                      size={20}
+                    />
+                  </>
+                )}
+              </p>
             </ul>
           </div>
 
@@ -98,9 +95,7 @@ export default function User() {
             <p>User Name</p>
             <input
               {...userName}
-
               placeholder={user.userName?.toString()}
-
               name="userName"
               className="perfil-input"
               disabled={!editInput}
@@ -111,10 +106,8 @@ export default function User() {
             <input
               name="firstName"
               className="perfil-input"
-
-             {...firstName}
+              {...firstName}
               placeholder={user.firstName?.toString()}
-
               disabled={!editInput}
             />
           </label>
@@ -123,9 +116,7 @@ export default function User() {
             <input
               name="lastName"
               className="perfil-input"
-
               placeholder={user.lastName?.toString()}
-
               {...lastName}
               disabled={!editInput}
             />
@@ -139,9 +130,7 @@ export default function User() {
             <input
               name="genre"
               className="perfil-input"
-
               placeholder={user.genre?.toString()}
-
               {...genre}
               disabled={!editInput}
             />
