@@ -11,7 +11,7 @@ const Home = () => {
     <div className='home-content row-sm'>
       {/* si no hay usuario mostrar el primer ingreso con acces code */}
       {/* {(!verifiedGuest.verified || !verifiedToken) && <LoginWithToken />} */}
-      {user.id || verifiedToken ? <Countdown /> : <LoginWithToken />}
+      {user.id/*  || verifiedToken */ ? <Countdown /> : <LoginWithToken />}
       {/* si hay usuario mostrar evento en pending */}
     </div>
   );

@@ -27,13 +27,14 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  console.log("TOKEN", verifiedToken, " GUESTS ", verifiedGuest)
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
 
   useEffect(() => {
     if (verifiedToken) {
-      navigate('/register');
+      navigate('/Register');
       RegisterRequest();
     }
   }, [verifiedToken]);
@@ -49,7 +50,6 @@ function App() {
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar onClickOutside={onClickOutside} />
       <div className={sidebar ? 'blur' : ''}>
-
         {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
 
 
@@ -57,25 +57,30 @@ function App() {
           <Route path="/user" element={user.id && <User />} />
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
           {verifiedToken && verifiedGuest.verified ? (
+
             <>
              <Route path="/" element={<Home />} />
              
             </>
            
           ) : (
+
             <>
-              <Route path="/" element={<Home />} />
-              <Route
-                path="/login"
-                element={!user.id && verifiedGuest.checked && <Login />}
-              />
-              <Route path="/forgotPassword" element={<ForgotPassword />} />
               <Route
                 exact
-                path="/register"
-                element={!verifiedGuest.checked && <Register />}
+                path="/Register"
+                element={<Register />}
               />
-             
+              {!user.id && (
+                <Route path="/Login" element={<Login />} />
+              )}
+              <Route path="/" element={<Home />} />
+            </>
+          ) : (
+            <>
+              <Route path="/" element={<Home />} />
+              <Route path="/forgotPassword" element={<ForgotPassword />} />
+              <Route path="/user" element={user.id && <User />} />
               {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
 
               <Route path="/admin/app/:type/*" element={<Adminview />} />

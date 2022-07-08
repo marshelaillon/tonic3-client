@@ -49,7 +49,6 @@ function Navbar({ onClickOutside }) {
     // Hide the install button.
     setIsReadyForInstall(false);
   }
-
   return (
    
     <div className="nav-style row-sm">

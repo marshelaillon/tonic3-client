@@ -8,16 +8,19 @@ import { useDispatch,useSelector } from 'react-redux';
 import { RegisterSuccessfully } from '../utils/sweetAlerts';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useState, useEffect, useRef } from 'react';
+import { Navigate } from 'react-router-dom';
+import { verifyGuest } from '../state/guests/verifyGuest';
 
 
 const Register = () => {
+  const verifiedToken = useSelector(state => state.verifiedToken);
+  const verifiedGuest = useSelector(state => state.verifiedGuest);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const verifiedGuest = useSelector(state => state.verifiedGuest);
 
   const [tokenCap, settokenCap] = useState(null);
   const captcha = useRef(null);
-
 
   const handleSubmit = values => {
     dispatch(
@@ -28,16 +31,20 @@ const Register = () => {
         confirmpassword: values.confirmpassword,
       })
     );
+    dispatch(
+      verifyGuest({
+        email: values.email,
+      })
+    );
     RegisterSuccessfully();
-    navigate('/');
+    navigate('/login');
   };
 
   const onLoad = () => {
     captcha.current.execute();
   };
   useEffect(() => {
-    if (tokenCap)
-      console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
+    if (tokenCap) console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
   }, [tokenCap]);
 
   const validate = Yup.object({
@@ -55,6 +62,8 @@ const Register = () => {
 
 
   return (
+<>
+  {!verifiedToken && <Navigate to="/" />}
     <Formik
       initialValues={{
         userName: '',
@@ -160,12 +169,13 @@ const Register = () => {
                 <Button type="reset" variant="dark">
                   Borrar Formulario
                 </Button>
+
               </div>
-            </div>
-          </Form>
-        </div>
-      )}
-    </Formik>
+            </Form>
+          </div>
+        )}
+      </Formik>
+    </>
   );
 };
 

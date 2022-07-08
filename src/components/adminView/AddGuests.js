@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -28,7 +28,6 @@ const AddGuests = ({ filterEvents, refresh }) => {
   };
   const refreshGuests = () => {
     if (addInvitation) {
-      console.log('SOY VERDADERO');
       refresh();
       setAddInvitations(false);
     } else {
