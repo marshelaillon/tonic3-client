@@ -21,12 +21,11 @@ body {
   text-transform: uppercase;
   /* height:260px; */
 }
-.recaptcha,
-#rc-imageselect {
-  /* transform: unset; */
-  margin: 30px 0px;
-  transform-origin: 10px;
-}
+iframe{
+  margin:50px 50px 10px;
+
+  }
+
 .form-control,
 .is-invalid {
   background-color: #020122;
@@ -45,17 +44,12 @@ input:-webkit-autofill:focus {
   -webkit-text-fill-color: #020122 !important;
 }
 
-/* @media (max-width: 500px) {
-  .recaptcha,
-  #rc-imageselect {
-    margin: 15px -5px;
-    transform-origin: 0px;
-  }
-
-  .container.form {
-    height: 250px;
-  }
-} */
+@media (max-width: 500px) {
+iframe{
+  margin-left: -50px;
+ transform: scale(0.68)
+}
+}
 
 /* .overlap {
   height: 100vh;
@@ -74,3 +68,6 @@ input:-webkit-autofill:focus {
 .blur {
   filter: blur(2px);
 }
+ .btn{
+  margin-bottom: 10px;
+ }

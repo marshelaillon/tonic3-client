@@ -48,13 +48,19 @@ function App() {
     <div className={sidebar ? 'overlap' : ''}>
       <Navbar onClickOutside={onClickOutside} />
       <div className={sidebar ? 'blur' : ''}>
+
         {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
+
 
         <Routes>
           <Route path="/user" element={user.id && <User />} />
           <Route path="/new-password/:id/:token" element={<NewPassword />} />
           {verifiedToken && verifiedGuest.verified ? (
-            <Route path="/" element={<Home />} />
+            <>
+             <Route path="/" element={<Home />} />
+             
+            </>
+           
           ) : (
             <>
               <Route path="/" element={<Home />} />

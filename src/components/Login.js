@@ -15,12 +15,15 @@ import '../styles/App.css';
 
 
 const Login = () => {
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [tokenCap, settokenCap] = useState('');
   const captcha = useRef(null);
+
+
 
   const handleSubmit = values => {
     captcha.current.execute();
@@ -96,15 +99,18 @@ const Login = () => {
                 ) : null}
               </div>
 
-              <div className="form-group">
+              
                 <HCaptcha
                   ref={captcha}
                   sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"
                   onVerify={tokenCap => settokenCap(tokenCap)}
                   onExpire={e => settokenCap('')}
+             
                 />
+
               </div>
               {!captcha && <div style={{color: "red"}} >Por favor, acepta el captcha</div>}
+
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">

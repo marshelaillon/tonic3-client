@@ -16,6 +16,7 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 const LoginWhitToken = () => {
   const navigate = useNavigate();
   const verifiedGuest = useSelector(state => state.verifiedGuest);
+  const guestdata=verifiedGuest?.data
   const dispatch = useDispatch();
   const [tries, setTries] = useState(0);
   const [usuarioValido, setUsuarioValido] = useState(false);
@@ -23,7 +24,7 @@ const LoginWhitToken = () => {
 
   const [tokenCap, settokenCap] = useState(null);
   const captcha = useRef(null);
-
+  
   const handleSubmit = values => {
 
     if (!checkedEmail) {
@@ -33,7 +34,7 @@ const LoginWhitToken = () => {
         })
         .catch(err => console.error(err));
     }
-    if (!verifiedGuest.checked) {
+    if (!guestdata.checked) {
       return dispatch(
         verifyToken({ email: values.email, token: values.token })
       ).then(state => {
@@ -101,7 +102,7 @@ const LoginWhitToken = () => {
 
               {/* si el usuario NO esta registrado, se lo verifica con el token
                 y se lo redirige a /register */}
-              {checkedEmail && !verifiedGuest.checked && (
+              {checkedEmail && !guestdata.checked && (
                 <div className="form-group">
                   <label htmlFor="loginToken">
                     Token
@@ -123,7 +124,7 @@ const LoginWhitToken = () => {
                 </div>
               )}
               {/* si el usuario esta ya registrado, se lo loguea */}
-              {checkedEmail && verifiedGuest.checked && (
+              {checkedEmail && guestdata.checked && (
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
                   <Field
@@ -151,9 +152,13 @@ const LoginWhitToken = () => {
                 />
               </div>
 
+
+              <div className=" mt-4 d-flex flex-row">
+
              {!captcha && <div style={{color: "red"}} >Por favor, acepta el captcha</div>} 
 
               <div className="mt-4 d-flex flex-row">
+
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
                     {!checkedEmail ? 'Welcome' : 'Enter'}

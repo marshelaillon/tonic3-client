@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { Button } from 'react-bootstrap';
 import { registerUser } from '../state/user/user';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { RegisterSuccessfully } from '../utils/sweetAlerts';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useState, useEffect, useRef } from 'react';
@@ -13,18 +13,17 @@ import { useState, useEffect, useRef } from 'react';
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const verifiedGuest = useSelector(state => state.verifiedGuest);
 
   const [tokenCap, settokenCap] = useState(null);
   const captcha = useRef(null);
 
 
   const handleSubmit = values => {
-    console.log(values);
-
     dispatch(
       registerUser({
         userName: values.userName,
-        email: values.email,
+        email: verifiedGuest.email,
         password: values.password,
         confirmpassword: values.confirmpassword,
       })
@@ -59,7 +58,7 @@ const Register = () => {
     <Formik
       initialValues={{
         userName: '',
-        email: '',
+        email: verifiedGuest.email,
         password: '',
         confirmpassword: '',
       }}
@@ -96,7 +95,10 @@ const Register = () => {
                     ? 'form-control is-invalid'
                     : 'form-control'
                 }
+                style={{color:"black"}}
                 type="email"
+                disabled
+                
               />
               {formik.touched.email && formik.errors.email ? (
                 <div className="invalid-feedback">{formik.errors.email}</div>
@@ -148,7 +150,7 @@ const Register = () => {
 
            {!captcha && <div style={{color: "red"}} >Por favor, acepta el captcha</div>}
 
-            <div className="mt-4 d-flex flex-row">
+            <div className=" btn mt-4 d-flex flex-row">
               <div className="form-group me-4">
                 <Button type="submit" variant="dark">
                   Registrarme

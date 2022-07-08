@@ -53,7 +53,7 @@ export default function User() {
                   className="card-img user-foto"
                 ></img>
               </li>
-              <li className="nav-item">
+             
                 <p
                   className="nav-link active text-white"
                   style={{
@@ -61,29 +61,36 @@ export default function User() {
                     border: 'solid 1px #212529',
                   }}
                 >
-                  Edita tu perfil
                   {!editInput ? (
-                    <BsFillGearFill
-                      onClick={handleEdit}
-                      style={{
-                        margin: '1px  10px 2px',
-                        cursor: 'pointer',
-                      }}
-                      size={20}
-                    />
+                  
+                    <>
+                      Edita tu perfil
+                      <BsFillGearFill
+                        onClick={handleEdit}
+                        style={{
+                          margin: '1px  10px 2px',
+                          cursor: 'pointer',
+                        }}
+                        size={20}
+                      />
+                    </>
                   ) : (
-                    <BsCheckCircleFill
-                      onClick={handleSubmit}
-                      type="submit"
-                      style={{
-                        margin: '1px  10px 2px',
-                        cursor: 'pointer',
-                      }}
-                      size={20}
-                    />
+                    <>
+                  
+                      Guarda tus cambios
+                      <BsCheckCircleFill
+                        onClick={handleSubmit}
+                        type="submit"
+                        style={{
+                          margin: '1px  10px 2px',
+                          cursor: 'pointer',
+                        }}
+                        size={20}
+                      />
+                    </>
                   )}
                 </p>
-              </li>
+            
             </ul>
           </div>
 
@@ -91,6 +98,7 @@ export default function User() {
             <p>User Name</p>
             <input
               {...userName}
+
               placeholder={user.userName?.toString()}
 
               name="userName"
@@ -106,6 +114,7 @@ export default function User() {
 
              {...firstName}
               placeholder={user.firstName?.toString()}
+
               disabled={!editInput}
             />
           </label>
@@ -114,7 +123,9 @@ export default function User() {
             <input
               name="lastName"
               className="perfil-input"
+
               placeholder={user.lastName?.toString()}
+
               {...lastName}
               disabled={!editInput}
             />
@@ -130,6 +141,7 @@ export default function User() {
               className="perfil-input"
 
               placeholder={user.genre?.toString()}
+
               {...genre}
               disabled={!editInput}
             />
