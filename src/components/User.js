@@ -92,6 +92,7 @@ export default function User() {
             <input
               {...userName}
               placeholder={user.userName?.toString()}
+
               name="userName"
               className="perfil-input"
               disabled={!editInput}
@@ -102,7 +103,8 @@ export default function User() {
             <input
               name="firstName"
               className="perfil-input"
-              {...firstName}
+
+             {...firstName}
               placeholder={user.firstName?.toString()}
               disabled={!editInput}
             />
@@ -126,6 +128,7 @@ export default function User() {
             <input
               name="genre"
               className="perfil-input"
+
               placeholder={user.genre?.toString()}
               {...genre}
               disabled={!editInput}

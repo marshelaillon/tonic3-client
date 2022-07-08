@@ -6,11 +6,12 @@ import { useDispatch } from 'react-redux';
 import { addGuests } from '../../state/admin/guestController/guests';
 import { Dropdown } from 'react-bootstrap';
 import { invitationsSuccessfully } from '../../utils/sweetAlerts';
+import { useTranslation } from 'react-i18next';
 
 const AddGuests = ({ filterEvents, refresh }) => {
-    const [selectEvent, setSelectEvent] = useState({});
-    const dispatch = useDispatch();
-
+  const [selectEvent, setSelectEvent] = useState({});
+  const dispatch = useDispatch();
+    const { t } = useTranslation();
     const handleSubmit = async values => {
         const response = await dispatch(
             addGuests({
@@ -23,21 +24,46 @@ const AddGuests = ({ filterEvents, refresh }) => {
         invitationsSuccessfully(values.email.split(',').length, selectEvent.title);
         values.email = '';
         setSelectEvent({});
-
     };
 
-    const validate = Yup.object({
-        email: Yup.string(),
-    });
+  const validate = Yup.object({
+    email: Yup.string(),
+  });
 
-    return (
-        <div className='container div-add-guest'>
-            <Formik
-                initialValues={{
-                    email: '',
-                }}
-                validationSchema={validate}
-                onSubmit={handleSubmit}
+  return (
+    <div className="container div-add-guest">
+      <Formik
+        initialValues={{
+          email: '',
+        }}
+        validationSchema={validate}
+        onSubmit={handleSubmit}
+      >
+        {formik => (
+          <Form>
+            <div className="form-group">
+              <label htmlFor="email">E-mail</label>
+              <Field
+                multiple
+                placeholder="separar los mails con coma"
+                name="email"
+                className={
+                  formik.touched.email && formik.errors.email
+                    ? 'form-control is-invalid'
+                    : 'form-control'
+                }
+                type="email"
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <div className="invalid-feedback">{formik.errors.email}</div>
+              ) : null}
+            </div>
+            <Dropdown
+              key={'direction'}
+              id={`dropdown-button-drop-end`}
+              drop={'end'}
+              variant="secondary"
+              title={`Drop end`}
             >
                 {formik => (
                     <Form>
@@ -102,7 +128,7 @@ const AddGuests = ({ filterEvents, refresh }) => {
                                     variant="light"
                                     disabled={!selectEvent.title}
                                 >
-                                    Añadir invitaciones
+                                    {t("add_invitations")}
                                 </Button>
                             </div>
                         </div>

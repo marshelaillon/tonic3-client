@@ -151,6 +151,8 @@ const LoginWhitToken = () => {
                 />
               </div>
 
+             {!captcha && <div style={{color: "red"}} >Por favor, acepta el captcha</div>} 
+
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
