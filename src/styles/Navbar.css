@@ -2,24 +2,27 @@
 
 .nav-style {
   background-color: #ff521b;
-  position: relative;
+  background: linear-gradient(to bottom right, #7e2003, #ff521b);
+  
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 70px;
+  width: 100%;
+  
 }
 
 .home-icon {
-  display: flex;
-  flex-direction: column;
+  
   margin: auto 5%;
   color: #020122;
   text-decoration: none;
   background-color: transparent;
   border: none;
   height: 40px;
+  width: auto;
 }
 .home-icon:hover {
   color: #ededf4;
@@ -37,8 +40,8 @@
 .nav-menu {
   background-color: #ff521b;
   width: 220px;
-  height: 100vh;
-  min-height: 100vh;
+ 
+  min-height: 95vh;
   display: flex;
   justify-content: start;
   /* position: fixed; */
@@ -52,6 +55,7 @@
 
 .nav-menu.active {
   margin-top: 70px;
+  
   left: 0;
   backdrop-filter: 'static';
   box-shadow: 0px 15px 11px 11px black;
@@ -82,6 +86,9 @@
 .person-icon {
   width: auto;
 }
+.language-dropdown{
+    width: auto;
+  }
 
 @media (max-width: 500px) {
   .welcome-msg {
@@ -92,11 +99,14 @@
     height: 25px;
   }
   .nav-menu {
-    width: 100vw;
+    width: 100%;
     height: auto;
     min-height: auto;
   }
-  .nav-style {
+
+  
+/*   .nav-style {
     height: 70px;
-  }
+    width: 100%;
+  } */
 }

@@ -1,6 +1,8 @@
 .container.porfile {
   background-color: transparent;
   border: none;
+  margin-top: 47px;
+  font-size: 20px;
 }
 
 .user-foto {
@@ -12,15 +14,17 @@
 }
 .card-header-tabs {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
 .user-card {
   width: 174px;
   margin-left: 208px;
   position: unset;
   padding: 0;
-  background-color: #141321b2;
+  background-color:  rgba(179, 175, 175, 0.452);
   border: solid 1px #212529;
 }
 .card-title {
@@ -28,9 +32,9 @@
 }
 .perfil-card {
   position: unset;
-  width: 50%;
+  width: 60%;
   border-bottom: none;
-  background-color: #141321b2;
+  background-color: rgba(179, 175, 175, 0.452);
   border: solid 1px #212529;
   margin: 0 auto;
 }
@@ -40,7 +44,7 @@
 }
 .perfil-input {
   width: 80%;
-  background-color: #141321b2;
+  background-color: #141321;
   color: aliceblue;
   border: solid 1px #212529;
   border-top: none;
@@ -48,10 +52,22 @@
   border-right: none;
   border-radius: 5px;
 }
-.icon-prefil{
-  margin: '1px  10px 2px',
- 
-  
+.icon-prefil {
+  margin: '1px  10px 2px';
+}
+.nav-item {
+  font-size: 15px;
+  background-color: rgba(179, 175, 175, 0.452);
+}
+p{
+  margin-top: 20px;
+  margin-bottom:5px;
+}
+label{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  align-content: center;
 }
 @media (max-width: 600px) {
   .row {
@@ -75,4 +91,11 @@
     visibility: hidden;
     height: 0;
   }
+  label{
+    justify-content: center;
+    flex-direction: column;
+  }
+.container.porfile {
+font-size: small;
+}
 }

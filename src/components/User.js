@@ -12,7 +12,7 @@ export default function User() {
   const [editInput, setEdit] = useState(false);
   const user = useSelector(state => state.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const userName = useInput();
   const firstName = useInput();
   const lastName = useInput();
@@ -35,18 +35,17 @@ export default function User() {
         userName: userName.value || user.userName,
         firstName: firstName.value || user.firstName,
         lastName: lastName.value || user.lastName,
-        genre: genre.value || user.genre
+        genre: genre.value || user.genre,
       })
-    )
-    handleEdit()
-
+    );
+    handleEdit();
   };
 
   return (
     <>
       <div className="container porfile">
         <div className="card mb-9 perfil-card ">
-          <div className="card-header" style={{ background: 'black'}}>
+          <div className="card-header" style={{ background: 'black' }}>
             <ul className="nav nav-tabs card-header-tabs">
               <li className="imag">
                 <img
@@ -54,7 +53,7 @@ export default function User() {
                   className="card-img user-foto"
                 ></img>
               </li>
-              <li className="nav-item">
+             
                 <p
                   className="nav-link active text-white"
                   style={{
@@ -62,30 +61,36 @@ export default function User() {
                     border: 'solid 1px #212529',
                   }}
                 >
-                  Edita tu perfil
                   {!editInput ? (
-                    <BsFillGearFill
-                      onClick={handleEdit}
-                      
-                      style={{
-                        margin: '1px  10px 2px',
-                        cursor: 'pointer',
-                      }}
-                      size={20}
-                    />
+                  
+                    <>
+                      Edita tu perfil
+                      <BsFillGearFill
+                        onClick={handleEdit}
+                        style={{
+                          margin: '1px  10px 2px',
+                          cursor: 'pointer',
+                        }}
+                        size={20}
+                      />
+                    </>
                   ) : (
-                    <BsCheckCircleFill
-                    onClick={handleSubmit}
-                      type= "submit"
-                      style={{
-                        margin: '1px  10px 2px',
-                        cursor: 'pointer',
-                      }}
-                      size={20}
-                    />
+                    <>
+                  
+                      Guarda tus cambios
+                      <BsCheckCircleFill
+                        onClick={handleSubmit}
+                        type="submit"
+                        style={{
+                          margin: '1px  10px 2px',
+                          cursor: 'pointer',
+                        }}
+                        size={20}
+                      />
+                    </>
                   )}
                 </p>
-              </li>
+            
             </ul>
           </div>
 
@@ -93,47 +98,50 @@ export default function User() {
             <p>User Name</p>
             <input
               {...userName}
-              placeholder={user.userName.toString()}
-              
+
+              placeholder={user.userName?.toString()}
+
               name="userName"
               className="perfil-input"
               disabled={!editInput}
             />
-            
           </label>
           <label className="text-white" htmlFor="text ">
             <p>Name</p>
             <input
-              name='firstName'
+              name="firstName"
               className="perfil-input"
+
              {...firstName}
-              placeholder={user.firstName.toString()}
-           
+              placeholder={user.firstName?.toString()}
+
               disabled={!editInput}
             />
           </label>
           <label className="text-white" htmlFor="text ">
             <p> Apellido</p>
             <input
-              name='lastName'
+              name="lastName"
               className="perfil-input"
-              placeholder={user.lastName.toString()}
+
+              placeholder={user.lastName?.toString()}
+
               {...lastName}
-              
               disabled={!editInput}
             />
           </label>
           <label className=" text-white" htmlFor="email">
             <p> E-mail</p>
-            <input className="perfil-input" value={user.email}/>
+            <input className="perfil-input" value={user.email} />
           </label>
           <label className=" text-white" name="text">
             <p> Genero</p>
             <input
-              name='genre'
+              name="genre"
               className="perfil-input"
-              
-              placeholder={user.genre.toString()}
+
+              placeholder={user.genre?.toString()}
+
               {...genre}
               disabled={!editInput}
             />
