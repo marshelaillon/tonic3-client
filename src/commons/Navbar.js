@@ -50,13 +50,12 @@ function Navbar({ onClickOutside }) {
     setIsReadyForInstall(false);
   }
   return (
-   
     <div className="nav-style row-sm">
       <NavLink to={'/'} className="home-icon ">
         <GoHome size={40} />
       </NavLink>
       <h2 className="welcome-msg">
-        {user.userName ? `Welcome, ${user.userName}` : t('welcome_msg')}
+        {user.userName ? `${t('welcome')}, ${user.userName}` : t('welcome_msg')}
       </h2>
       <div
         className="home-icon"
@@ -86,7 +85,6 @@ function Navbar({ onClickOutside }) {
 
       {sidebar && <Sidebar onClickOutside={onClickOutside} />}
     </div>
-   
   );
 }
 export default Navbar;

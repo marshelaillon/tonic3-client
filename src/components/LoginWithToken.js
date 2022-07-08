@@ -11,12 +11,13 @@ import { verifyGuest } from '../state/guests/verifyGuest';
 import { loginUser } from '../state/user/user';
 import updateToken from '../services/updateToken';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-
+import { useTranslation } from 'react-i18next';
 
 const LoginWhitToken = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const verifiedGuest = useSelector(state => state.verifiedGuest);
-  const guestdata=verifiedGuest?.data
+  const guestdata = verifiedGuest?.data;
   const dispatch = useDispatch();
   const [tries, setTries] = useState(0);
   const [usuarioValido, setUsuarioValido] = useState(false);
@@ -24,9 +25,8 @@ const LoginWhitToken = () => {
 
   const [tokenCap, settokenCap] = useState(null);
   const captcha = useRef(null);
-  
-  const handleSubmit = values => {
 
+  const handleSubmit = values => {
     if (!checkedEmail) {
       return dispatch(verifyGuest({ email: values.email }))
         .then(({ payload }) => {
@@ -55,8 +55,7 @@ const LoginWhitToken = () => {
     captcha.current.execute();
   };
   useEffect(() => {
-    if (tokenCap)
-      console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
+    if (tokenCap) console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
   }, [tokenCap]);
 
   const validate = Yup.object({
@@ -78,7 +77,6 @@ const LoginWhitToken = () => {
         validationSchema={validate}
         onSubmit={values => {
           handleSubmit(values);
-
         }}
       >
         {formik => (
@@ -143,7 +141,7 @@ const LoginWhitToken = () => {
                   ) : null}
                 </div>
               )}
-              <div className='form-group'>
+              <div className="form-group">
                 <HCaptcha
                   ref={captcha}
                   sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"
@@ -152,16 +150,18 @@ const LoginWhitToken = () => {
                 />
               </div>
 
-
               <div className=" mt-4 d-flex flex-row">
-
-             {!captcha && <div style={{color: "red"}} >Por favor, acepta el captcha</div>} 
+                {!captcha && (
+                  <div style={{ color: 'red' }}>
+                    Por favor, acepta el captcha
+                  </div>
+                )}
+              </div>
 
               <div className="mt-4 d-flex flex-row">
-
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
-                    {!checkedEmail ? 'Welcome' : 'Enter'}
+                    {!checkedEmail ? t('welcome_btn') : 'Enter'}
                   </Button>
                 </div>
               </div>

@@ -12,12 +12,11 @@ import '../../styles/DatePicker.scss';
 
 const AddEvents = ({ refresh }) => {
   const dispatch = useDispatch();
-  const [eventComplete, setEventsComplete] = useState(false);
   const [date, setDate] = useState(new Date().getTime() + 86400000);
   const { t } = useTranslation();
 
-  const handleSubmit = values => {
-    dispatch(
+  const handleSubmit = async values => {
+    await dispatch(
       addEvent({
         title: values.title,
         url: values.url,
@@ -25,10 +24,7 @@ const AddEvents = ({ refresh }) => {
         date: values.date,
       })
     );
-    setEventsComplete(true);
-    (async () => {
-      await refresh();
-    })();
+    await refresh();
   };
   const validate = Yup.object({
     url: Yup.string().url().required(t('required_event_link')),
@@ -100,9 +96,6 @@ const AddEvents = ({ refresh }) => {
                   </div>
                 ) : null}
               </div>
-              {
-                eventComplete && <AddGuests />
-              }
 
               <div className="form-group">
                 <label htmlFor="date">{t('event_date')}</label>

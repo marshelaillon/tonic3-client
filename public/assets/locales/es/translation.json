@@ -6,12 +6,12 @@
   "login": "Ingresar",
   "logout": "Cerrar sesión",
   "language": "Idioma",
-  "my_event_title":"¡Titulo Del Evento!",
-  "title":"Título",
-  "link_event":"Link del evento",
-  "description":"Descripción",
-  "create_event":"Crear evento",
-  "add_invitations":"Añadir invitacione",
+  "my_event_title": "¡Titulo Del Evento!",
+  "title": "Título",
+  "link_event": "Link del evento",
+  "description": "Descripción",
+  "create_event": "Crear evento",
+  "add_invitations": "Añadir invitacione",
 
   "email": "Correo electrónico",
   "password": "Contraseña",
@@ -19,7 +19,7 @@
   "dont_have_account": "¿No tenés una cuenta?",
   "invite_to_register": "Te invitamos a registrarte",
 
-  "enter_your_email":"Ingresa tu correo",
+  "enter_your_email": "Ingresa tu correo",
   "not_valid_email": "Correo electrónico no válido",
   "required_email": "Correo electrónico requerido",
   "password_min_length": "La contraseña debe tener al menos 6 caracteres",
@@ -34,13 +34,13 @@
   "event_link": "Enlace",
   "event_description": "Descripción",
   "event_date": "Fecha",
-  "create_event": "Crear evento"
 
-  "btn_submit":"Enviar",
-  "btn_remove":"Eliminar",
+  "btn_submit": "Enviar",
+  "btn_remove": "Eliminar",
+  "welcome_btn": "Bienvenido",
 
-  "days":"Dias",
-  "hours":"Horas",
-  "minutes":"Minutos",
-  "seconds":"Segundos"
+  "days": "Dias",
+  "hours": "Horas",
+  "minutes": "Minutos",
+  "seconds": "Segundos"
 }

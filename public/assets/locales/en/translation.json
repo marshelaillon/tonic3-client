@@ -1,17 +1,17 @@
 {
-  "welcome_msg": "Welcome to Virtual Events T3!",
+  "welcome_msg": "Welcome to Virtual Events!",
   "home": "Home",
   "profile": "Profile",
   "register": "Register",
   "login": "Login",
   "logout": "Logout",
   "language": "Language",
-  "my_event_title":"My Event Title!",
-  "title":"Title",
-  "link_event":"Event link",
-  "description":"Descriptión",
-  "create_event":"Create event",
-  "add_invitations":"Add invitations",
+  "my_event_title": "My Event Title!",
+  "title": "Title",
+  "link_event": "Event link",
+  "description": "Descriptión",
+  "create_event": "Create event",
+  "add_invitations": "Add invitations",
 
   "email": "Email",
   "password": "Password",
@@ -19,7 +19,7 @@
   "dont_have_account": "Don't have an account?",
   "invite_to_register": "Invite to register",
 
-  "enter_your_email":"Enter your email",
+  "enter_your_email": "Enter your email",
   "not_valid_email": "Email is not valid",
   "required_email": "Email is required",
   "password_min_length": "Password must be at least 6 characters long",
@@ -34,13 +34,13 @@
   "event_link": "Event link",
   "event_description": "Description",
   "event_date": "Date",
-  "create_event": "Create event"
 
-  "btn_submit":"Submit",
-  "btn_remove":"Remove",
+  "btn_submit": "Submit",
+  "btn_remove": "Remove",
+  "welcome_btn": "Welcome",
 
-  "days":"Days",
-  "hours":"Hours",
-  "minutes":"Minutes",
-  "seconds":"Seconds"
+  "days": "Days",
+  "hours": "Hours",
+  "minutes": "Minutes",
+  "seconds": "Seconds"
 }

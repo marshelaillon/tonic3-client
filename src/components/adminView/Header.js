@@ -17,6 +17,7 @@ export default function Header() {
     },
     { title: 'Users', options: ['Delete user'] },
   ];
+
   return (
     <>
       <header>
@@ -26,8 +27,9 @@ export default function Header() {
               <ul className="d-flex justify-content-around">
                 {dropdownItems.map((item, i) => (
                   <>
-                    <span className='span-column'>
-                      <li className='container-li'
+                    <span className="span-column">
+                      <li
+                        className="container-li"
                         key={`li ${i}`}
                         onClick={e => {
                           e.preventDefault();
@@ -37,12 +39,13 @@ export default function Header() {
                       >
                         {item.title}
                       </li>
-                      <Dropdown 
+                      <Dropdown
                         id={`dropdown-button-drop-end`}
-                        drop={"end"}
+                        drop={'end'}
                         variant="secondary"
                         title={`Drop end`}
-                        key={i}>
+                        key={i}
+                      >
                         <Dropdown.Toggle
                           style={{
                             backgroundColor: 'transparent',
@@ -61,7 +64,7 @@ export default function Header() {
                         >
                           {item.options.map((option, i) => (
                             <span>
-                              <Dropdown.Item 
+                              <Dropdown.Item
                                 key={`dropd.item ${i}`}
                                 style={{ color: '#f5f6f7' }}
                                 onClick={e => {

@@ -4,8 +4,8 @@ export const InvalidToken = () =>
   Swal.fire({
     position: 'top',
     icon: 'error',
-    title: 'TOKEN NO EXISTE',
-    text: 'hemos enviado un mail',
+    title: 'EL CÓDIGO DE ACCESO NO EXISTE',
+    text: 'Hemos enviado un mail',
     showConfirmButton: true,
   });
 
@@ -14,7 +14,7 @@ export const WithoutInvitation = () =>
     position: 'top',
     icon: 'warning',
     title: 'Email incorrecto',
-    text: 'El email ingresado no cuenta con una invitacion, verifique porfavor.',
+    text: 'El email ingresado no cuenta con una invitación, verifique, por favor',
     showConfirmButton: true,
   });
 
@@ -22,7 +22,7 @@ export const InvalidPassword = () =>
   Swal.fire({
     position: 'top',
     icon: 'warning',
-    title: 'Contraseña invalida !',
+    title: 'Contraseña inválida!',
     text: 'Vuelva a intentarlo ',
     showConfirmButton: false,
     timer: 1200,
@@ -32,8 +32,8 @@ export const RegisterRequest = () =>
   Swal.fire({
     position: 'top',
     icon: 'info',
-    title: 'Ya casi !',
-    text: 'Solo debes registrarte y no volveras a necesitar un token!',
+    title: 'Ya casi!',
+    text: 'Sólo debes registrarte y no volverás a necesitar un código de acceso!',
     showConfirmButton: false,
     timer: 3500,
   });
@@ -41,8 +41,8 @@ export const InvalidRegister = () =>
   Swal.fire({
     position: 'top',
     icon: 'warning',
-    title: 'No fue posible registrarte !',
-    text: 'Solo debes registrarte y no volveras a necesitar un token!',
+    title: 'No fue posible registrarte!',
+    text: 'Solo debes registrarte y no volverás a necesitar un código de acceso!',
     showConfirmButton: false,
     timer: 3500,
   });
@@ -62,7 +62,7 @@ export const NotMatchPassword = () =>
     position: 'top',
     icon: 'error',
     title: 'Error !',
-    text: 'La contraseñas no coinciden ',
+    text: 'La contraseñas no coinciden',
     showConfirmButton: false,
     timer: 2500,
   });
@@ -71,7 +71,7 @@ export const PasswordSuccessfully = () =>
   Swal.fire({
     position: 'top',
     icon: 'success',
-    text: 'La contraseñas se cambio correctamente  ',
+    text: 'La contraseña se cambio correctamente',
     showConfirmButton: false,
     timer: 2500,
   });
@@ -98,7 +98,7 @@ export const PleaseRegister = () => {
   Swal.fire({
     position: 'top',
     icon: 'info',
-    text: 'Porfavor registrese para acceder a su perfil!',
+    text: 'Por favor, registrese para acceder a su perfil!',
     showConfirmButton: false,
   });
 };
@@ -107,9 +107,9 @@ export const invitationsSuccessfully = (num, event) => {
   Swal.fire({
     position: 'top',
     icon: 'success',
-    text: `Haz añadido ${num} invitados al evento ${event}`,
+    text: `Has añadido ${num} invitados al evento ${event}`,
     showConfirmButton: false,
-    timer: 2500
+    timer: 2500,
   });
 };
 
@@ -117,8 +117,8 @@ export const sendInvi = () => {
   Swal.fire({
     position: 'top',
     icon: 'success',
-    text: `Haz enviado las invitaciones a los eventos `,
+    text: `Has enviado las invitaciones a los eventos `,
     showConfirmButton: false,
-    timer: 2500
+    timer: 2500,
   });
 };

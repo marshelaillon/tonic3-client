@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -15,7 +15,7 @@ const AddGuests = ({ filterEvents, refresh }) => {
   const { t } = useTranslation();
 
   const handleSubmit = async values => {
-    dispatch(
+    await dispatch(
       addGuests({
         emails: values.email.split(','),
         eventId: selectEvent.id,
@@ -31,7 +31,6 @@ const AddGuests = ({ filterEvents, refresh }) => {
       refresh();
       setAddInvitations(false);
     } else {
-      console.log('SOY FALSO');
       refresh();
       setAddInvitations(true);
     }
@@ -92,7 +91,7 @@ const AddGuests = ({ filterEvents, refresh }) => {
                   border: 'none',
                 }}
               >
-                {filterEvents.map((event, i) => (
+                {filterEvents?.map((event, i) => (
                   <span key={`dropd.item ${i}`}>
                     <Dropdown.Item
                       key={`dropd.item ${i}`}
