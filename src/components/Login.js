@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUser } from '../state/user/user';
 import { Welcome } from '../utils/sweetAlerts';
 import { useEffect } from 'react';
@@ -12,18 +12,13 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useTranslation } from 'react-i18next';
 import '../styles/App.css';
 
-
-
 const Login = () => {
-
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [tokenCap, settokenCap] = useState('');
   const captcha = useRef(null);
-
-
 
   const handleSubmit = values => {
     captcha.current.execute();
@@ -98,19 +93,17 @@ const Login = () => {
                   </div>
                 ) : null}
               </div>
-
-              
+              <div>
                 <HCaptcha
                   ref={captcha}
                   sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"
                   onVerify={tokenCap => settokenCap(tokenCap)}
                   onExpire={e => settokenCap('')}
-             
                 />
-
               </div>
-              {!captcha && <div style={{color: "red"}} >Por favor, acepta el captcha</div>}
-
+              {!captcha && (
+                <div style={{ color: 'red' }}>Por favor, acepta el captcha</div>
+              )}
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">

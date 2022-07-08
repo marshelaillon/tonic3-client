@@ -11,14 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeItem } from '../state/admin/adminUI/removeItem';
 import { sendInvi } from '../utils/sweetAlerts';
 import { MdDeleteForever } from 'react-icons/md';
-const List = ({ refresh, currentList }) => {
-  const { count, list } = currentList;
-  console.log(list, count);
 
-const List = ({ refresh, list }) => {
+const List = ({ refresh, currentList }) => {
+  const listener = useSelector(state => state.listener);
+  const user = useSelector(state => state.user);
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const listener = useSelector(state => state.listener);
+  const { count, list } = currentList;
 
   const handlerClick = () => {
     dispatch(sendInvitations());
@@ -63,7 +62,7 @@ const List = ({ refresh, list }) => {
                         </th>
                       </>
                     ))}
-                  {list[0] && <th>{t("btn_remove")}</th>}
+                  {list[0] && <th>{t('btn_remove')}</th>}
                 </tr>
               </thead>
               <tbody>
@@ -82,7 +81,6 @@ const List = ({ refresh, list }) => {
                           <td>
                             <MdDeleteForever
                               className="trashcan"
-                              style={{}}
                               onClick={() => handlerDelete(item)}
                             />
                           </td>

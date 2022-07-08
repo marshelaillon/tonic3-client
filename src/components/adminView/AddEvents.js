@@ -11,30 +11,27 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/DatePicker.scss';
 
 const AddEvents = ({ refresh }) => {
+  //new Date().getTime() + 86400000
   const dispatch = useDispatch();
-  const [eventComplete, setEventsComplete] = useState(false);
   const [date, setDate] = useState(new Date().getTime() + 86400000);
   const { t } = useTranslation();
-
-  const handleSubmit = values => {
-    dispatch(
+  const handleSubmit = async values => {
+    await dispatch(
       addEvent({
         title: values.title,
         url: values.url,
         description: values.description,
-        date: values.date,
+        date: date,
       })
     );
-    setEventsComplete(true);
-    (async () => {
-      await refresh();
-    })();
+    await refresh();
   };
   const validate = Yup.object({
     url: Yup.string().url().required(t('required_event_link')),
     description: Yup.string().required(t('required_event_description')),
     title: Yup.string().required(t('required_event_title')),
     date: Yup.string().required(t('required_event_date')),
+    // yup.date().nullable().required('Start Date is required')
   });
 
   return (
@@ -47,7 +44,11 @@ const AddEvents = ({ refresh }) => {
           date,
         }}
         validationSchema={validate}
-        onSubmit={values => handleSubmit(values)}
+        onSubmit={values => {
+          // console.log('values', values);
+          // console.log('date', date);
+          handleSubmit(values);
+        }}
       >
         {formik => (
           <div className="container w-75 mt-4 form">
@@ -100,13 +101,12 @@ const AddEvents = ({ refresh }) => {
                   </div>
                 ) : null}
               </div>
-              {
-                eventComplete && <AddGuests />
-              }
 
               <div className="form-group">
                 <label htmlFor="date">{t('event_date')}</label>
+
                 <DatePicker
+                  name="date"
                   wrapperClassName="date-picker"
                   selected={date}
                   onChange={date => setDate(date)}

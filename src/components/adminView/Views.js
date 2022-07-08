@@ -11,12 +11,9 @@ const Views = ({ current, refresh }) => {
   const events = useSelector(state => state.events);
   const listener = useSelector(state => state.listener);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { type } = useParams();
   const [filterEvents, setFilterEvents] = useState([]);
-  // useEffect(() => {
-  //   listener && navigate();
-  // }, [listener]);
+
   const getGuests = {
     events: <AddEvents refresh={refresh} />,
     guests: <AddGuests filterEvents={filterEvents} refresh={refresh} />,
@@ -27,12 +24,16 @@ const Views = ({ current, refresh }) => {
     if (events.rows) {
       setFilterEvents(events.rows.filter(item => item.status === 'pending'));
     } else {
-      dispatch(getEvents()).then(({ payload }) => {
-        setFilterEvents(payload.rows.filter(item => item.status === 'pending'));
-      })
+      dispatch(getEvents())
+        .then(({ payload }) => {
+          setFilterEvents(
+            payload.rows.filter(item => item.status === 'pending')
+          );
+        })
         .catch(err => console.error(err));
     }
   }, [current]);
+
   return (
     <>
       <div className="container-sm content border">{getGuests[type]}</div>
