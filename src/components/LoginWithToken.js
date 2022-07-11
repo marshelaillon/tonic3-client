@@ -12,9 +12,9 @@ import { loginUser } from '../state/user/user';
 import updateToken from '../services/updateToken';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'react-icons-kit';
+/* import { Icon } from 'react-icons-kit';
 import {eye} from 'react-icons-kit/icomoon/eye';
-import {eyeBlocked} from 'react-icons-kit/icomoon/eyeBlocked';
+import {eyeBlocked} from 'react-icons-kit/icomoon/eyeBlocked'; */
 
 function LoginWhitToken() {
   const navigate = useNavigate();
@@ -28,10 +28,10 @@ function LoginWhitToken() {
 
   const [tokenCap, settokenCap] = useState(null);
   const captcha = useRef(null);
-
+/* 
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(eyeBlocked);
-
+ */
   const handleSubmit = values => {
     if (!checkedEmail) {
       return dispatch(verifyGuest({ email: values.email }))
@@ -65,7 +65,7 @@ function LoginWhitToken() {
       console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
   }, [tokenCap]);
 
-  const handleToggle = () => {
+ /*  const handleToggle = () => {
     if (type === 'password') {
       setIcon(eye);
       setType('text');
@@ -74,7 +74,7 @@ function LoginWhitToken() {
       setIcon(eyeBlocked);
       setType('password');
     }
-  };
+  }; */
 
   const validate = Yup.object({
     email: Yup.string()
@@ -146,8 +146,8 @@ function LoginWhitToken() {
                     className={formik.touched.password && formik.errors.password
                       ? 'form-control is-invalid'
                       : 'form-control'}
-                    type={type} />
-                    <span onClick={handleToggle}><Icon icon={icon} size={25} /></span>
+                    type=/* {type}  */ "password"/>
+                  {/*   <span onClick={handleToggle}><Icon icon={icon} size={25} /></span> */}
 
 
                   {formik.touched.password && formik.errors.password ? (
