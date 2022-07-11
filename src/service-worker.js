@@ -65,7 +65,7 @@ self.addEventListener('install', event => {
 //intercepta correctamente las peticiones.
 self.addEventListener('fetch', async event => {
   console.log('event.request.url.pathname', event.request.url.pathname);
-  if (event.request.url.pathname == '/api/admin/get-all-events') {
+  if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
     return event.respondWhit(
       new Promise.resolve({ text: 'es todo lo que tengo para devolverte pa' })
     );
