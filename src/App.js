@@ -24,6 +24,7 @@ function App() {
   const user = useSelector(state => state.user);
   const currentEvent = useSelector(state => state.currentEvent);
   const verifiedGuest = useSelector(state => state.verifiedGuest);
+  // const verifiedGuest = useSelector(state => state.verifiedGuest)?.data; // No funciona, tonces lo comento no más
   const verifiedToken = useSelector(state => state.verifiedToken);
   const userEvents = useSelector(state => state.userEvents);
   const token = useSelector(state => state.token);
@@ -70,7 +71,7 @@ function App() {
           {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
 
           <Routes>
-            <Route path="/user" element={user.id && <User />} />
+            {/* <Route path="/user" element={user.id && <User />} /> */}
             <Route path="/new-password/:id/:token" element={<NewPassword />} />
             {verifiedToken && verifiedGuest.verified ? (
               <>
@@ -98,9 +99,5 @@ function App() {
     </div>
   );
 }
-
-// DEMO 01/07
-// USO HORARIO POR IP ----> MOMENT
-// avetriguar sobre lenscrip ---> obtenes un certificado SSL.
 
 export default App;
