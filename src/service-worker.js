@@ -68,7 +68,7 @@ self.addEventListener('activate', async event => {
 self.addEventListener('fetch', async event => {
   console.log('event.request.url', event.request.url);
   if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
-    const key = caches.keys();
+    const key = await caches.keys();
     event.respondWhit(async () => await caches.match(key));
   }
   console.log('NO ENTRE AL IF');
