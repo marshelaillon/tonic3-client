@@ -54,15 +54,19 @@ self.addEventListener('message', event => {
   }
 });
 
-self.addEventListener('activate', event => {
+self.addEventListener('activate', async event => {
   console.log('Estoy frenando la instalacion con un waitUntil()');
-  const cache = caches.open('my-new-cache');
-  cache.add('Hola, me guardaron.-');
+  const keys = await caches.keys();
+  keys.map(key => {
+    console.log('key', key);
+    const cache = caches.open(key);
+    cache.add(`Hola, me guardaron en ${key}`);
+  });
 });
 
 //intercepta correctamente las peticiones.
 self.addEventListener('fetch', async event => {
-  console.log('event.request.url.pathname', event.request.url.pathname);
+  console.log('event.request.url', event.request.url);
   if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
     event.respondWhit(async () => await caches.match('my-new-cache'));
   }
