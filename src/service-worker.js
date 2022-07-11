@@ -69,7 +69,7 @@ self.addEventListener('fetch', async event => {
     const cacheResponse = await caches.match(event.request);
     if (cacheResponse) return new Response(cacheResponse);
     try {
-      const fetchResponse = await fetch(request);
+      const fetchResponse = await fetch(event.request);
       console.log('fetchResponse', fetchResponse);
       return new Response(fetchResponse);
     } catch (error) {
