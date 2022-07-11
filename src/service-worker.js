@@ -67,16 +67,18 @@ self.addEventListener('fetch', async event => {
   console.log('event.request.url', event.request.url);
   if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
     const cacheResponse = await caches.match(event.request);
-    if (cacheResponse) return new Response(cacheResponse);
+    if (cacheResponse) return event.respondWhit(cacheResponse);
     try {
       const fetchResponse = await fetch(event.request);
       console.log('fetchResponse', fetchResponse);
-      return new Response(fetchResponse);
+      return event.respondWhit(fetchResponse);
     } catch (error) {
-      return new Response('Network error happened', {
-        status: 408,
-        headers: { 'Content-Type': 'text/plain' },
-      });
+      return event.respondWhit(
+        new Response('Network error happened', {
+          status: 408,
+          headers: { 'Content-Type': 'text/plain' },
+        })
+      );
     }
   }
   console.log('NO ENTRE AL IF');
