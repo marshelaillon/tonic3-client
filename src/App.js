@@ -23,8 +23,7 @@ import { setcurrentEvent } from './state/user/currentEvent';
 function App() {
   const user = useSelector(state => state.user);
   const currentEvent = useSelector(state => state.currentEvent);
-  const verifiedGuest = useSelector(state => state.verifiedGuest);
-  // const verifiedGuest = useSelector(state => state.verifiedGuest)?.data; // No funciona, tonces lo comento no más
+  const verifiedGuest = useSelector(state => state.verifiedGuest)?.data;
   const verifiedToken = useSelector(state => state.verifiedToken);
   const userEvents = useSelector(state => state.userEvents);
   const token = useSelector(state => state.token);
