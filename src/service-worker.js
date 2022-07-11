@@ -4,9 +4,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
-
 clientsClaim();
-
 // ACTIVAR ALMACENAMIENTO EN CACHE
 precacheAndRoute(self.__WB_MANIFEST);
 // DESACTIVAR ALMACENAMIENTO EN CACHE
@@ -68,8 +66,18 @@ self.addEventListener('activate', async event => {
 self.addEventListener('fetch', async event => {
   console.log('event.request.url', event.request.url);
   if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
-    const keys = await caches.keys();
-    event.respondWhit(async () => await caches.match(keys[0]));
+    const cacheResponse = await caches.match(event.request);
+    if (cacheResponse) return new Response(cacheResponse);
+    try {
+      const fetchResponse = await fetch(request);
+      console.log('fetchResponse', fetchResponse);
+      return new Response(fetchResponse);
+    } catch (error) {
+      return new Response('Network error happened', {
+        status: 408,
+        headers: { 'Content-Type': 'text/plain' },
+      });
+    }
   }
   console.log('NO ENTRE AL IF');
   const maybe = await event.request;
