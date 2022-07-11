@@ -1,1 +1,3 @@
-const cacheFirst = async ({ request }) => {};
+const cacheFirst = async request => {
+  const cacheResponse = await caches.match(request);
+};
