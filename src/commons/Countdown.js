@@ -14,7 +14,7 @@ function Countdown() {
   let interval = useRef();
 
   const startTimer = () => {
-    const countDownDate = new Date(currentEvent?.event.date).getTime();
+    const countDownDate = new Date(currentEvent?.event?.date).getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();

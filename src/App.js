@@ -25,7 +25,7 @@ function App() {
   axios.defaults.withCredentials = true;
   const user = useSelector(state => state.user);
   const currentEvent = useSelector(state => state.currentEvent);
-  const verifiedGuest = useSelector(state => state.verifiedGuest).data;
+  const verifiedGuest = useSelector(state => state.verifiedGuest)?.data;
   const verifiedToken = useSelector(state => state.verifiedToken);
   const userEvents = useSelector(state => state.userEvents);
   const sidebar = useSelector(state => state.sidebar);
@@ -68,7 +68,7 @@ function App() {
           {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
 
           <Routes>
-            <Route path="/user" element={user.id && <User />} />
+            {/* <Route path="/user" element={user.id && <User />} /> */}
             <Route path="/new-password/:id/:token" element={<NewPassword />} />
             {verifiedToken && verifiedGuest.verified ? (
               <>
