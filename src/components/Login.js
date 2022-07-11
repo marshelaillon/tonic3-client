@@ -22,7 +22,6 @@ const Login = () => {
 
   const handleSubmit = values => {
     captcha.current.execute();
-
     dispatch(
       loginUser({
         email: values.email,
@@ -42,9 +41,10 @@ const Login = () => {
       .email(t('not_valid_email'))
       .required(t('required_email')),
     password: Yup.string()
-      .required(t('required_password')).matches(
+      .required(t('required_password'))
+      .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
+        'Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial'
       ),
   });
 

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken } from '../state/guests/verifyToken';
 import { InvalidToken } from '../utils/sweetAlerts';
 import { verifyGuest } from '../state/guests/verifyGuest';
-import { loginUser } from '../state/user/user';
+import { checkUser, loginUser, setToken } from '../state/user/user';
 import updateToken from '../services/updateToken';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useTranslation } from 'react-i18next';
@@ -22,11 +22,11 @@ const LoginWhitToken = () => {
   const [tries, setTries] = useState(0);
   const [usuarioValido, setUsuarioValido] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState(false);
-
   const [tokenCap, settokenCap] = useState(null);
   const captcha = useRef(null);
+  const [isLogged, setIsLogged] = useState(false);
 
-  const handleSubmit = values => {
+  const handleSubmit = async values => {
     if (!checkedEmail) {
       return dispatch(verifyGuest({ email: values.email }))
         .then(({ payload }) => {
@@ -43,30 +43,45 @@ const LoginWhitToken = () => {
           : setTries(tries + 1);
       });
     }
-    if (values.password)
-      dispatch(
+    if (values.password) {
+      const user = await dispatch(
         loginUser({
           email: values.email,
           password: values.password,
         })
-      ).then(() => navigate('/'));
+      );
+      const token = user?.payload?.token;
+      token && dispatch(setToken(token));
+      localStorage.setItem('token', token);
+    }
+    setIsLogged(true);
   };
+
   const onLoad = () => {
     captcha.current.execute();
   };
+
   useEffect(() => {
     if (tokenCap) console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
   }, [tokenCap]);
+
+  useEffect(() => {
+    dispatch(checkUser());
+  }, [isLogged]);
 
   const validate = Yup.object({
     email: Yup.string()
       .email('El email ingresado no es válido')
       .required('Se requiere un email'),
     token: usuarioValido && Yup.string().required('se requiere un token'),
-    password: usuarioValido && Yup.string().required('Se requiere contraseña').matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
-    ),
+    password:
+      usuarioValido &&
+      Yup.string()
+        .required('Se requiere contraseña')
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+          'Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial'
+        ),
   });
 
   return (
