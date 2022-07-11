@@ -66,9 +66,7 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', async event => {
   console.log('event.request.url.pathname', event.request.url.pathname);
   if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
-    event.respondWhit({
-      text: 'es todo lo que tengo para devolverte pa',
-    });
+    event.respondWhit(() => ({ text: 'ME PARECE QUE NO' }));
   }
   console.log('NO ENTRE AL IF');
   const maybe = await event.request;
