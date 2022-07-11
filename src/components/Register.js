@@ -53,8 +53,11 @@ const Register = () => {
       .email('El email ingresado no es válido')
       .required('Se requiere un email'),
     password: Yup.string()
-      .min(6, 'La contraseña debe tener al menos 6 caracteres')
-      .required('Se requiere contraseña'),
+      //.min(6, 'La contraseña debe tener al menos 6 caracteres')
+      .required('Se requiere contraseña').matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
+      ),
     confirmpassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'La contraseña no coincide')
       .required('Se requiere confirmación de contraseña'),
