@@ -64,11 +64,13 @@ self.addEventListener('install', event => {
 
 //intercepta correctamente las peticiones.
 self.addEventListener('fetch', async event => {
-  if (event.request.url.pathname == '/api/admin/get-all-guests') {
+  console.log('event.request.url.pathname', event.request.url.pathname);
+  if (event.request.url.pathname == '/api/admin/get-all-events') {
     return event.respondWhit(
       new Promise.resolve({ text: 'es todo lo que tengo para devolverte pa' })
     );
   }
+  console.log('NO ENTRE AL IF');
   const maybe = await event.request;
   console.log('event.request con await', maybe);
   console.log('full event object', event);
