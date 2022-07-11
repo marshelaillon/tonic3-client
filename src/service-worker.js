@@ -59,8 +59,8 @@ self.addEventListener('activate', async event => {
   const keys = await caches.keys();
   keys.map(key => {
     console.log('key', key);
-    const cache = caches.open(key);
-    cache.add(`Hola, me guardaron en ${key}`);
+    const cache = await caches.open(key);
+    await cache.add(`Hola, me guardaron en ${key}`);
   });
 });
 
@@ -68,7 +68,8 @@ self.addEventListener('activate', async event => {
 self.addEventListener('fetch', async event => {
   console.log('event.request.url', event.request.url);
   if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
-    event.respondWhit(async () => await caches.match('my-new-cache'));
+    const key = caches.keys();
+    event.respondWhit(async () => await caches.match(key));
   }
   console.log('NO ENTRE AL IF');
   const maybe = await event.request;
