@@ -53,3 +53,16 @@ self.addEventListener('message', event => {
     self.skipWaiting();
   }
 });
+
+self.addEventListener('install', event => {
+  event.waitUntil(async () => {
+    console.log('Estoy frenando la instalacion con un waitUntil()');
+    const cache = caches.open('my-new-cache');
+    cache.add('Hola, me guardaron.-');
+  });
+});
+
+self.addEventListener('fetch', event => {
+  const fetchUrl = new URL(event.request.url);
+  console.log('esta es la url de la request', fetchUrl);
+});
