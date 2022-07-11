@@ -1,0 +1,1 @@
+const cacheFirst = async ({ request }) => {};
