@@ -9,12 +9,11 @@ import Countdown from './commons/Countdown';
 import './styles/App.css';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkUser } from './state/user/user';
+import { checkUser, setToken } from './state/user/user';
 import Home from './components/Home';
 import NewPassword from './components/NewPassword';
 import { RegisterRequest } from './utils/sweetAlerts';
 import NotFound from './components/NotFound';
-
 import Adminview from './components/adminView/Adminview';
 import { toggleSidebar } from './state/UI/sidebar';
 import { setVerifiedGuest } from './state/guests/verifyGuest';
@@ -22,17 +21,17 @@ import { getUserEvents } from './state/user/userEvents';
 import { setcurrentEvent } from './state/user/currentEvent';
 
 function App() {
-  axios.defaults.withCredentials = true;
   const user = useSelector(state => state.user);
   const currentEvent = useSelector(state => state.currentEvent);
-  const verifiedGuest = useSelector(state => state.verifiedGuest)?.data;
+  const verifiedGuest = useSelector(state => state.verifiedGuest);
+  // const verifiedGuest = useSelector(state => state.verifiedGuest)?.data; // No funciona, tonces lo comento no más
   const verifiedToken = useSelector(state => state.verifiedToken);
   const userEvents = useSelector(state => state.userEvents);
+  const token = useSelector(state => state.token);
   const sidebar = useSelector(state => state.sidebar);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log('TOKEN', verifiedToken, ' GUESTS ', verifiedGuest);
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
@@ -52,12 +51,16 @@ function App() {
         await dispatch(setcurrentEvent());
       }
     })();
-  }, [user.id]);
+  }, [user.id, token]);
 
   useEffect(() => {
     (async () => {
       !verifiedGuest?.data && (await dispatch(setVerifiedGuest()));
     })();
+  }, []);
+
+  useEffect(() => {
+    dispatch(setToken(localStorage.getItem('token')));
   }, []);
 
   return (
@@ -96,9 +99,5 @@ function App() {
     </div>
   );
 }
-
-// DEMO 01/07
-// USO HORARIO POR IP ----> MOMENT
-// avetriguar sobre lenscrip ---> obtenes un certificado SSL.
 
 export default App;

@@ -3,11 +3,12 @@ import axios from 'axios';
 
 export const getUserEvents = createAsyncThunk(
   'GET_USER_EVENTS',
-  async (body, thunkAPI) => {
-    const thunk = thunkAPI.getState();
+  async (_, thunkAPI) => {
     try {
+      const token = thunkAPI.getState().token;
       const { data } = await axios.get(
-        'http://localhost:3001/api/users/events'
+        'http://localhost:3001/api/users/events',
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const filtered = data.events.filter(
         (item, i) => item.id !== data.events[i + 1]?.id

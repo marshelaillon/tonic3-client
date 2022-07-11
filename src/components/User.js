@@ -51,6 +51,7 @@ export default function User() {
                 <img
                   src={user.profilePicture}
                   className="card-img user-foto"
+                  alt="profile"
                 ></img>
               </li>
 
@@ -92,7 +93,7 @@ export default function User() {
           </div>
 
           <label className=" text-white" htmlFor="text ">
-            <p>User Name</p>
+            <p>Username</p>
             <input
               {...userName}
               placeholder={user.userName?.toString()}
