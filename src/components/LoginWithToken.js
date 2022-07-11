@@ -141,7 +141,7 @@ const LoginWhitToken = () => {
                   ) : null}
                 </div>
               )}
-              <div className="form-group">
+              <div className="captcha form-group">
                 <HCaptcha
                   ref={captcha}
                   sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"

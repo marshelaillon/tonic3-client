@@ -21,7 +21,7 @@ body {
   text-transform: uppercase;
   /* height:260px; */
 }
-iframe{
+.captcha{
   margin:50px 50px 10px;
 
   }
@@ -45,9 +45,13 @@ input:-webkit-autofill:focus {
 }
 
 @media (max-width: 500px) {
+.captcha{
+  margin:50px -10px 10px;
+
+}
 iframe{
-  margin-left: -50px;
- transform: scale(0.68)
+  transform: scale(0.68);
+ transform-origin: 0 0;
 }
 }
 
