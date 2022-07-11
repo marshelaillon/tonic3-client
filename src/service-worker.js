@@ -63,7 +63,9 @@ self.addEventListener('install', event => {
 });
 
 //intercepta correctamente las peticiones.
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', async event => {
+  const maybe = await event.request;
+  console.log('event.request con await', maybe);
   console.log('full event object', event);
   const fetchUrl = new URL(event.request.url);
   console.log('esta es la url de la request', fetchUrl);
