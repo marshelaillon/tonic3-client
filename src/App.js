@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
@@ -17,12 +17,17 @@ import NotFound from './components/NotFound';
 
 import Adminview from './components/adminView/Adminview';
 import { toggleSidebar } from './state/UI/sidebar';
+import { setVerifiedGuest } from './state/guests/verifyGuest';
+import { getUserEvents } from './state/user/userEvents';
+import { setcurrentEvent } from './state/user/currentEvent';
 
 function App() {
   axios.defaults.withCredentials = true;
   const user = useSelector(state => state.user);
+  const currentEvent = useSelector(state => state.currentEvent);
   const verifiedGuest = useSelector(state => state.verifiedGuest).data;
   const verifiedToken = useSelector(state => state.verifiedToken);
+  const userEvents = useSelector(state => state.userEvents);
   const sidebar = useSelector(state => state.sidebar);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,8 +45,20 @@ function App() {
   }, [verifiedToken]);
 
   useEffect(() => {
-    dispatch(checkUser());
+    (async () => {
+      await dispatch(checkUser());
+      if (user.id) {
+        await dispatch(getUserEvents());
+        await dispatch(setcurrentEvent());
+      }
+    })();
   }, [user.id]);
+
+  useEffect(() => {
+    (async () => {
+      !verifiedGuest?.data && (await dispatch(setVerifiedGuest()));
+    })();
+  }, []);
 
   return (
     <div className="container-all">
@@ -70,6 +87,8 @@ function App() {
                 <Route path="/countdown" element={<Countdown />} />
               </>
             )}
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/404" />} />
             <Route path="/not-found" element={<NotFound />} />
           </Routes>
         </div>

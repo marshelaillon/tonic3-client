@@ -2,7 +2,7 @@ import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const addEvent = createAsyncThunk(
-  'SET_EVENT',
+  'ADD_EVENT',
   async (body, thunkAPI) => {
     const thunk = thunkAPI.getState();
 
@@ -20,6 +20,19 @@ export const addEvent = createAsyncThunk(
   }
 );
 
+// export const setEvent = createAsyncThunk(
+//   'SET_EVENT',
+//   async (body, thunkAPI) => {
+//     const thunk = thunkAPI.getState();
+//     try {
+//       const event = await JSON.parse(localStorage.getItem('event'));
+//       return event;
+//     } catch (error) {
+//       console.error('/set-event ERROR ', error);
+//     }
+//   }
+// );
+
 export const editEvent = createAsyncThunk('EDIT_EVENT', async body => {
   try {
     const editedEvent = await axios.put(
@@ -33,7 +46,10 @@ export const editEvent = createAsyncThunk('EDIT_EVENT', async body => {
 export const eventReducer = createReducer(
   {},
   {
-    [addEvent.fulfilled]: (state, action) => action.payload?.data,
+    [addEvent.fulfilled]: (state, action) => {
+      localStorage.setItem('event', JSON.stringify(action.payload?.data));
+      return action.payload?.data;
+    },
     [editEvent.fulfilled]: (state, action) => action.payload?.data,
   }
 );

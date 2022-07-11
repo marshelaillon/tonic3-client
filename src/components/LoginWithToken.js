@@ -12,8 +12,11 @@ import { loginUser } from '../state/user/user';
 import updateToken from '../services/updateToken';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useTranslation } from 'react-i18next';
+import { Icon } from 'react-icons-kit';
+import {eye} from 'react-icons-kit/icomoon/eye';
+import {eyeBlocked} from 'react-icons-kit/icomoon/eyeBlocked';
 
-const LoginWhitToken = () => {
+function LoginWhitToken() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const verifiedGuest = useSelector(state => state.verifiedGuest);
@@ -25,6 +28,9 @@ const LoginWhitToken = () => {
 
   const [tokenCap, settokenCap] = useState(null);
   const captcha = useRef(null);
+
+  const [type, setType] = useState('password');
+  const [icon, setIcon] = useState(eyeBlocked);
 
   const handleSubmit = values => {
     if (!checkedEmail) {
@@ -55,8 +61,20 @@ const LoginWhitToken = () => {
     captcha.current.execute();
   };
   useEffect(() => {
-    if (tokenCap) console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
+    if (tokenCap)
+      console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
   }, [tokenCap]);
+
+  const handleToggle = () => {
+    if (type === 'password') {
+      setIcon(eye);
+      setType('text');
+    }
+    else {
+      setIcon(eyeBlocked);
+      setType('password');
+    }
+  };
 
   const validate = Yup.object({
     email: Yup.string()
@@ -80,7 +98,7 @@ const LoginWhitToken = () => {
         validationSchema={validate}
         onSubmit={values => {
           handleSubmit(values);
-        }}
+        } }
       >
         {formik => (
           <div className="container w-75 mt-4 form">
@@ -89,33 +107,28 @@ const LoginWhitToken = () => {
                 <label htmlFor="email">E-mail</label>
                 <Field
                   name="email"
-                  className={
-                    formik.touched.email && formik.errors.email
-                      ? 'form-control is-invalid'
-                      : 'form-control'
-                  }
-                  type="email"
-                />
+                  className={formik.touched.email && formik.errors.email
+                    ? 'form-control is-invalid'
+                    : 'form-control'}
+                  type="email" />
                 {formik.touched.email && formik.errors.email ? (
                   <div className="invalid-feedback">{formik.errors.email}</div>
                 ) : null}
               </div>
 
               {/* si el usuario NO esta registrado, se lo verifica con el token
-                y se lo redirige a /register */}
+                      y se lo redirige a /register */}
               {checkedEmail && !guestdata.checked && (
                 <div className="form-group">
                   <label htmlFor="loginToken">
                     Access Code
                     <Field
                       name="token"
-                      className={
-                        formik.touched.token && formik.errors.token
-                          ? 'form-control is-invalid'
-                          : 'form-control'
-                      }
-                      type="password"
-                    />
+                      className={formik.touched.token && formik.errors.token
+                        ? 'form-control is-invalid'
+                        : 'form-control'}
+                      type="token" />
+                    
                     {formik.touched.token && formik.errors.token ? (
                       <div className="invalid-feedback">
                         {formik.errors.token}
@@ -130,13 +143,13 @@ const LoginWhitToken = () => {
                   <label htmlFor="password">Password</label>
                   <Field
                     name="password"
-                    className={
-                      formik.touched.password && formik.errors.password
-                        ? 'form-control is-invalid'
-                        : 'form-control'
-                    }
-                    type="password"
-                  />
+                    className={formik.touched.password && formik.errors.password
+                      ? 'form-control is-invalid'
+                      : 'form-control'}
+                    type={type} />
+                    <span onClick={handleToggle}><Icon icon={icon} size={25} /></span>
+
+
                   {formik.touched.password && formik.errors.password ? (
                     <div className="invalid-feedback">
                       {formik.errors.password}
@@ -149,8 +162,7 @@ const LoginWhitToken = () => {
                   ref={captcha}
                   sitekey="0fb6ea85-da0d-4f63-83e7-d773f23a0453"
                   onVerify={tokenCap => settokenCap(tokenCap)}
-                  onLoad={onLoad}
-                />
+                  onLoad={onLoad} />
               </div>
 
               <div className=" mt-4 d-flex flex-row">
@@ -174,6 +186,6 @@ const LoginWhitToken = () => {
       </Formik>
     </>
   );
-};
+}
 
 export default LoginWhitToken;
