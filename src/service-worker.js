@@ -57,7 +57,7 @@ self.addEventListener('message', event => {
 self.addEventListener('activate', async event => {
   console.log('Estoy frenando la instalacion con un waitUntil()');
   const keys = await caches.keys();
-  keys.map(key => {
+  keys.map(async key => {
     console.log('key', key);
     const cache = await caches.open(key);
     await cache.add(`Hola, me guardaron en ${key}`);
@@ -68,8 +68,8 @@ self.addEventListener('activate', async event => {
 self.addEventListener('fetch', async event => {
   console.log('event.request.url', event.request.url);
   if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
-    const key = await caches.keys();
-    event.respondWhit(async () => await caches.match(key));
+    const keys = await caches.keys();
+    event.respondWhit(async () => await caches.match(keys[0]));
   }
   console.log('NO ENTRE AL IF');
   const maybe = await event.request;
