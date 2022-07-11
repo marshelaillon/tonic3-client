@@ -62,7 +62,9 @@ self.addEventListener('install', event => {
   });
 });
 
+//intercepta correctamente las peticiones.
 self.addEventListener('fetch', event => {
+  console.log('full event object', event);
   const fetchUrl = new URL(event.request.url);
   console.log('esta es la url de la request', fetchUrl);
 });
