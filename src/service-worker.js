@@ -60,7 +60,7 @@ self.addEventListener('install', event => {
       'http://localhost:3001/api/admin/get-all-events',
     ]);
   };
-  event.waitUntil(addCacheRoutes());
+  // event.waitUntil(addCacheRoutes());
 });
 
 //intercepta correctamente las peticiones.
