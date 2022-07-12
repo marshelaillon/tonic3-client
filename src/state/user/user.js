@@ -2,6 +2,7 @@ import {
   createAction,
   createAsyncThunk,
   createReducer,
+  createSlice,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { InvalidPassword, InvalidRegister } from '../../utils/sweetAlerts';
@@ -30,38 +31,69 @@ export const loginUser = createAsyncThunk(
         'http://localhost:3001/api/users/login',
         credentials
       );
-      return data.data;
+
+      console.log("la data de login", data);
+      return data;
+
     } catch (error) {
       console.error('USER-LOGIN ERROR', error);
     }
   }
 );
 
-export const logoutUser = createAsyncThunk('SEND_LOGOUT_REQUEST', async () => {
-  try {
-    const response = await axios.get('http://localhost:3001/api/users/logout');
-    return response.data;
-  } catch (error) {
-    console.error('user/logout ERROR', error);
+export const logoutUser = createAsyncThunk(
+  'SEND_LOGOUT_REQUEST',
+  async (_, thunkAPI) => {
+    try {
+      const { token } = thunkAPI.getState();
+      const response = await axios.get(
+        'http://localhost:3001/api/users/logout',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return {};
+    } catch (error) {
+      console.error('user/logout ERROR', error);
+    }
   }
-});
+);
 
-export const checkUser = createAsyncThunk('CHECK_USER_BY_COOKIES', async () => {
-  try {
-    const { data } = await axios.get('http://localhost:3001/api/users/getMe');
-    return data;
-  } catch (error) {
-    console.error('user/getMe ERROR', error);
+export const checkUser = createAsyncThunk(
+  'CHECK_USER_BY_COOKIES',
+  async (_, thunkAPI) => {
+    const { token } = thunkAPI.getState();
+    try {
+      const { data } = await axios.get(
+        'http://localhost:3001/api/users/getMe',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return data;
+    } catch (error) {
+      console.error('user/getMe ERROR', error);
+    }
   }
-});
+);
 
 export const updateUser = createAsyncThunk(
   'UPDATE_REQUEST',
-  async updateBody => {
+  async (updateBody, thunkAPI) => {
+    const { token } = thunkAPI.getState();
     try {
       const { data } = await axios.put(
         `http://localhost:3001/api/users/update/${updateBody.id}`,
-        updateBody
+        updateBody,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       return data;
     } catch (error) {
@@ -100,22 +132,38 @@ export const newPassword = createAsyncThunk(
   }
 );
 
+export const localStorageToken = createSlice({
+  name: 'token',
+  initialState: '',
+  reducers: {
+    setToken: (state, action) => action.payload,
+  },
+});
+
+export default localStorageToken.reducer;
+export const { setToken } = localStorageToken.actions;
+
 export const userReducer = createReducer(
   {},
   {
-    [registerUser.fulfilled]: (state, action) => action.payload?.data,
+    // [registerUser.fulfilled]: (state, action) => action.payload?.data,
     [registerUser.rejected]: (state, action) => {
       InvalidRegister();
       return action.payload?.data;
     },
-    [loginUser.fulfilled]: (state, action) => action.payload?.data,
+    [loginUser.fulfilled]: (state, action) => action.payload,
     [loginUser.rejected]: (state, action) => {
       InvalidPassword();
       return action.payload?.data;
     },
-    [logoutUser.fulfilled]: (state, action) => action.payload,
+
+    [logoutUser.fulfilled]: (state, action) => {
+      localStorage.removeItem('token');
+      return action.payload;
+    },
+
     [updateUser.fulfilled]: (state, action) => action.payload,
-    [checkUser.fulfilled]: (state, action) => action.payload?.data,
-    [forgotPassword.fulfilled]: (state, action) => action.payload?.data,
+    [checkUser.fulfilled]: (state, action) => action.payload?.data || {},
+    // [forgotPassword.fulfilled]: (state, action) => action.payload?.data,
   }
 );

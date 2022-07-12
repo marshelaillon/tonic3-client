@@ -6,19 +6,22 @@ import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NotMatchPassword, PasswordSuccessfully } from '../utils/sweetAlerts';
 import { newPassword } from '../state/user/user';
+import { useTranslation } from 'react-i18next';
 
 const NewPassword = () => {
+
   const id = useLocation().pathname;
+  const { t } = useTranslation();
   const idUser = id.split('/');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const validate = Yup.object({
     password: Yup.string()
-      .min(6, 'La contraseña debe tener al menos 6 caracteres')
-      .required('Se requiere contraseña'),
-    password2: Yup.string()
-      .min(6, 'La contraseña debe tener al menos 6 caracteres')
-      .required('Se requiere contraseña'),
+    .required(t('required_password')).matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
+    ),
+    password2: Yup.string().required(t('required_password')).oneOf([Yup.ref('password'), null], 'La contraseña no coincide'),
   });
 
   const handleSubmit = value => {
@@ -51,7 +54,7 @@ const NewPassword = () => {
             <Form>
               <Field
                 name="password"
-                placeholder="pon tu contraseña"
+                placeholder={t('write_password')}
                 className={
                   formik.touched.password && formik.errors.password
                     ? 'form-control is-invalid'
@@ -64,7 +67,7 @@ const NewPassword = () => {
               ) : null}
               <Field
                 name="password2"
-                placeholder="pon tu contraseña"
+                placeholder={t('write_password_again')}
                 className={
                   formik.touched.password2 && formik.errors.password2
                     ? 'form-control is-invalid'
@@ -80,7 +83,7 @@ const NewPassword = () => {
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
-                    Submit
+                    {t('btn_submit')}
                   </Button>
                 </div>
               </div>

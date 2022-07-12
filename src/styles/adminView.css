@@ -56,27 +56,59 @@
   width: 100%;
   justify-content: space-evenly;
 }
+.userAdmin {
+  color: #020122;
+  font-size: 30px;
+  justify-content: 'center';
+  cursor: pointer;
+  margin-left: 35%;
+}
+
+.userAdmin:hover {
+  color:yellow !important;
+}
 
 .button-refresh {
   /*  border: '0.3px outset #ff521b', */
-  color: #dc1212ca;
+  color: #020122;
   font-size: 40px;
   justify-content: start;
+  cursor: pointer;
+
 }
 
-.button-refresh:active {
-  color: #f48531;
+.button-refresh:hover {
+  color: #ff521b;
 }
 
 .trashcan {
   color: #020122;
   font-size: 30px;
   justify-content: 'center';
+  cursor: pointer;
+  margin-left: 35%;
+
+
 }
 
-.trashcan:active{
-    color: red;
+.trashcan:hover{
+    color: rgb(182, 12, 12);
 }
+
+
+.update {
+  color: #020122;
+  font-size: 30px;
+  justify-content: 'center';
+  cursor: pointer;
+  margin-left: 35%;
+
+}
+
+.update:hover{
+  color: rgb(15, 168, 15);
+}
+
 
 .send-button{
     background-color: orange;
@@ -87,7 +119,5 @@
  background-color: #ff521b;
 }
 
-.div-add-guest{
-    
-}
+
 

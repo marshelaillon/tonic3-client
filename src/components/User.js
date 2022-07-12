@@ -7,9 +7,12 @@ import { BsFillGearFill, BsCheckCircleFill } from 'react-icons/bs';
 import { Button } from 'react-bootstrap';
 import { useInput } from '../hooks/useInput';
 import { updateUser } from '../state/user/user';
+import { useTranslation } from 'react-i18next';
+
 
 export default function User() {  
   const [userPhoto, setUserPhoto] = useState('');
+  const { t } = useTranslation();
   const [editInput, setEdit] = useState(false);
   const user = useSelector(state => state.user);
   const navigate = useNavigate();
@@ -58,6 +61,7 @@ console.log(userPhoto);
           <div className="card-header" style={{ background: 'black' }}>
             <ul className="nav nav-tabs card-header-tabs">
               <li className="imag">
+
                 {editInput ? (
                   <div className="input group">
                     <img src={userPhoto} className="card-img user-foto" />
@@ -88,7 +92,7 @@ console.log(userPhoto);
               >
                 {!editInput ? (
                   <>
-                    Edita tu perfil
+                    {t('edit_profile')}
                     <BsFillGearFill
                       onClick={handleEdit}
                       style={{
@@ -100,7 +104,7 @@ console.log(userPhoto);
                   </>
                 ) : (
                   <>
-                    Guarda tus cambios
+                    {t('save_changes')}
                     <BsCheckCircleFill
                       onClick={handleSubmit}
                       type="submit"
@@ -117,7 +121,7 @@ console.log(userPhoto);
           </div>
 
           <label className=" text-white" htmlFor="text ">
-            <p>User Name</p>
+            <p>{t('username')}</p>
             <input
               {...userName}
               placeholder={user.userName?.toString()}
@@ -128,7 +132,7 @@ console.log(userPhoto);
             />
           </label>
           <label className="text-white" htmlFor="text ">
-            <p>Name</p>
+            <p>{t('name')}</p>
             <input
               name="firstName"
               className="perfil-input"
@@ -138,7 +142,7 @@ console.log(userPhoto);
             />
           </label>
           <label className="text-white" htmlFor="text ">
-            <p> Apellido</p>
+            <p>{t('last_name')}</p>
             <input
               name="lastName"
               className="perfil-input"
@@ -148,11 +152,11 @@ console.log(userPhoto);
             />
           </label>
           <label className=" text-white" htmlFor="email">
-            <p> E-mail</p>
+            <p>{t('email')}</p>
             <input className="perfil-input" value={user.email} />
           </label>
           <label className=" text-white" name="text">
-            <p> Genero</p>
+            <p>{t('genre')}</p>
             <input
               name="genre"
               className="perfil-input"
