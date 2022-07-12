@@ -50,7 +50,7 @@ function App() {
         await dispatch(setcurrentEvent());
       }
     })();
-  }, [user.id, token]);
+  }, []);
 
   useEffect(() => {
     (async () => {
