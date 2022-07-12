@@ -59,22 +59,17 @@ self.addEventListener('activate', event => {
   event.waitUntil(addCacheRoutes());
 });
 
-//intercepta correctamente las peticiones.
 self.addEventListener('fetch', async event => {
-  // TRATANDO DE SACAR POR CONSOLA EL CONTENID ODE AMBOS
-  // NEW CACHE DEBERIA ESTAR VACIO, DEVUELVE UN {}, NO DEVUELVE UNDEFINED?
-  // IMAGES TIENE DOS IMAGENES, PERO DEVUELVE {}
   const newCache = await caches.open('my-new-cache');
   console.log('newCache', newCache);
 
-  // ACA VIENE LA PARTE COMPLICADA
   console.log('event.request.url', event.request.url);
   if (event.request.url == 'http://localhost:3001/api/users/events') {
     console.log('ESTOY DENTRO DEL IF');
     const cacheResponse = await caches.match(event.request);
     if (cacheResponse) {
-      console.log('TE ESTOY DEVOLVIENDO DESDE EL CACHE');
-      return event.respondWith(cacheResponse.clone());
+      console.log('TE ESTOY DEVOLVIENDO DESDE EL CACHE', cacheResponse);
+      return event.respondWith(cacheResponse);
     }
     try {
       // const fetchResponse = await fetch(event.request);
@@ -92,10 +87,4 @@ self.addEventListener('fetch', async event => {
       );
     }
   }
-  console.log('NO ENTRE AL IF');
-  const maybe = await event.request;
-  console.log('event.request', maybe);
-  console.log('full event object', event);
-  const fetchUrl = new URL(event.request.url);
-  console.log('esta es la url de la request', fetchUrl);
 });
