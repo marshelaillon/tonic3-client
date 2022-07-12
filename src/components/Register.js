@@ -48,19 +48,20 @@ const Register = () => {
   }, [tokenCap]);
 
   const validate = Yup.object({
-    userName: Yup.string().required('Se requiere un apellido'),
+    userName: Yup.string().required(t('required_username')),
     email: Yup.string()
-      .email('El email ingresado no es válido')
-      .required('Se requiere un email'),
+      .email(t('not_valid_email'))
+      .required(t('required_email')),
     password: Yup.string()
       //.min(6, 'La contraseña debe tener al menos 6 caracteres')
-      .required('Se requiere contraseña').matches(
+      .required(t('required_password'))
+      .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
+        t('pass_must_contain')
       ),
     confirmpassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'La contraseña no coincide')
-      .required('Se requiere confirmación de contraseña'),
+      .required(t('confirm_pass_required')),
   });
 
   return (
@@ -83,7 +84,7 @@ const Register = () => {
             <h3>{t('register')}</h3>
             <Form>
               <div className="form-group">
-                <label htmlFor="userName">Username</label>
+                <label htmlFor="userName">{t('username')}</label>
                 <Field
                   name="userName"
                   className={
@@ -100,7 +101,7 @@ const Register = () => {
                 ) : null}
               </div>
               <div className="form-group">
-                <label htmlFor="email">E-mail</label>
+                <label htmlFor="email">{t('email')}</label>
                 <Field
                   name="email"
                   className={
@@ -117,7 +118,7 @@ const Register = () => {
                 ) : null}
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">{t('password')}</label>
                 <Field
                   name="password"
                   className={
@@ -134,7 +135,7 @@ const Register = () => {
                 ) : null}
               </div>
               <div className="form-group">
-                <label htmlFor="confirmpassword">Confirmá tu password</label>
+                <label htmlFor="confirmpassword">{t('confirm_password')}</label>
                 <Field
                   name="confirmpassword"
                   className={
@@ -163,18 +164,18 @@ const Register = () => {
               </div>
 
               {!captcha && (
-                <div style={{ color: 'red' }}>Por favor, acepta el captcha</div>
+                <div style={{ color: 'red' }}>{t('hcaptcha_msg')}</div>
               )}
 
               <div className=" btn mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
-                    Registrarme
+                    {t('register')}
                   </Button>
                 </div>
                 <div className="form-group">
                   <Button type="reset" variant="dark">
-                    Borrar Formulario
+                    {t('delete_form')}
                   </Button>
                 </div>
               </div>

@@ -44,7 +44,7 @@ const Login = () => {
       .required(t('required_password'))
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial'
+        t('pass_must_contain')
       ),
   });
 
@@ -104,7 +104,7 @@ const Login = () => {
                 />
               </div>
               {!captcha && (
-                <div style={{ color: 'red' }}>Por favor, acepta el captcha</div>
+                <div style={{ color: 'red' }}>{t('hcaptcha_msg')}</div>
               )}
 
               <div className="mt-4 d-flex flex-row">

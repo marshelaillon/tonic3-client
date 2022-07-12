@@ -15,8 +15,8 @@ const ForgotPassword = () => {
 
   const validate = Yup.object({
     email: Yup.string()
-      .email(t('El email ingresado no es válido'))
-      .required('Se requiere un email'),
+      .email(t('not_valid_email'))
+      .required(t('required_email')),
   });
   const handleSubmit = value => {
     dispatch(

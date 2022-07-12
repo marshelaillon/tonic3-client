@@ -71,16 +71,16 @@ const LoginWhitToken = () => {
 
   const validate = Yup.object({
     email: Yup.string()
-      .email('El email ingresado no es válido')
-      .required('Se requiere un email'),
-    token: usuarioValido && Yup.string().required('se requiere un token'),
+      .email(t('not_valid_email'))
+      .required(t('required_email')),
+    token: usuarioValido && Yup.string().required(t('required_access_code')),
     password:
       usuarioValido &&
       Yup.string()
-        .required('Se requiere contraseña')
+        .required(t('required_password'))
         .matches(
           /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-          'Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial'
+          t('pass_must_contain')
         ),
   });
 
@@ -101,7 +101,7 @@ const LoginWhitToken = () => {
           <div className="container w-75 mt-4 form">
             <Form>
               <div className="form-group">
-                <label htmlFor="email">E-mail</label>
+                <label htmlFor="email">{t('email')}</label>
                 <Field
                   name="email"
                   className={
@@ -121,7 +121,7 @@ const LoginWhitToken = () => {
               {checkedEmail && !guestdata.checked && (
                 <div className="form-group">
                   <label htmlFor="loginToken">
-                    Access Code
+                    {t('access_code')}
                     <Field
                       name="token"
                       className={
@@ -142,7 +142,7 @@ const LoginWhitToken = () => {
               {/* si el usuario esta ya registrado, se lo loguea */}
               {checkedEmail && guestdata.checked && (
                 <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                  <label htmlFor="password">{t('password')}</label>
                   <Field
                     name="password"
                     className={
@@ -170,16 +170,14 @@ const LoginWhitToken = () => {
 
               <div className=" mt-4 d-flex flex-row">
                 {!captcha && (
-                  <div style={{ color: 'red' }}>
-                    Por favor, acepta el captcha
-                  </div>
+                  <div style={{ color: 'red' }}>{t('hcaptcha_msg')}</div>
                 )}
               </div>
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
-                    {!checkedEmail ? t('welcome_btn') : 'Enter'}
+                    {!checkedEmail ? t('welcome_btn') : t('enter_btn')}
                   </Button>
                 </div>
               </div>
