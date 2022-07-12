@@ -26,6 +26,7 @@ function App() {
   const currentEvent = useSelector(state => state.currentEvent);
   const verifiedGuest = useSelector(state => state.verifiedGuest)?.data;
   const verifiedToken = useSelector(state => state.verifiedToken);
+
   const userEvents = useSelector(state => state.userEvents);
   const token = useSelector(state => state.token);
   const sidebar = useSelector(state => state.sidebar);
@@ -74,7 +75,7 @@ function App() {
           <Routes>
             {/* <Route path="/user" element={user.id && <User />} /> */}
             <Route path="/new-password/:id/:token" element={<NewPassword />} />
-            {verifiedToken && verifiedGuest.verified ? (
+            {((verifiedToken || verifiedGuest?.checked) && verifiedGuest?.verified )? (
               <>
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />

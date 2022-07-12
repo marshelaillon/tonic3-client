@@ -30,7 +30,10 @@ export const loginUser = createAsyncThunk(
         'http://localhost:3001/api/users/login',
         credentials
       );
-      return data; // quité el .data
+
+      console.log("la data de login", data);
+      return data.data;
+
     } catch (error) {
       console.error('USER-LOGIN ERROR', error);
     }
@@ -147,15 +150,17 @@ export const userReducer = createReducer(
       InvalidRegister();
       return action.payload?.data;
     },
-    [loginUser.fulfilled]: (state, action) => action.payload?.data,
+    [loginUser.fulfilled]: (state, action) => action.payload,
     [loginUser.rejected]: (state, action) => {
       InvalidPassword();
       return action.payload?.data;
     },
+
     [logoutUser.fulfilled]: (state, action) => {
       localStorage.removeItem('token');
       return action.payload;
     },
+
     [updateUser.fulfilled]: (state, action) => action.payload,
     [checkUser.fulfilled]: (state, action) => action.payload?.data || {},
     // [forgotPassword.fulfilled]: (state, action) => action.payload?.data,

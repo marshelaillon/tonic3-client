@@ -7,8 +7,10 @@ import { BsFillGearFill, BsCheckCircleFill } from 'react-icons/bs';
 import { Button } from 'react-bootstrap';
 import { useInput } from '../hooks/useInput';
 import { updateUser } from '../state/user/user';
+import { useTranslation } from 'react-i18next';
 
 export default function User() {
+  const { t } = useTranslation();
   const [editInput, setEdit] = useState(false);
   const user = useSelector(state => state.user);
   const navigate = useNavigate();
@@ -64,7 +66,7 @@ export default function User() {
               >
                 {!editInput ? (
                   <>
-                    Edita tu perfil
+                    {t('edit_profile')}
                     <BsFillGearFill
                       onClick={handleEdit}
                       style={{
@@ -76,7 +78,7 @@ export default function User() {
                   </>
                 ) : (
                   <>
-                    Guarda tus cambios
+                    {t('save_changes')}
                     <BsCheckCircleFill
                       onClick={handleSubmit}
                       type="submit"
@@ -93,7 +95,7 @@ export default function User() {
           </div>
 
           <label className=" text-white" htmlFor="text ">
-            <p>Username</p>
+            <p>{t('username')}</p>
             <input
               {...userName}
               placeholder={user.userName?.toString()}
@@ -103,7 +105,7 @@ export default function User() {
             />
           </label>
           <label className="text-white" htmlFor="text ">
-            <p>Name</p>
+            <p>{t('name')}</p>
             <input
               name="firstName"
               className="perfil-input"
@@ -113,7 +115,7 @@ export default function User() {
             />
           </label>
           <label className="text-white" htmlFor="text ">
-            <p> Apellido</p>
+            <p>{t('last_name')}</p>
             <input
               name="lastName"
               className="perfil-input"
@@ -123,11 +125,11 @@ export default function User() {
             />
           </label>
           <label className=" text-white" htmlFor="email">
-            <p> E-mail</p>
+            <p>{t('email')}</p>
             <input className="perfil-input" value={user.email} />
           </label>
           <label className=" text-white" name="text">
-            <p> Genero</p>
+            <p>{t('genre')}</p>
             <input
               name="genre"
               className="perfil-input"
