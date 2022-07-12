@@ -25,6 +25,7 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'SEND_LOGIN_REQUEST',
   async credentials => {
+    console.log(credentials);
     try {
       const { data } = await axios.post(
         'http://localhost:3001/api/users/login',

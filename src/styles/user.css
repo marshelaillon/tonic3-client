@@ -24,7 +24,7 @@
   margin-left: 208px;
   position: unset;
   padding: 0;
-  background-color:  rgba(179, 175, 175, 0.452);
+  background-color: rgba(179, 175, 175, 0.452);
   border: solid 1px #212529;
 }
 .card-title {
@@ -59,16 +59,29 @@
   font-size: 15px;
   background-color: rgba(179, 175, 175, 0.452);
 }
-p{
+p {
   margin-top: 20px;
-  margin-bottom:5px;
+  margin-bottom: 5px;
 }
-label{
+label {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   align-content: center;
 }
+.custom-file-input {
+  margin: 0;
+  font-size: small;
+  width: 177px;
+  line-height: inherit;
+}
+
+.input.group {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 @media (max-width: 600px) {
   .row {
     flex-direction: column-reverse;
@@ -91,11 +104,11 @@ label{
     visibility: hidden;
     height: 0;
   }
-  label{
+  label {
     justify-content: center;
     flex-direction: column;
   }
-.container.porfile {
-font-size: small;
-}
+  .container.porfile {
+    font-size: small;
+  }
 }
