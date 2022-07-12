@@ -19,7 +19,9 @@ import { toggleSidebar } from './state/UI/sidebar';
 import { setVerifiedGuest } from './state/guests/verifyGuest';
 import { getUserEvents } from './state/user/userEvents';
 import { setcurrentEvent } from './state/user/currentEvent';
+import UpgradeEvents from './components/adminView/UpgradeEvents';
 import { logoutUser } from './state/user/user.js';
+
 
 function App() {
   const user = useSelector(state => state.user);
@@ -75,6 +77,7 @@ function App() {
           <Routes>
             {/* <Route path="/user" element={user.id && <User />} /> */}
             <Route path="/new-password/:id/:token" element={<NewPassword />} />
+
             {((verifiedToken || verifiedGuest?.checked) && verifiedGuest?.verified )? (
               <>
                 <Route path="/" element={<Home />} />
@@ -95,6 +98,7 @@ function App() {
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/404" />} />
             <Route path="/not-found" element={<NotFound />} />
+            <Route path='/upgradeEvent' element={<UpgradeEvents />} />
           </Routes>
         </div>
       </div>

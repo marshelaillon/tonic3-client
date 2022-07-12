@@ -34,12 +34,13 @@ export const addEvent = createAsyncThunk(
 // );
 
 export const editEvent = createAsyncThunk('EDIT_EVENT', async body => {
+  console.log("BODY Q LLEGA EDIT EVENT", body)
   try {
-    const editedEvent = await axios.put(
-      'http://localhost:3001/api/admin/add-event'
+    const data = await axios.put(
+      `http://localhost:3001/api/admin/edit-event/${body.id}`, body
     );
   } catch (error) {
-    console.error('/add-event ERROR', error);
+    console.error('/EDIT-event ERROR', error);
   }
 });
 
