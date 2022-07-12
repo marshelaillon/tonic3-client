@@ -53,12 +53,12 @@ self.addEventListener('message', event => {
 });
 
 self.addEventListener('activate', async event => {
-  keys.map(async key => {
-    console.log('key', key);
-    const cache = await caches.open(key);
-    await cache.add(`Hola, me guardaron en ${key}`);
-  });
-  const cache = await caches.open(keys[2]);
+  // keys.map(async key => {
+  //   console.log('key', key);
+  //   const cache = await caches.open(key);
+  //   await cache.add(`Hola, me guardaron en ${key}`);
+  // });
+  // const cache = await caches.open(keys[2]);
 });
 
 //intercepta correctamente las peticiones.
