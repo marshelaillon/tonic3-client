@@ -63,15 +63,19 @@ self.addEventListener('activate', async event => {
 
 //intercepta correctamente las peticiones.
 self.addEventListener('fetch', async event => {
+  const newCache = await caches.open('my-new-cache');
+  console.log('newCache', newCache);
+  const images = await caches.open('images');
+  console.log('images', images);
+
   console.log('event.request.url', event.request.url);
   if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
-    event.respond;
     const cacheResponse = await caches.match(event.request);
-    if (cacheResponse) return event.respondWhit(cacheResponse);
+    if (cacheResponse) return event.respondWith(cacheResponse);
     try {
       const fetchResponse = await fetch(event.request);
       console.log('fetchResponse', fetchResponse);
-      return event.respondWhit(fetchResponse);
+      return event.respondWith(fetchResponse);
     } catch (error) {
       return event.respondWith(
         new Response('Network error happened', {
@@ -83,7 +87,7 @@ self.addEventListener('fetch', async event => {
   }
   console.log('NO ENTRE AL IF');
   const maybe = await event.request;
-  console.log('event.request con await', maybe);
+  console.log('event.request', maybe);
   console.log('full event object', event);
   const fetchUrl = new URL(event.request.url);
   console.log('esta es la url de la request', fetchUrl);
