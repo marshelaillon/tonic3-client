@@ -19,12 +19,14 @@ import { toggleSidebar } from './state/UI/sidebar';
 import { setVerifiedGuest } from './state/guests/verifyGuest';
 import { getUserEvents } from './state/user/userEvents';
 import { setcurrentEvent } from './state/user/currentEvent';
+import { logoutUser } from './state/user/user.js';
 
 function App() {
   const user = useSelector(state => state.user);
   const currentEvent = useSelector(state => state.currentEvent);
   const verifiedGuest = useSelector(state => state.verifiedGuest)?.data;
   const verifiedToken = useSelector(state => state.verifiedToken);
+
   const userEvents = useSelector(state => state.userEvents);
   const token = useSelector(state => state.token);
   const sidebar = useSelector(state => state.sidebar);
@@ -44,7 +46,8 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(checkUser());
+     await dispatch(setToken(localStorage.getItem('token')));
+      !user.id && !token && (await dispatch(checkUser()));
       if (user.id) {
         await dispatch(getUserEvents());
         await dispatch(setcurrentEvent());
@@ -58,9 +61,9 @@ function App() {
     })();
   }, []);
 
-  useEffect(() => {
-    dispatch(setToken(localStorage.getItem('token')));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(setToken(localStorage.getItem('token')));
+  // }, []);
 
   return (
     <div className="container-all">
@@ -72,7 +75,7 @@ function App() {
           <Routes>
             {/* <Route path="/user" element={user.id && <User />} /> */}
             <Route path="/new-password/:id/:token" element={<NewPassword />} />
-            {verifiedToken && verifiedGuest.verified ? (
+            {((verifiedToken || verifiedGuest?.checked) && verifiedGuest?.verified )? (
               <>
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />

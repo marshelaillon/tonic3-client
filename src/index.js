@@ -49,9 +49,9 @@ root.render(
   <Suspense fallback={loadingMarkup}>
     <Provider store={store}>
       <HashRouter>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
+        {/* <React.StrictMode> */}
+        <App />
+        {/* </React.StrictMode> */}
       </HashRouter>
     </Provider>
   </Suspense>

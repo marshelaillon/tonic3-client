@@ -1,0 +1,23 @@
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.input-button{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+
+}
+
+.invalid-feedback {
+    display: flex;
+}
+
+.button-icon{
+  background-color: #020122;
+
+}
+
+

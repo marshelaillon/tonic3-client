@@ -9,18 +9,19 @@ import { newPassword } from '../state/user/user';
 import { useTranslation } from 'react-i18next';
 
 const NewPassword = () => {
-  const { t } = useTranslation();
+
   const id = useLocation().pathname;
+  const { t } = useTranslation();
   const idUser = id.split('/');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const validate = Yup.object({
     password: Yup.string()
-      .min(8, t('pass_must_contain'))
-      .required(t('required_password')),
-    password2: Yup.string()
-      .min(8, t('pass_must_contain'))
-      .required(t('required_password')),
+    .required(t('required_password')).matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
+    ),
+    password2: Yup.string().required(t('required_password')).oneOf([Yup.ref('password'), null], 'La contraseña no coincide'),
   });
 
   const handleSubmit = value => {

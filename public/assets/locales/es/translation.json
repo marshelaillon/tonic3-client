@@ -22,7 +22,7 @@
   "enter_your_email": "Ingresa tu correo",
   "not_valid_email": "Correo electrónico no válido",
   "required_email": "Correo electrónico requerido",
-  "password_min_length": "La contraseña debe tener al menos 6 caracteres",
+  "password_min_length": "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial",
   "required_password": "La contraseña es requerida",
 
   "required_event_link": "El enlace es requerido",

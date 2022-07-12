@@ -11,6 +11,10 @@ import { useState, useEffect, useRef } from 'react';
 import { Navigate } from 'react-router-dom';
 import { verifyGuest } from '../state/guests/verifyGuest';
 import { useTranslation } from 'react-i18next';
+import { Icon } from 'react-icons-kit';
+import {eye} from 'react-icons-kit/icomoon/eye';
+import {eyeBlocked} from 'react-icons-kit/icomoon/eyeBlocked'; 
+import "../styles/forms.css"
 
 const Register = () => {
   const { t } = useTranslation();
@@ -21,6 +25,11 @@ const Register = () => {
 
   const [tokenCap, settokenCap] = useState(null);
   const captcha = useRef(null);
+
+  const [type1, setType1] = useState('password');
+  const [type2, setType2] = useState('password');
+const [icon1, setIcon1] = useState(eyeBlocked);
+const [icon2, setIcon2] = useState(eyeBlocked);
 
   const handleSubmit = values => {
     dispatch(
@@ -47,17 +56,39 @@ const Register = () => {
     if (tokenCap) console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
   }, [tokenCap]);
 
+  const handleToggle1 = () => {
+    if (type1 === 'password') {
+      setIcon1(eye);
+      setType1('text');
+    }
+    else {
+      setIcon1(eyeBlocked);
+      setType1('password');
+    }
+  };
+
+  const handleToggle2 = () => {
+    if (type2 === 'password') {
+      setIcon2(eye);
+      setType2('text');
+    }
+    else {
+      setIcon2(eyeBlocked);
+      setType2('password');
+    }
+  };
+
   const validate = Yup.object({
     userName: Yup.string().required(t('required_username')),
     email: Yup.string()
       .email(t('not_valid_email'))
       .required(t('required_email')),
     password: Yup.string()
-      //.min(6, 'La contraseña debe tener al menos 6 caracteres')
-      .required(t('required_password'))
-      .matches(
+
+      .required('Se requiere contraseña').matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        t('pass_must_contain')
+        t('password_min_length')
+
       ),
     confirmpassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'La contraseña no coincide')
@@ -84,8 +115,10 @@ const Register = () => {
             <h3>{t('register')}</h3>
             <Form>
               <div className="form-group">
+
                 <label htmlFor="userName">{t('username')}</label>
                 <Field
+
                   name="userName"
                   className={
                     formik.touched.userName && formik.errors.userName
@@ -118,7 +151,10 @@ const Register = () => {
                 ) : null}
               </div>
               <div className="form-group">
-                <label htmlFor="password">{t('password')}</label>
+
+               <label htmlFor="password">{t('password')}</label>
+                <div className='input-button'>
+                  
                 <Field
                   name="password"
                   className={
@@ -126,8 +162,10 @@ const Register = () => {
                       ? 'form-control is-invalid'
                       : 'form-control'
                   }
-                  type="password"
+                  type={type1}
                 />
+                <Button className='button-icon' variant='secondary'><span onClick={handleToggle1}><Icon icon={icon1} size={25} /></span></Button> 
+                </div>
                 {formik.touched.password && formik.errors.password ? (
                   <div className="invalid-feedback">
                     {formik.errors.password}
@@ -135,8 +173,11 @@ const Register = () => {
                 ) : null}
               </div>
               <div className="form-group">
+                
                 <label htmlFor="confirmpassword">{t('confirm_password')}</label>
-                <Field
+                <div className='input-button'>
+                  <Field
+
                   name="confirmpassword"
                   className={
                     formik.touched.confirmpassword &&
@@ -144,8 +185,11 @@ const Register = () => {
                       ? 'form-control is-invalid'
                       : 'form-control'
                   }
-                  type="password"
+                  type={type2}
                 />
+                <Button className='button-icon' variant="secondary" ><span onClick={handleToggle2}><Icon icon={icon2} size={25} /></span></Button>
+                </div>
+                
                 {formik.touched.confirmpassword &&
                 formik.errors.confirmpassword ? (
                   <div className="invalid-feedback">

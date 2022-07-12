@@ -24,6 +24,7 @@ export const verifyGuestReducer = createReducer(
   {
     [verifyGuest.fulfilled]: (state, action) => {
       localStorage.setItem('vGuest', JSON.stringify(action.payload?.data));
+    
       return action.payload;
     },
     [verifyGuest.rejected]: (state, action) => {

@@ -27,7 +27,6 @@ export default function SidebarItem({ index, item, setTypeOfUser }) {
                 await dispatch(logoutUser());
                 localStorage.removeItem('token');
                 await dispatch(setToken(''));
-                await dispatch(checkUser());
                 await dispatch(toggleSidebar());
                 setTypeOfUser('notLogged');
                 navigate('/');
