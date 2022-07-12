@@ -52,22 +52,28 @@ self.addEventListener('message', event => {
   }
 });
 
-self.addEventListener('activate', async event => {
-  // keys.map(async key => {
-  //   console.log('key', key);
-  //   const cache = await caches.open(key);
-  //   await cache.add(`Hola, me guardaron en ${key}`);
-  // });
-  // const cache = await caches.open(keys[2]);
+self.addEventListener('install', event => {
+  const addCacheRoutes = async () => {
+    const routes = await caches.open('my-new-cache');
+    await routes.addAll([
+      'http://localhost:3001/api/users/events',
+      'http://localhost:3001/api/admin/get-all-events',
+    ]);
+  };
+  event.waitUntil(addCacheRoutes());
 });
 
 //intercepta correctamente las peticiones.
 self.addEventListener('fetch', async event => {
+  // TRATANDO DE SACAR POR CONSOLA EL CONTENID ODE AMBOS
+  // NEW CACHE DEBERIA ESTAR VACIO, DEVUELVE UN {}, NO DEVUELVE UNDEFINED?
+  // IMAGES TIENE DOS IMAGENES, PERO DEVUELVE {}
   const newCache = await caches.open('my-new-cache');
   console.log('newCache', newCache);
   const images = await caches.open('images');
   console.log('images', images);
 
+  // ACA VIENE LA PARTE COMPLICADA
   console.log('event.request.url', event.request.url);
   if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
     const cacheResponse = await caches.match(event.request);
