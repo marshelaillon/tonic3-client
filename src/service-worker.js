@@ -53,19 +53,19 @@ self.addEventListener('message', event => {
 });
 
 self.addEventListener('activate', async event => {
-  console.log('Estoy frenando la instalacion con un waitUntil()');
-  const keys = await caches.keys();
   keys.map(async key => {
     console.log('key', key);
     const cache = await caches.open(key);
     await cache.add(`Hola, me guardaron en ${key}`);
   });
+  const cache = await caches.open(keys[2]);
 });
 
 //intercepta correctamente las peticiones.
 self.addEventListener('fetch', async event => {
   console.log('event.request.url', event.request.url);
   if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
+    event.respond;
     const cacheResponse = await caches.match(event.request);
     if (cacheResponse) return event.respondWhit(cacheResponse);
     try {
@@ -73,7 +73,7 @@ self.addEventListener('fetch', async event => {
       console.log('fetchResponse', fetchResponse);
       return event.respondWhit(fetchResponse);
     } catch (error) {
-      return event.respondWhit(
+      return event.respondWith(
         new Response('Network error happened', {
           status: 408,
           headers: { 'Content-Type': 'text/plain' },
