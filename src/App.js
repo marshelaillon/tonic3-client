@@ -46,7 +46,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-     /*  await dispatch(setToken(localStorage.getItem('token'))); */
+     await dispatch(setToken(localStorage.getItem('token')));
       !user.id && !token && (await dispatch(checkUser()));
       if (user.id) {
         await dispatch(getUserEvents());

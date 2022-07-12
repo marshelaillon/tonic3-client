@@ -5,7 +5,7 @@ import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../state/user/user';
+import { loginUser, setToken } from '../state/user/user';
 import { Welcome } from '../utils/sweetAlerts';
 import { useEffect } from 'react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
@@ -28,14 +28,20 @@ const Login = () => {
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(eyeBlocked);
   
-  const handleSubmit = values => {
+  const handleSubmit = async values => {
     captcha.current.execute();
-    dispatch(
-      loginUser({
-        email: values.email,
-        password: values.password,
-      })
-    );
+    if (values.password) {
+      const user = await dispatch(
+        loginUser({
+          email: values.email,
+          password: values.password,
+        })
+      );
+      const token = user?.payload?.token;
+      token && dispatch(setToken(token));
+      localStorage.setItem('token', token);
+    }
+    //setIsLogged(true);
     Welcome();
     navigate('/');
   };

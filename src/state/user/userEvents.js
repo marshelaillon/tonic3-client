@@ -13,6 +13,7 @@ export const getUserEvents = createAsyncThunk(
       const filtered = data.events.filter(
         (item, i) => item.id !== data.events[i + 1]?.id
       );
+      console.log("filtered....", filtered);
       return { events: filtered, leftTime: data.leftTime };
     } catch (error) {
       console.error('/set-event ERROR ', error);
