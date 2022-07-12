@@ -42,5 +42,24 @@
   "days": "Dias",
   "hours": "Horas",
   "minutes": "Minutos",
-  "seconds": "Segundos"
+  "seconds": "Segundos",
+
+  "pass_must_contain": "A senha deve conter pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial",
+  "hcaptcha_msg": "Por favor, clique no botão para confirmar que não é um robô",
+  "required_access_code": "Código de acesso é obrigatório",
+  "enter_btn": "Entrar",
+  "access_code": "Código de acesso",
+  "write_password": "Escreva sua senha",
+  "write_password_again": "Escreva sua senha novamente",
+  "username": "Nome de usuário",
+  "delete_form": "Excluir",
+  "confirm_pass_required": "Confirmar senha é obrigatória",
+  "required_username": "Nome de usuário é obrigatório",
+  "edit_profile": "Editar perfil",
+  "save_changes": "Salvar alterações",
+  "name": "Nome",
+  "last_name": "Sobrenome",
+  "genre": "Gênero",
+  "total": "Total",
+  "send": "Enviar"
 }
