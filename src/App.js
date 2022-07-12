@@ -68,7 +68,7 @@ function App() {
           {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
 
           <Routes>
-            <Route path="/user" element={user.id && <User />} />
+            {/* <Route path="/user" element={user.id && <User />} /> */}
             <Route path="/new-password/:id/:token" element={<NewPassword />} />
             {verifiedToken && verifiedGuest.verified ? (
               <>

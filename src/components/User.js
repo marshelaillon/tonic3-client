@@ -8,7 +8,8 @@ import { Button } from 'react-bootstrap';
 import { useInput } from '../hooks/useInput';
 import { updateUser } from '../state/user/user';
 
-export default function User() {
+export default function User() {  
+  const [userPhoto, setUserPhoto] = useState('');
   const [editInput, setEdit] = useState(false);
   const user = useSelector(state => state.user);
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function User() {
   const firstName = useInput();
   const lastName = useInput();
   const genre = useInput();
-  console.log(user.profilePicture);
+
   useEffect(() => {
     if (!user.id) {
       PleaseRegister();
@@ -27,7 +28,8 @@ export default function User() {
   const handleEdit = () => {
     setEdit(!editInput);
   };
-  const handleSubmit = value => {
+ 
+  const handleSubmit = event => {
     //crear estado para la ruta
     dispatch(
       updateUser({
@@ -35,10 +37,18 @@ export default function User() {
         userName: userName.value || user.userName,
         firstName: firstName.value || user.firstName,
         lastName: lastName.value || user.lastName,
+        profilePicture: userPhoto || user.profilePicture,
         genre: genre.value || user.genre,
       })
     );
     handleEdit();
+  };
+console.log(userPhoto);
+  const loadPhoto = e => {
+    const reader = new FileReader();
+    reader.onload = () => setUserPhoto(reader.result);
+    if (e.target.files[0])  reader.readAsDataURL(e.target.files[0]);
+    
   };
 
   return (
@@ -48,10 +58,25 @@ export default function User() {
           <div className="card-header" style={{ background: 'black' }}>
             <ul className="nav nav-tabs card-header-tabs">
               <li className="imag">
-                <img
-                  src={user.profilePicture}
-                  className="card-img user-foto"
-                ></img>
+                {editInput ? (
+                  <div className="input group">
+                    <img src={userPhoto} className="card-img user-foto" />
+
+                    <input
+                      type="file"
+                      className="custom-file-input"
+                      id="file"
+                      aria-describedby="inputGroupFileAddon01"
+                      accept="image/png, image/jpeg"
+                      onChange={loadPhoto}
+                    />
+                  </div>
+                ) : (
+                  <img
+                    src={userPhoto || user.profilePicture}
+                    className="card-img user-foto"
+                  />
+                )}
               </li>
 
               <p
@@ -99,6 +124,7 @@ export default function User() {
               name="userName"
               className="perfil-input"
               disabled={!editInput}
+              required
             />
           </label>
           <label className="text-white" htmlFor="text ">

@@ -24,6 +24,7 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'SEND_LOGIN_REQUEST',
   async credentials => {
+    console.log(credentials);
     try {
       const { data } = await axios.post(
         'http://localhost:3001/api/users/login',
@@ -57,13 +58,11 @@ export const checkUser = createAsyncThunk('CHECK_USER_BY_COOKIES', async () => {
 export const updateUser = createAsyncThunk(
   'UPDATE_REQUEST',
   async updateBody => {
-    console.log('esto es el updatebody', updateBody);
     try {
       const { data } = await axios.put(
         `http://localhost:3001/api/users/update/${updateBody.id}`,
         updateBody
       );
-      console.log('esta es la data del update', data);
       return data;
     } catch (error) {
       console.error('/user/update/:id ERROR ', error);
