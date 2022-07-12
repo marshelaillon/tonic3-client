@@ -29,6 +29,7 @@ export const loginUser = createAsyncThunk(
         'http://localhost:3001/api/users/login',
         credentials
       );
+      console.log("la data de login", data);
       return data.data;
     } catch (error) {
       console.error('USER-LOGIN ERROR', error);
