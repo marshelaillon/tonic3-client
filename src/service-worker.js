@@ -72,14 +72,17 @@ self.addEventListener('fetch', async event => {
   if (event.request.url == 'http://localhost:3001/api/users/events') {
     console.log('ESTOY DENTRO DEL IF');
     const cacheResponse = await caches.match(event.request);
-    if (cacheResponse) return event.respondWith(cacheResponse.clone());
+    if (cacheResponse) {
+      console.log('TE ESTOY DEVOLVIENDO DESDE EL CACHE');
+      return event.respondWith(cacheResponse.clone());
+    }
     try {
-      const fetchResponse = await fetch(event.request);
-      console.log('fetchResponse', fetchResponse);
+      // const fetchResponse = await fetch(event.request);
+      // console.log('fetchResponse', fetchResponse);
       await newCache.add(event.request);
       const vengoDelCache = await caches.match(event.request);
       console.log('YOVENGO DEL CACHE DE RECIEN', vengoDelCache);
-      return event.respondWith(fetchResponse.clone());
+      // return event.respondWith(fetchResponse.clone());
     } catch (error) {
       return event.respondWith(
         new Response('Network error happened', {
