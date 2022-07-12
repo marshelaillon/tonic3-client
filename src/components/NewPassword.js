@@ -9,6 +9,7 @@ import { newPassword } from '../state/user/user';
 import { useTranslation } from 'react-i18next';
 
 const NewPassword = () => {
+
   const id = useLocation().pathname;
   const { t } = useTranslation();
   const idUser = id.split('/');
@@ -53,7 +54,7 @@ const NewPassword = () => {
             <Form>
               <Field
                 name="password"
-                placeholder="pon tu contraseña"
+                placeholder={t('write_password')}
                 className={
                   formik.touched.password && formik.errors.password
                     ? 'form-control is-invalid'
@@ -66,7 +67,7 @@ const NewPassword = () => {
               ) : null}
               <Field
                 name="password2"
-                placeholder="pon tu contraseña"
+                placeholder={t('write_password_again')}
                 className={
                   formik.touched.password2 && formik.errors.password2
                     ? 'form-control is-invalid'
@@ -82,7 +83,7 @@ const NewPassword = () => {
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
-                    Submit
+                    {t('btn_submit')}
                   </Button>
                 </div>
               </div>

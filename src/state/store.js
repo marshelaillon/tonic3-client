@@ -12,6 +12,7 @@ import { sidebarReducer } from './UI/sidebar';
 import { currentEventReducer } from './user/currentEvent';
 import { userReducer } from './user/user';
 import { userEventsReducer } from './user/userEvents';
+import localStorageTokenReducer from './user/user';
 
 const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),
@@ -29,6 +30,7 @@ const store = configureStore({
     events: eventsReducer,
     guests: guestsReducer,
     users: usersReducer,
+    token: localStorageTokenReducer,
   },
 });
 

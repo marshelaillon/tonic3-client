@@ -4,9 +4,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
-
 clientsClaim();
-
 // ACTIVAR ALMACENAMIENTO EN CACHE
 precacheAndRoute(self.__WB_MANIFEST);
 // DESACTIVAR ALMACENAMIENTO EN CACHE
@@ -51,5 +49,42 @@ registerRoute(
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+  }
+});
+
+self.addEventListener('activate', event => {
+  const addCacheRoutes = async () => {
+    const routes = await caches.open('my-new-cache');
+  };
+  event.waitUntil(addCacheRoutes());
+});
+
+self.addEventListener('fetch', async event => {
+  const newCache = await caches.open('my-new-cache');
+  console.log('newCache', newCache);
+
+  console.log('event.request.url', event.request.url);
+  if (event.request.url == 'http://localhost:3001/api/users/events') {
+    console.log('ESTOY DENTRO DEL IF');
+    const cacheResponse = await caches.match(event.request);
+    if (cacheResponse) {
+      console.log('TE ESTOY DEVOLVIENDO DESDE EL CACHE', cacheResponse);
+      return event.respondWith(cacheResponse);
+    }
+    try {
+      // const fetchResponse = await fetch(event.request);
+      // console.log('fetchResponse', fetchResponse);
+      await newCache.add(event.request);
+      const vengoDelCache = await caches.match(event.request);
+      console.log('YOVENGO DEL CACHE DE RECIEN', vengoDelCache);
+      // return event.respondWith(fetchResponse.clone());
+    } catch (error) {
+      return event.respondWith(
+        new Response('Network error happened', {
+          status: 408,
+          headers: { 'Content-Type': 'text/plain' },
+        })
+      );
+    }
   }
 });

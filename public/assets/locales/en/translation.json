@@ -42,5 +42,24 @@
   "days": "Days",
   "hours": "Hours",
   "minutes": "Minutes",
-  "seconds": "Seconds"
+  "seconds": "Seconds",
+
+  "pass_must_contain": "Password must contain at least 8 characters, an uppercase letter, a number and a special character",
+  "hcaptcha_msg": "Please verify that you are not a robot",
+  "required_access_code": "Access code is required",
+  "enter_btn": "Enter",
+  "access_code": "Access code",
+  "write_password": "Write your password",
+  "write_password_again": "Write your password again",
+  "username": "Username",
+  "delete_form": "Delete form",
+  "confirm_pass_required": "Confirm password is required",
+  "required_username": "Username is required",
+  "edit_profile": "Edit profile",
+  "save_changes": "Save changes",
+  "name": "Name",
+  "last_name": "Last name",
+  "genre": "Genre",
+  "total": "Total",
+  "send": "Send"
 }

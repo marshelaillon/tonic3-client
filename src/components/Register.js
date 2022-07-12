@@ -79,18 +79,20 @@ const [icon2, setIcon2] = useState(eyeBlocked);
   };
 
   const validate = Yup.object({
-    userName: Yup.string().required('Se requiere un apellido'),
+    userName: Yup.string().required(t('required_username')),
     email: Yup.string()
-      .email('El email ingresado no es válido')
-      .required('Se requiere un email'),
+      .email(t('not_valid_email'))
+      .required(t('required_email')),
     password: Yup.string()
+
       .required('Se requiere contraseña').matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         t('password_min_length')
+
       ),
     confirmpassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'La contraseña no coincide')
-      .required('Se requiere confirmación de contraseña'),
+      .required(t('confirm_pass_required')),
   });
 
   return (
@@ -113,8 +115,10 @@ const [icon2, setIcon2] = useState(eyeBlocked);
             <h3>{t('register')}</h3>
             <Form>
               <div className="form-group">
-                <label htmlFor="userName">Username</label>
-                <Field 
+
+                <label htmlFor="userName">{t('username')}</label>
+                <Field
+
                   name="userName"
                   className={
                     formik.touched.userName && formik.errors.userName
@@ -130,7 +134,7 @@ const [icon2, setIcon2] = useState(eyeBlocked);
                 ) : null}
               </div>
               <div className="form-group">
-                <label htmlFor="email">E-mail</label>
+                <label htmlFor="email">{t('email')}</label>
                 <Field
                   name="email"
                   className={
@@ -147,7 +151,8 @@ const [icon2, setIcon2] = useState(eyeBlocked);
                 ) : null}
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+
+               <label htmlFor="password">{t('password')}</label>
                 <div className='input-button'>
                   
                 <Field
@@ -168,9 +173,11 @@ const [icon2, setIcon2] = useState(eyeBlocked);
                 ) : null}
               </div>
               <div className="form-group">
-                <label htmlFor="confirmpassword">Confirmá tu password</label>
+                
+                <label htmlFor="confirmpassword">{t('confirm_password')}</label>
                 <div className='input-button'>
                   <Field
+
                   name="confirmpassword"
                   className={
                     formik.touched.confirmpassword &&
@@ -201,18 +208,18 @@ const [icon2, setIcon2] = useState(eyeBlocked);
               </div>
 
               {!captcha && (
-                <div style={{ color: 'red' }}>Por favor, acepta el captcha</div>
+                <div style={{ color: 'red' }}>{t('hcaptcha_msg')}</div>
               )}
 
               <div className=" btn mt-4 d-flex flex-row">
                 <div className="form-group me-4">
                   <Button type="submit" variant="dark">
-                    Registrarme
+                    {t('register')}
                   </Button>
                 </div>
                 <div className="form-group">
                   <Button type="reset" variant="dark">
-                    Borrar Formulario
+                    {t('delete_form')}
                   </Button>
                 </div>
               </div>
