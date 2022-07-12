@@ -17,7 +17,8 @@ function Countdown() {
     const countDownDate = new Date(currentEvent?.event?.date).getTime();
 
     interval = setInterval(() => {
-      const now = new Date().getTime();
+      const now = +(new Date().getTime());
+     
 
       const distance = countDownDate - now;
 

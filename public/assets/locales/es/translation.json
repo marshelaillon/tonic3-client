@@ -22,7 +22,7 @@
   "enter_your_email": "Ingresa tu correo",
   "not_valid_email": "Correo electrónico no válido",
   "required_email": "Correo electrónico requerido",
-  "password_min_length": "La contraseña debe tener al menos 6 caracteres",
+  "password_min_length": "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial",
   "required_password": "La contraseña es requerida",
 
   "required_event_link": "El enlace es requerido",
@@ -42,5 +42,24 @@
   "days": "Dias",
   "hours": "Horas",
   "minutes": "Minutos",
-  "seconds": "Segundos"
+  "seconds": "Segundos",
+
+  "pass_must_contain": "La contraseña debe contener al menos 8 caracteres, una letra mayúscula, un número y un caracter especial",
+  "hcaptcha_msg": "Por favor, verifica que no eres un robot",
+  "required_access_code": "El código de acceso es requerido",
+  "enter_btn": "Ingresar",
+  "access_code": "Código de acceso",
+  "write_password": "Escribe tu contraseña",
+  "write_password_again": "Escribe tu contraseña de nuevo",
+  "username": "Nombre de usuario",
+  "delete_form": "Eliminar formulario",
+  "confirm_pass_required": "La confirmación de contraseña es requerida",
+  "required_username": "El nombre de usuario es requerido",
+  "edit_profile": "Editar perfil",
+  "save_changes": "Guardar cambios",
+  "name": "Nombre",
+  "last_name": "Apellido",
+  "genre": "Género",
+  "total": "Total",
+  "send": "Enviar"
 }

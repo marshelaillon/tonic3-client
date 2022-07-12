@@ -60,7 +60,7 @@ const List = ({ refresh, currentList }) => {
         <div className="head-list row-sm info my-2 d-flex justify-content-between">
           <div className="col-sm-1 mx-2 border text-center my-2">
             <div className="row-sm">{count}</div>
-            <div className="row-sm">total</div>
+            <div className="row-sm">{t('total')}</div>
           </div>
 
           <IoMdRefreshCircle
@@ -146,7 +146,7 @@ const List = ({ refresh, currentList }) => {
 
               {listener === 'guests' && (
                 <button onClick={handlerClick} className="send-button">
-                  Send {<GrSend value={{ color: 'red' }} />}
+                  {t('send')} {<GrSend value={{ color: 'red' }} />}
                 </button>
               )}
               {listener === 'events' && (
