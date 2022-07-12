@@ -77,7 +77,7 @@ self.addEventListener('fetch', async event => {
       const fetchResponse = await fetch(event.request);
       console.log('fetchResponse', fetchResponse);
       await newCache.add(event.request);
-      const vengoDelCache = caches.match(event.request);
+      const vengoDelCache = await caches.match(event.request);
       console.log('YOVENGO DEL CACHE DE RECIEN', vengoDelCache);
       return event.respondWith(fetchResponse.clone());
     } catch (error) {
