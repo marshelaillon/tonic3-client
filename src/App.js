@@ -95,10 +95,10 @@ function App() {
                 <Route path="/countdown" element={<Countdown />} />
               </>
             )}
-            <Route path="/not-found" element={<NotFound />} />
+            {/* <Route path="/not-found" element={<NotFound />} /> */}
             <Route path='/upgradeEvent' element={<UpgradeEvents />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate to="/404" />} />
+            {/* <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/404" />} /> */}
           </Routes>
         </div>
       </div>
