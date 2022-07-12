@@ -42,7 +42,7 @@ export const logoutUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { token } = thunkAPI.getState();
-      const response = await axios.post(
+      const response = await axios.get(
         'http://localhost:3001/api/users/logout',
         {
           headers: {
@@ -50,7 +50,7 @@ export const logoutUser = createAsyncThunk(
           },
         }
       );
-      return response.data;
+      return {};
     } catch (error) {
       console.error('user/logout ERROR', error);
     }
@@ -142,7 +142,7 @@ export const { setToken } = localStorageToken.actions;
 export const userReducer = createReducer(
   {},
   {
-    [registerUser.fulfilled]: (state, action) => action.payload?.data,
+    // [registerUser.fulfilled]: (state, action) => action.payload?.data,
     [registerUser.rejected]: (state, action) => {
       InvalidRegister();
       return action.payload?.data;
@@ -152,9 +152,12 @@ export const userReducer = createReducer(
       InvalidPassword();
       return action.payload?.data;
     },
-    [logoutUser.fulfilled]: (state, action) => action.payload,
+    [logoutUser.fulfilled]: (state, action) => {
+      localStorage.removeItem('token');
+      return action.payload;
+    },
     [updateUser.fulfilled]: (state, action) => action.payload,
-    [checkUser.fulfilled]: (state, action) => action.payload?.data,
-    [forgotPassword.fulfilled]: (state, action) => action.payload?.data,
+    [checkUser.fulfilled]: (state, action) => action.payload?.data || {},
+    // [forgotPassword.fulfilled]: (state, action) => action.payload?.data,
   }
 );
