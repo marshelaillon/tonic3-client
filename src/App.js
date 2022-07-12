@@ -48,7 +48,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-     await dispatch(setToken(localStorage.getItem('token')));
+      await dispatch(setToken(localStorage.getItem('token')));
       !user.id && !token && (await dispatch(checkUser()));
       if (user.id) {
         await dispatch(getUserEvents());
@@ -78,7 +78,7 @@ function App() {
             {/* <Route path="/user" element={user.id && <User />} /> */}
             <Route path="/new-password/:id/:token" element={<NewPassword />} />
 
-            {((verifiedToken || verifiedGuest?.checked) && verifiedGuest?.verified )? (
+            {((verifiedToken || verifiedGuest?.checked) && verifiedGuest?.verified) ? (
               <>
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
@@ -95,10 +95,10 @@ function App() {
                 <Route path="/countdown" element={<Countdown />} />
               </>
             )}
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate to="/404" />} />
             <Route path="/not-found" element={<NotFound />} />
             <Route path='/upgradeEvent' element={<UpgradeEvents />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/404" />} />
           </Routes>
         </div>
       </div>
