@@ -52,15 +52,11 @@ self.addEventListener('message', event => {
   }
 });
 
-self.addEventListener('install', event => {
+self.addEventListener('activate', event => {
   const addCacheRoutes = async () => {
     const routes = await caches.open('my-new-cache');
-    await routes.addAll([
-      'http://localhost:3001/api/users/events',
-      'http://localhost:3001/api/admin/get-all-events',
-    ]);
   };
-  // event.waitUntil(addCacheRoutes());
+  event.waitUntil(addCacheRoutes());
 });
 
 //intercepta correctamente las peticiones.
@@ -70,18 +66,20 @@ self.addEventListener('fetch', async event => {
   // IMAGES TIENE DOS IMAGENES, PERO DEVUELVE {}
   const newCache = await caches.open('my-new-cache');
   console.log('newCache', newCache);
-  const images = await caches.open('images');
-  console.log('images', images);
 
   // ACA VIENE LA PARTE COMPLICADA
   console.log('event.request.url', event.request.url);
-  if (event.request.url == 'http://localhost:3001/api/admin/get-all-events') {
+  if (event.request.url == 'http://localhost:3001/api/users/events') {
+    console.log('ESTOY DENTRO DEL IF');
     const cacheResponse = await caches.match(event.request);
-    if (cacheResponse) return event.respondWith(cacheResponse);
+    if (cacheResponse) return event.respondWith(cacheResponse.clone());
     try {
       const fetchResponse = await fetch(event.request);
       console.log('fetchResponse', fetchResponse);
-      return event.respondWith(fetchResponse);
+      await newCache.add(event.request);
+      const vengoDelCache = caches.match(event.request);
+      console.log('YOVENGO DEL CACHE DE RECIEN', vengoDelCache);
+      return event.respondWith(fetchResponse.clone());
     } catch (error) {
       return event.respondWith(
         new Response('Network error happened', {
