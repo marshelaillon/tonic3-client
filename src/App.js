@@ -23,12 +23,12 @@ import UpgradeEvents from './components/adminView/UpgradeEvents';
 import Events from './components/userEvents/Events';
 import { logoutUser } from './state/user/user.js';
 
+import Footer from './components/Footer';
+
 function App() {
   const user = useSelector(state => state.user);
   const currentEvent = useSelector(state => state.currentEvent);
-
-  const verifiedGuest = useSelector(state => state.verifiedGuest);
-
+  const verifiedGuest = useSelector(state => state.verifiedGuest)?.data;
   const verifiedToken = useSelector(state => state.verifiedToken);
   console.log('verifiedguest', verifiedGuest);
   const userEvents = useSelector(state => state.userEvents);
@@ -79,8 +79,10 @@ function App() {
 
           <Routes>
             {/* <Route path="/user" element={user.id && <User />} /> */}
+
             {(verifiedToken || verifiedGuest?.data?.checked) &&
             verifiedGuest?.data?.verified ? (
+
               <>
                 {!user.id && (
                   <>
@@ -112,12 +114,15 @@ function App() {
               </>
             )}
 
+
             <Route path="/upgradeEvent" element={<UpgradeEvents />} />
 
             <Route path="/404" element={<NotFound />} />
             {/*  <Route path="*" element={<Navigate to="/404" />} /> */}
             <Route path="/not-found" element={<NotFound />} />
+
           </Routes>
+          <Footer />
         </div>
       </div>
     </div>
