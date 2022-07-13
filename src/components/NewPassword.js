@@ -21,7 +21,7 @@ const NewPassword = () => {
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
     ),
-    password2: Yup.string().required(t('required_password')).oneOf([Yup.ref('password'), null], 'La contraseña no coincide'),
+    password2: Yup.string().required(t('required_password')).oneOf([Yup.ref('password'), null], 'La contraseña no coincide')
   });
 
   const handleSubmit = value => {

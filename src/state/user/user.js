@@ -32,9 +32,8 @@ export const loginUser = createAsyncThunk(
         credentials
       );
 
-      console.log("la data de login", data);
+      console.log('la data de login', data);
       return data;
-
     } catch (error) {
       console.error('USER-LOGIN ERROR', error);
     }
@@ -158,6 +157,7 @@ export const userReducer = createReducer(
     },
 
     [logoutUser.fulfilled]: (state, action) => {
+      localStorage.removeItem('vGuest');
       localStorage.removeItem('token');
       return action.payload;
     },
