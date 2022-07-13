@@ -21,12 +21,12 @@ import { getUserEvents } from './state/user/userEvents';
 import { setcurrentEvent } from './state/user/currentEvent';
 import UpgradeEvents from './components/adminView/UpgradeEvents';
 import { logoutUser } from './state/user/user.js';
-
+import Footer from './components/Footer';
 
 function App() {
   const user = useSelector(state => state.user);
   const currentEvent = useSelector(state => state.currentEvent);
-  const verifiedGuest = useSelector(state => state.verifiedGuest)?.data
+  const verifiedGuest = useSelector(state => state.verifiedGuest)?.data;
   const verifiedToken = useSelector(state => state.verifiedToken);
 
   const userEvents = useSelector(state => state.userEvents);
@@ -78,7 +78,8 @@ function App() {
             {/* <Route path="/user" element={user.id && <User />} /> */}
             <Route path="/new-password/:id/:token" element={<NewPassword />} />
 
-            {((verifiedToken || verifiedGuest?.checked) && verifiedGuest?.verified) ? (
+            {(verifiedToken || verifiedGuest?.checked) &&
+            verifiedGuest?.verified ? (
               <>
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
@@ -96,10 +97,11 @@ function App() {
               </>
             )}
             {/* <Route path="/not-found" element={<NotFound />} /> */}
-            <Route path='/upgradeEvent' element={<UpgradeEvents />} />
+            <Route path="/upgradeEvent" element={<UpgradeEvents />} />
             {/* <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/404" />} /> */}
           </Routes>
+          <Footer />
         </div>
       </div>
     </div>
