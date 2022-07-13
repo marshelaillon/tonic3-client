@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import { currentListReducer } from './admin/adminUI/currentList';
 import { listenerReducer } from './admin/adminUI/listener';
 import { eventReducer } from './admin/eventController/event';
 import { eventsReducer } from './admin/eventController/eventList';
