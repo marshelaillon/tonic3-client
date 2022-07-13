@@ -25,7 +25,7 @@ const ForgotPassword = () => {
       })
     );
     EmailPassword();
-    navigate('/login');
+    navigate('/');
   };
 
   return (
@@ -40,6 +40,7 @@ const ForgotPassword = () => {
         {formik => (
           <div className="container w-75 mt-4">
             <Form>
+              <label>Did you forgot your password? Enter your e-mail to get a new password</label>
               <Field
                 name="email"
                 placeholder={t('enter_your_email')}

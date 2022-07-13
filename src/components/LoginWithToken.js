@@ -3,12 +3,12 @@ import { useRef, useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken } from '../state/guests/verifyToken';
 import { InvalidToken } from '../utils/sweetAlerts';
 import { verifyGuest } from '../state/guests/verifyGuest';
-import { checkUser, loginUser, setToken } from '../state/user/user';
+
 import updateToken from '../services/updateToken';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useTranslation } from 'react-i18next';
@@ -27,7 +27,6 @@ const LoginWhitToken = () => {
   const [tokenCap, setTokenCap] = useState(null);
 
   const captcha = useRef(null);
-  const [isLogged, setIsLogged] = useState(false);
 
 
   const handleSubmit = values => {
@@ -50,10 +49,8 @@ const LoginWhitToken = () => {
         })
     }
     if (checkedEmail && guestdata.checked) {
-      console.log(checkedEmail, "entre al if");
       navigate('/login')
     }
-
   };
 
 
@@ -64,8 +61,6 @@ const LoginWhitToken = () => {
   useEffect(() => {
     if (tokenCap) console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
   }, [tokenCap]);
-
-
 
 
   const validate = Yup.object({
@@ -111,7 +106,7 @@ const LoginWhitToken = () => {
 
               {/* si el usuario NO esta registrado, se lo verifica con el token
                 y se lo redirige a /register */}
-              {/* {checkedEmail && !guestdata.checked && (
+              {checkedEmail && !guestdata.checked && (
                 <div className="form-group">
                   <label htmlFor="loginToken">
                     {t('access_code')}</label>
@@ -131,35 +126,8 @@ const LoginWhitToken = () => {
                   ) : null}
 
                 </div>
-              )} */}
-              {/* si el usuario esta ya registrado, se lo loguea */}
-              {/* {checkedEmail && guestdata.checked && (
-                <div className="form-group">
-
-                  <label htmlFor="password">{t('password')}</label>
-
-                  <Field
-                    name="password"
-                    className={
-                      formik.touched.password && formik.errors.password
-                        ? 'form-control is-invalid'
-                        : 'form-control'
-                    }
-                    type={type}
-                  />
-                  <Button className='button-icon' variant='secondary'>
-
-                <span onClick={handleToggle}><Icon icon={icon} size={25} /></span>
-                </Button>
-                  </div>
-
-                  {formik.touched.password && formik.errors.password ? (
-                    <div className="invalid-feedback">
-                      {formik.errors.password}
-                    </div>
-                  ) : null}
-                </div>
-              )} */}
+              )} 
+            
               <div className="form-group">
                 <HCaptcha
                   ref={captcha}

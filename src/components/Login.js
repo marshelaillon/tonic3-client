@@ -69,8 +69,7 @@ const Login = () => {
       .required(t('required_password'))
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        t('password_min_length')
-       /*  t('pass_must_contain') */
+        t('pass_must_contain')
       ),
   });
 
@@ -150,7 +149,7 @@ const Login = () => {
               </div>
               <p className="mt-4">
                 {t('dont_have_account')}&nbsp;
-                <Link to="/register">{t('invite_to_register')}</Link>
+                <Link to="/forgotPassword">{t('invite_to_register')}</Link>
               </p>
             </Form>
           </div>

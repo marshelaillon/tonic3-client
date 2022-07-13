@@ -24,7 +24,7 @@ import { logoutUser } from './state/user/user.js';
 function App() {
   const user = useSelector(state => state.user);
   const currentEvent = useSelector(state => state.currentEvent);
-  const verifiedGuest = useSelector(state => state.verifiedGuest)?.data;
+  const verifiedGuest = useSelector(state => state.verifiedGuest);
   const verifiedToken = useSelector(state => state.verifiedToken);
 
   const userEvents = useSelector(state => state.userEvents);
@@ -33,6 +33,7 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  console.log(verifiedGuest, "usuario");
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
@@ -74,17 +75,20 @@ function App() {
 
           <Routes>
             {/* <Route path="/user" element={user.id && <User />} /> */}
-            <Route path="/new-password/:id/:token" element={<NewPassword />} />
-            {((verifiedToken || verifiedGuest?.checked) && verifiedGuest?.verified )? (
+            {((verifiedToken || verifiedGuest?.data?.checked) && verifiedGuest?.data?.verified )? (
               <>
+              {!user.id && (<> 
+              <Route path="/new-password/:id/:token" element={<NewPassword />} />
+              <Route path="/login" element={<Login />} />
+              </>)}
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
-                {!user.id && <Route path="/login" element={<Login />} />}
+              <Route path="/forgotPassword" element={<ForgotPassword />} />
+
               </>
             ) : (
               <>
                 <Route path="/" element={<Home />} />
-                <Route path="/forgotPassword" element={<ForgotPassword />} />
                 <Route path="/user" element={user.id && <User />} />
                 {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
 
@@ -93,7 +97,7 @@ function App() {
               </>
             )}
             <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate to="/404" />} />
+           {/*  <Route path="*" element={<Navigate to="/404" />} /> */}
             <Route path="/not-found" element={<NotFound />} />
           </Routes>
         </div>
