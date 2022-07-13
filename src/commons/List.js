@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, Modal } from 'react-bootstrap';
 import { Table } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
@@ -7,18 +7,20 @@ import '../styles/adminView.css';
 import { GrSend } from 'react-icons/gr';
 import { sendInvitations } from '../state/admin/guestController/guests';
 import { IoMdRefreshCircle } from 'react-icons/io';
-import { RiAdminFill } from 'react-icons/ri'
+import { RiAdminFill } from 'react-icons/ri';
 import { BiCalendarEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem } from '../state/admin/adminUI/removeItem';
-import { sendInvi } from '../utils/sweetAlerts';
+import { ascendedUser, sendInvi } from '../utils/sweetAlerts';
 import { MdDeleteForever } from 'react-icons/md';
 import UpgradeEvents from '../components/adminView/UpgradeEvents';
 import { useNavigate } from 'react-router-dom';
+import { updateUser } from '../state/admin/userController/users';
 
 const List = ({ refresh, currentList }) => {
   const [show, setShow] = useState(false);
   const [itemEvent, setItemEvent] = useState({});
+  const [change, setChange] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,6 +32,12 @@ const List = ({ refresh, currentList }) => {
   const dispatch = useDispatch();
   const { count, list } = currentList;
 
+  useEffect(() => {
+    (async () => {
+      await refresh();
+    })();
+  }, [change]);
+
   const handlerItemEvent = item => {
     console.log('PRUEBA DE CAPTURA DE EVNTO', item);
     setItemEvent(item);
@@ -40,17 +48,21 @@ const List = ({ refresh, currentList }) => {
     sendInvi();
   };
 
-  const handlerAdmin = values => {
-
-  }
+  const handlerAdmin = async values => {
+    const update_User = await dispatch(
+      updateUser({
+        id: values.id,
+      })
+    );
+    if (update_User) return 'succefully';
+  };
 
   const handlerDelete = async item => {
-    listener &&
-      (await dispatch(
-        removeItem({
-          id: item.id,
-        })
-      ));
+    await dispatch(
+      removeItem({
+        id: item.id,
+      })
+    );
     await refresh();
   };
 
@@ -82,7 +94,7 @@ const List = ({ refresh, currentList }) => {
                         </th>
                       </>
                     ))}
-                  {console.log(listener, "LKJLKJÑk")}
+                  {console.log(listener, 'LKJLKJÑk')}
                   {list[0] && <th>{t('btn_remove')}</th>}
                   {listener !== 'guests' && <th>Actualizar </th>}
                 </tr>
@@ -110,7 +122,6 @@ const List = ({ refresh, currentList }) => {
                             <MdDeleteForever
                               className="trashcan"
                               onClick={() => {
-                                console.log('DELETE ITEM', item);
                                 handlerDelete(item);
                               }}
                             />
@@ -120,18 +131,24 @@ const List = ({ refresh, currentList }) => {
                               <BiCalendarEdit
                                 className="update"
                                 onClick={() => {
-                                  navigate('/admin/app/upgradeEvent')
+                                  navigate('/admin/app/upgradeEvent');
                                   setItemEvent(item);
                                   handleShow();
                                 }}
                               />
-
                             </td>
                           )}
                           {listener === 'users' && (
                             <td>
                               <RiAdminFill
-                                className='userAdmin'
+                                style={item.isAdmin && { color: 'yellow' }}
+                                className="userAdmin"
+                                onClick={() => {
+                                  (async () => {
+                                    const exit = await handlerAdmin(item);
+                                    exit && (await setChange(!change));
+                                  })();
+                                }}
                               />
                             </td>
                           )}
@@ -162,10 +179,7 @@ const List = ({ refresh, currentList }) => {
                     <UpgradeEvents refresh={refresh} item={itemEvent} />
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button
-                      variant="secondary"
-                      onClick={handleClose}
-                    >
+                    <Button variant="secondary" onClick={handleClose}>
                       Close
                     </Button>
                   </Modal.Footer>

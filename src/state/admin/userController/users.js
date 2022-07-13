@@ -18,6 +18,25 @@ export const getUsers = createAsyncThunk(
   }
 );
 
+
+export const updateUser = createAsyncThunk(
+  'GET_USERS',
+  async (body, thunkAPI) => {
+    const thunk = thunkAPI.getState();
+    if (thunk.user.isAdmin) {
+      try {
+        const { data } = await axios.put(
+          `http://localhost:3001/api/admin/edit-user/${body.id}`
+        );
+        return data?.data;
+      } catch (error) {
+        console.error('/user/login ERROR ', error);
+      }
+    }
+  }
+);
+
+
 export const usersReducer = createReducer(
   {},
   {

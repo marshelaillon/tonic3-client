@@ -101,6 +101,7 @@ function App() {
 
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
+
                 <Route path="/forgotPassword" element={<ForgotPassword />} />
                 <Route path="/user" element={user.id && <User />} />
               </>
