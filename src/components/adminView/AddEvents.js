@@ -11,9 +11,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/DatePicker.scss';
 import { useNavigate } from 'react-router-dom';
 
+
 const AddEvents = ({ refresh }) => {
-  const listener = useSelector(state => state.listener)
-  const navigate = useNavigate()
+
+  const listener = useSelector(state => state.listener);
+  const navigate = useNavigate();
+
   //new Date().getTime() + 86400000
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date().getTime() + 86400000);
@@ -28,7 +31,8 @@ const AddEvents = ({ refresh }) => {
       })
     );
     await refresh();
-    navigate(`/admin/app/${listener}`)
+
+    navigate(`/admin/app/${listener}`);
   };
   const validate = Yup.object({
     url: Yup.string().url().required(t('required_event_link')),
@@ -121,7 +125,9 @@ const AddEvents = ({ refresh }) => {
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
+
                   <Button type="submit" variant="light" >
+
                     {t('create_event')}
                   </Button>
                 </div>

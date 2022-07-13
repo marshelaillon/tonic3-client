@@ -16,8 +16,8 @@
   "email": "Email",
   "password": "Password",
   "confirm_password": "Confirm password",
-  "dont_have_account": "Don't have an account?",
-  "invite_to_register": "Invite to register",
+  "forgot_password": "Forgot your password?",
+  "reset_password": "Reset a new password",
 
   "enter_your_email": "Enter your email",
   "not_valid_email": "Email is not valid",

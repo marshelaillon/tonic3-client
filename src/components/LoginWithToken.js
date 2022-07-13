@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken } from '../state/guests/verifyToken';
 import { InvalidToken } from '../utils/sweetAlerts';
 import { verifyGuest } from '../state/guests/verifyGuest';
+
 import updateToken from '../services/updateToken';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useTranslation } from 'react-i18next';
@@ -47,10 +48,8 @@ const LoginWhitToken = () => {
         })
     }
     if (checkedEmail && guestdata.checked) {
-      console.log(checkedEmail, "entre al if");
       navigate('/login')
     }
-
   };
 
 
@@ -61,8 +60,6 @@ const LoginWhitToken = () => {
   useEffect(() => {
     if (tokenCap) console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
   }, [tokenCap]);
-
-
 
 
   const validate = Yup.object({
@@ -128,35 +125,10 @@ const LoginWhitToken = () => {
                   ) : null}
 
                 </div>
-              )}
-              {/* si el usuario esta ya registrado, se lo loguea */}
-              {/* {checkedEmail && guestdata.checked && (
-                <div className="form-group">
 
-                  <label htmlFor="password">{t('password')}</label>
+              )} 
+            
 
-                  <Field
-                    name="password"
-                    className={
-                      formik.touched.password && formik.errors.password
-                        ? 'form-control is-invalid'
-                        : 'form-control'
-                    }
-                    type={type}
-                  />
-                  <Button className='button-icon' variant='secondary'>
-
-                <span onClick={handleToggle}><Icon icon={icon} size={25} /></span>
-                </Button>
-                  </div>
-
-                  {formik.touched.password && formik.errors.password ? (
-                    <div className="invalid-feedback">
-                      {formik.errors.password}
-                    </div>
-                  ) : null}
-                </div>
-              )} */}
               <div className="form-group">
                 <HCaptcha
                   ref={captcha}
