@@ -1,12 +1,10 @@
 import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { WithoutInvitation } from '../../utils/sweetAlerts';
+import { BASE_URL } from '../../utils/config';
 
 export const verifyGuest = createAsyncThunk('VERIFY_GUEST', async body => {
-  const { data } = await axios.post(
-    'http://localhost:3001/api/users/verify-email',
-    body
-  );
+  const { data } = await axios.post(`${BASE_URL}/users/verify-email`, body);
   return { data: data.data, email: body.email };
 });
 
@@ -23,9 +21,8 @@ export const verifyGuestReducer = createReducer(
   {},
   {
     [verifyGuest.fulfilled]: (state, action) => {
-      
       localStorage.setItem('vGuest', JSON.stringify(action.payload));
-    
+
       return action.payload;
     },
     [verifyGuest.rejected]: (state, action) => {
