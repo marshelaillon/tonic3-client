@@ -83,11 +83,11 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
                 {!user.id && <Route path="/login" element={<Login />} />}
+                <Route path="/forgotPassword" elemen t={<ForgotPassword />} />
               </>
             ) : (
               <>
                 <Route path="/" element={<Home />} />
-                <Route path="/forgotPassword" element={<ForgotPassword />} />
                 <Route path="/user" element={user.id && <User />} />
                 {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
 
