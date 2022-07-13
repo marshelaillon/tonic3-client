@@ -2,8 +2,7 @@
 
 .nav-style {
   background-color: #ff521b;
-  background: linear-gradient(to bottom right, #7e2003, #ff521b);
-  
+  background: linear-gradient(to bottom right, #a22905, #ff521b);
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   display: flex;
@@ -11,11 +10,9 @@
   align-items: center;
   height: 70px;
   width: 100%;
-  
 }
 
 .home-icon {
-  
   margin: auto 5%;
   color: #020122;
   text-decoration: none;
@@ -40,8 +37,7 @@
 .nav-menu {
   background-color: #ff521b;
   width: 220px;
- 
-  min-height: 95vh;
+  min-height: 91vh;
   display: flex;
   justify-content: start;
   /* position: fixed; */
@@ -55,10 +51,9 @@
 
 .nav-menu.active {
   margin-top: 70px;
-  
   left: 0;
   backdrop-filter: 'static';
-  box-shadow: 0px 15px 11px 11px black;
+  box-shadow: 0px 10px 7px 7px black;
 }
 
 .nav-text {
@@ -86,9 +81,9 @@
 .person-icon {
   width: auto;
 }
-.language-dropdown{
-    width: auto;
-  }
+.language-dropdown {
+  width: auto;
+}
 
 @media (max-width: 500px) {
   .welcome-msg {
@@ -104,8 +99,7 @@
     min-height: auto;
   }
 
-  
-/*   .nav-style {
+  /*   .nav-style {
     height: 70px;
     width: 100%;
   } */
