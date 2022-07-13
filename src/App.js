@@ -28,7 +28,7 @@ import Footer from './components/Footer';
 function App() {
   const user = useSelector(state => state.user);
   const currentEvent = useSelector(state => state.currentEvent);
-  const verifiedGuest = useSelector(state => state.verifiedGuest)?.data;
+  const verifiedGuest = useSelector(state => state.verifiedGuest);
   const verifiedToken = useSelector(state => state.verifiedToken);
   console.log('verifiedguest', verifiedGuest);
   const userEvents = useSelector(state => state.userEvents);
@@ -82,7 +82,6 @@ function App() {
 
             {(verifiedToken || verifiedGuest?.data?.checked) &&
             verifiedGuest?.data?.verified ? (
-
               <>
                 {!user.id && (
                   <>
@@ -93,6 +92,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                   </>
                 )}
+                {console.log('deberia mostrar el login')}
                 {user.isAdmin && (
                   <Route path="/admin/app/:type/*" element={<Adminview />} />
                 )}
@@ -114,17 +114,15 @@ function App() {
               </>
             )}
 
-
             <Route path="/upgradeEvent" element={<UpgradeEvents />} />
 
             <Route path="/404" element={<NotFound />} />
             {/*  <Route path="*" element={<Navigate to="/404" />} /> */}
             <Route path="/not-found" element={<NotFound />} />
-
           </Routes>
-          <Footer />
         </div>
       </div>
+      <Footer className={sidebar ? 'blur' : ''} />
     </div>
   );
 }

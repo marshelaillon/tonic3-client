@@ -5,6 +5,7 @@ import {
   createSlice,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/config.js';
 import { InvalidPassword, InvalidRegister } from '../../utils/sweetAlerts';
 
 export const registerUser = createAsyncThunk(
@@ -27,10 +28,7 @@ export const loginUser = createAsyncThunk(
   async credentials => {
     console.log(credentials);
     try {
-      const { data } = await axios.post(
-        'http://localhost:3001/api/users/login',
-        credentials
-      );
+      const { data } = await axios.post(`${BASE_URL}/users/login`, credentials);
 
       console.log('la data de login', data);
       return data;
