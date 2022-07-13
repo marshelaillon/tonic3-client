@@ -22,13 +22,12 @@ import { setcurrentEvent } from './state/user/currentEvent';
 import UpgradeEvents from './components/adminView/UpgradeEvents';
 import { logoutUser } from './state/user/user.js';
 
-
 function App() {
   const user = useSelector(state => state.user);
   const currentEvent = useSelector(state => state.currentEvent);
-  const verifiedGuest = useSelector(state => state.verifiedGuest)?.data
+  const verifiedGuest = useSelector(state => state.verifiedGuest)?.data;
   const verifiedToken = useSelector(state => state.verifiedToken);
-
+  console.log('verifiedguest', verifiedGuest);
   const userEvents = useSelector(state => state.userEvents);
   const token = useSelector(state => state.token);
   const sidebar = useSelector(state => state.sidebar);
@@ -78,25 +77,28 @@ function App() {
             {/* <Route path="/user" element={user.id && <User />} /> */}
             <Route path="/new-password/:id/:token" element={<NewPassword />} />
 
-            {((verifiedToken || verifiedGuest?.checked) && verifiedGuest?.verified) ? (
+            {(verifiedToken || verifiedGuest?.checked) &&
+            verifiedGuest?.verified ? (
               <>
+                {console.log('estoy dentro del condicional')}
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
                 {!user.id && <Route path="/login" element={<Login />} />}
+                <Route path="/user" element={user.id && <User />} />
+                <Route path="/admin/app/:type/*" element={<Adminview />} />
               </>
             ) : (
               <>
+                {console.log('entre al segundo condicional pa')}
                 <Route path="/" element={<Home />} />
                 <Route path="/forgotPassword" element={<ForgotPassword />} />
-                <Route path="/user" element={user.id && <User />} />
                 {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
 
-                <Route path="/admin/app/:type/*" element={<Adminview />} />
                 <Route path="/countdown" element={<Countdown />} />
               </>
             )}
+            <Route path="/upgradeEvent" element={<UpgradeEvents />} />
             {/* <Route path="/not-found" element={<NotFound />} /> */}
-            <Route path='/upgradeEvent' element={<UpgradeEvents />} />
             {/* <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/404" />} /> */}
           </Routes>
