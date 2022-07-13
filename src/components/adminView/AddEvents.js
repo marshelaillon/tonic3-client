@@ -13,8 +13,10 @@ import { useNavigate } from 'react-router-dom';
 
 
 const AddEvents = ({ refresh }) => {
-  const navigate = useNavigate()
+
   const listener = useSelector(state => state.listener);
+  const navigate = useNavigate();
+
   //new Date().getTime() + 86400000
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date().getTime() + 86400000);
@@ -28,8 +30,8 @@ const AddEvents = ({ refresh }) => {
         date: date,
       })
     );
-    await refresh()
-    navigate(`/admin/app/${listener}`)
+    await refresh();
+    navigate(`/admin/app/${listener}`);
 
   };
   const validate = Yup.object({
@@ -123,8 +125,9 @@ const AddEvents = ({ refresh }) => {
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
-                  <Button type="submit" variant="light" 
-                  >
+
+                  <Button type="submit" variant="light">
+
                     {t('create_event')}
                   </Button>
                 </div>

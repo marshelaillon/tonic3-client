@@ -6,6 +6,7 @@ import {
   
 } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/config.js';
 import { InvalidPassword, InvalidRegister } from '../../utils/sweetAlerts';
 
 export const registerUser = createAsyncThunk(
@@ -29,17 +30,14 @@ export const loginUser = createAsyncThunk(
     console.log("esta es la thunkapi", thunkAPI);
     console.log("ESTAS SON LAS CREDENCIALES", credentials);
     try {
-      const { data } = await axios.post(
-        'http://localhost:3001/api/users/login',
-        credentials
-      );
+
+      const { data } = await axios.post(`${BASE_URL}/users/login`, credentials);
       console.log("la data de login", data);
       if (data.id) {
         return data
       }
      /*  return thunkAPI.rejectWithValue(data) */
      throw new Error(data)
-
     } catch (error) {
       console.error('USER-LOGIN ERROR', error);
       return error
@@ -164,6 +162,7 @@ export const userReducer = createReducer(
     },
 
     [logoutUser.fulfilled]: (state, action) => {
+      localStorage.removeItem('vGuest');
       localStorage.removeItem('token');
       return action.payload;
     },

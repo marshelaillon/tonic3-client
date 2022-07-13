@@ -1,10 +1,8 @@
 body {
   background-color: #020122;
-  
-  
 }
-.container-all{
- /*  display: flex; */
+.container-all {
+   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
@@ -22,10 +20,10 @@ body {
   text-transform: uppercase;
   /* height:260px; */
 }
-.captcha{
-  margin:50px 50px 10px;
 
-  }
+.captcha {
+  margin: 50px 50px 10px;
+}
 
 .form-control,
 .is-invalid {
@@ -37,6 +35,7 @@ body {
   margin-top: 20px;
   color: white;
 }
+
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #020122 inset;
   -webkit-text-fill-color: white !important;
@@ -46,14 +45,13 @@ input:-webkit-autofill:focus {
 }
 
 @media (max-width: 500px) {
-.captcha{
-  margin:50px -10px 10px;
-
-}
-iframe{
-  transform: scale(0.68);
- transform-origin: 0 0;
-}
+  .captcha {
+    margin: 50px -10px 10px;
+  }
+  iframe {
+    transform: scale(0.68);
+    transform-origin: 0 0;
+  }
 }
 
 /* .overlap {
@@ -70,9 +68,12 @@ iframe{
   left: 0;
   right: 0;
 } */
+
 .blur {
   filter: blur(2px);
+  /* height: calc(100vh - 95px); */
 }
- .btn{
+
+.btn {
   margin-bottom: 10px;
- }
+}
