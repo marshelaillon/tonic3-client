@@ -37,7 +37,7 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(process.env.NODE_ENV, 'esto es NODE_ENV');
+
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
@@ -80,6 +80,7 @@ function App() {
           <Routes>
             {/* <Route path="/user" element={user.id && <User />} /> */}
 
+
             {(verifiedToken || verifiedGuest?.data?.checked) &&
             verifiedGuest?.data?.verified ? (
               <>
@@ -107,8 +108,9 @@ function App() {
               <>
                 {console.log('entre al segundo condicional pa')}
                 <Route path="/" element={<Home />} />
-                <Route path="/forgotPassword" element={<ForgotPassword />} />
+
                 {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
+                <Route path="/user" element={user.id && <User />} />
 
                 <Route path="/countdown" element={<Countdown />} />
               </>
