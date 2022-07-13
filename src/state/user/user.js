@@ -13,7 +13,7 @@ export const registerUser = createAsyncThunk(
   async registerBody => {
     try {
       const { data } = await axios.post(
-        'http://localhost:3001/api/users/register',
+        `${BASE_URL}/users/register`,
         registerBody
       );
       return data;
@@ -43,14 +43,11 @@ export const logoutUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { token } = thunkAPI.getState();
-      const response = await axios.get(
-        'http://localhost:3001/api/users/logout',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/users/logout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return {};
     } catch (error) {
       console.error('user/logout ERROR', error);
@@ -63,14 +60,11 @@ export const checkUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const { token } = thunkAPI.getState();
     try {
-      const { data } = await axios.get(
-        'http://localhost:3001/api/users/getMe',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.get(`${BASE_URL}/users/getMe`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return data;
     } catch (error) {
       console.error('user/getMe ERROR', error);
@@ -84,7 +78,7 @@ export const updateUser = createAsyncThunk(
     const { token } = thunkAPI.getState();
     try {
       const { data } = await axios.put(
-        `http://localhost:3001/api/users/update/${updateBody.id}`,
+        `${BASE_URL}/users/update/${updateBody.id}`,
         updateBody,
         {
           headers: {
@@ -104,7 +98,7 @@ export const forgotPassword = createAsyncThunk(
   async dataEmail => {
     try {
       const data = await axios.post(
-        'http://localhost:3001/api/users/forgot-password',
+        `${BASE_URL}/users/forgot-password`,
         dataEmail
       );
       return data;
@@ -119,7 +113,7 @@ export const newPassword = createAsyncThunk(
   async dataPassword => {
     try {
       const data = await axios.post(
-        `http://localhost:3001/api/users/${dataPassword.id}/new-password`,
+        `${BASE_URL}/users/${dataPassword.id}/new-password`,
         dataPassword
       );
       return data;
