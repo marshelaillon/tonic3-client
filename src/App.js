@@ -35,6 +35,7 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  console.log(verifiedGuest, "usuario");
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
@@ -76,19 +77,21 @@ function App() {
 
           <Routes>
             {/* <Route path="/user" element={user.id && <User />} /> */}
-            <Route path="/new-password/:id/:token" element={<NewPassword />} />
+            {((verifiedToken || verifiedGuest?.data?.checked) && verifiedGuest?.data?.verified )? (
 
-            {(verifiedToken || verifiedGuest?.checked) &&
-            verifiedGuest?.verified ? (
               <>
+              {!user.id && (<> 
+              <Route path="/new-password/:id/:token" element={<NewPassword />} />
+              <Route path="/login" element={<Login />} />
+              </>)}
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
-                {!user.id && <Route path="/login" element={<Login />} />}
+              <Route path="/forgotPassword" element={<ForgotPassword />} />
+
               </>
             ) : (
               <>
                 <Route path="/" element={<Home />} />
-                <Route path="/forgotPassword" element={<ForgotPassword />} />
                 <Route path="/user" element={user.id && <User />} />
                 {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
 
