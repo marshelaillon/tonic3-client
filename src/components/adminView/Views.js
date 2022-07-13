@@ -2,16 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getEvents } from '../../state/admin/eventController/eventList';
-
+import { Modal, Button } from 'react-bootstrap';
+import { style } from '../../styles/Modal.css';
 import AddEvents from './AddEvents';
 
 import AddGuests from './AddGuests';
 
 const Views = ({ current, refresh }) => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const navigate = useNavigate();
+
   const events = useSelector(state => state.events);
   const listener = useSelector(state => state.listener);
   const dispatch = useDispatch();
-  const { type } = useParams();
+  const { type, action } = useParams();
   const [filterEvents, setFilterEvents] = useState([]);
 
   const getGuests = {
@@ -36,7 +42,28 @@ const Views = ({ current, refresh }) => {
 
   return (
     <>
-      <div className="container-sm content border">{getGuests[type]}</div>
+      <div className="container-sm content border">
+        <Modal
+          className='modalFondo'
+          centered
+          show={action}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={true}
+        >
+          <Modal.Body className="modalBody">{getGuests[type]}</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                navigate(`/admin/app/${listener}`);
+              }}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </>
   );
 };

@@ -12,8 +12,8 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useTranslation } from 'react-i18next';
 import '../styles/App.css';
 import { Icon } from 'react-icons-kit';
-import {eye} from 'react-icons-kit/icomoon/eye';
-import {eyeBlocked} from 'react-icons-kit/icomoon/eyeBlocked'; 
+import { eye } from 'react-icons-kit/icomoon/eye';
+import { eyeBlocked } from 'react-icons-kit/icomoon/eyeBlocked';
 import "../styles/forms.css"
 
 
@@ -27,7 +27,7 @@ const Login = () => {
 
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(eyeBlocked);
-  
+
   const handleSubmit = async values => {
     captcha.current.execute();
     if (values.password) {
@@ -43,7 +43,7 @@ const Login = () => {
     }
     //setIsLogged(true);
     Welcome();
-    navigate('/');
+    navigate('/home');
   };
 
   useEffect(() => {
@@ -69,7 +69,9 @@ const Login = () => {
       .required(t('required_password'))
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+
         t('pass_must_contain')
+
       ),
   });
 
@@ -105,22 +107,22 @@ const Login = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="password">{t('password')}</label>
-              <div className='input-button'>
+                <div className='input-button'>
 
-                <Field
-                  name="password"
-                  className={
-                    formik.touched.password && formik.errors.password
-                      ? 'form-control is-invalid'
-                      : 'form-control'
-                  }
-                  type={type} 
-                />
-                <Button className='button-icon' variant='secondary'>
+                  <Field
+                    name="password"
+                    className={
+                      formik.touched.password && formik.errors.password
+                        ? 'form-control is-invalid'
+                        : 'form-control'
+                    }
+                    type={type}
+                  />
+                  <Button className='button-icon' variant='secondary'>
 
-                <span onClick={handleToggle}><Icon icon={icon} size={25} /></span>
-                </Button>
-              </div>
+                    <span onClick={handleToggle}><Icon icon={icon} size={25} /></span>
+                  </Button>
+                </div>
 
                 {formik.touched.password && formik.errors.password ? (
                   <div className="invalid-feedback">

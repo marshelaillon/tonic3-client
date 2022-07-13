@@ -28,7 +28,6 @@ const LoginWhitToken = () => {
 
   const captcha = useRef(null);
 
-
   const handleSubmit = values => {
 
     if (!checkedEmail) {
@@ -126,8 +125,10 @@ const LoginWhitToken = () => {
                   ) : null}
 
                 </div>
+
               )} 
             
+
               <div className="form-group">
                 <HCaptcha
                   ref={captcha}

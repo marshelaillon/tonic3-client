@@ -4,6 +4,8 @@ import axios from 'axios';
 export const addGuests = createAsyncThunk(
     'ADD_GUESTS',
     async (body, thunkAPI) => {
+        console.log("esto llega al state del front", body)
+
         const thunk = thunkAPI.getState();
         if (thunk.user.isAdmin) {
             try {

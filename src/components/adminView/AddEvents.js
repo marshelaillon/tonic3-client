@@ -9,8 +9,10 @@ import { useTranslation } from 'react-i18next';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/DatePicker.scss';
+import { useNavigate } from 'react-router-dom';
 
 const AddEvents = ({ refresh }) => {
+  const navigate = useNavigate()
   //new Date().getTime() + 86400000
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date().getTime() + 86400000);
@@ -51,7 +53,7 @@ const AddEvents = ({ refresh }) => {
         }}
       >
         {formik => (
-          <div className="container w-75 mt-4 form">
+          <div>
             <Form>
               <div className="form-group">
                 <label htmlFor="title">{t('event_title')}</label>
@@ -117,7 +119,9 @@ const AddEvents = ({ refresh }) => {
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
-                  <Button type="submit" variant="light">
+                  <Button type="submit" variant="light" onClick={() => {
+                    navigate(`/admin/app/addevents`);
+                  }}>
                     {t('create_event')}
                   </Button>
                 </div>

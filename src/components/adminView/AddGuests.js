@@ -10,11 +10,11 @@ import { useTranslation } from 'react-i18next';
 
 const AddGuests = ({ filterEvents, refresh }) => {
   const [selectEvent, setSelectEvent] = useState({});
-  const [addInvitation, setAddInvitations] = useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const handleSubmit = async values => {
+    console.log("values en el front", values)
     await dispatch(
       addGuests({
         emails: values.email.split(','),
@@ -26,22 +26,14 @@ const AddGuests = ({ filterEvents, refresh }) => {
     values.email = '';
     setSelectEvent({});
   };
-  const refreshGuests = () => {
-    if (addInvitation) {
-      refresh();
-      setAddInvitations(false);
-    } else {
-      refresh();
-      setAddInvitations(true);
-    }
-  };
+
 
   const validate = Yup.object({
     email: Yup.string(),
   });
 
   return (
-    <div className="container div-add-guest">
+    <div>
       <Formik
         initialValues={{
           email: '',
@@ -109,7 +101,6 @@ const AddGuests = ({ filterEvents, refresh }) => {
             <div className="mt-4 d-flex flex-row">
               <div className="form-group me-4">
                 <Button
-                  onClick={refreshGuests}
                   type="submit"
                   variant="light"
                   disabled={!selectEvent.title}
