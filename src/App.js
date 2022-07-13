@@ -37,7 +37,6 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(verifiedGuest, "usuario");
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
@@ -80,31 +79,32 @@ function App() {
           <Routes>
             {/* <Route path="/user" element={user.id && <User />} /> */}
 
-            {((verifiedToken || verifiedGuest?.data?.checked) && verifiedGuest?.data?.verified )? (
+            {((verifiedToken || verifiedGuest?.data?.checked) && verifiedGuest?.data?.verified) ? (
 
               <>
-              {!user.id && (<> 
-              <Route path="/new-password/:id/:token" element={<NewPassword />} />
-              <Route path="/login" element={<Login />} />
-              </>)}
+                {!user.id && (<>
+                  <Route path="/new-password/:id/:token" element={<NewPassword />} />
+                  <Route path="/login" element={<Login />} />
+                </>)}
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
-              <Route path="/forgotPassword" element={<ForgotPassword />} />
+                <Route path="/forgotPassword" element={<ForgotPassword />} />
+                <Route path="/user" element={user.id && <User />} />
+                <Route path="/admin/app/:type/*" element={<Adminview />} />
 
               </>
             ) : (
               <>
                 <Route path="/" element={<Home />} />
-                <Route path="/user" element={user.id && <User />} />
                 {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
+                <Route path="/user" element={user.id && <User />} />
 
-                <Route path="/admin/app/:type/*" element={<Adminview />} />
                 <Route path="/countdown" element={<Countdown />} />
               </>
             )}
 
             <Route path="/404" element={<NotFound />} />
-           {/*  <Route path="*" element={<Navigate to="/404" />} /> */}
+            {/*  <Route path="*" element={<Navigate to="/404" />} /> */}
             <Route path="/not-found" element={<NotFound />} />
 
           </Routes>

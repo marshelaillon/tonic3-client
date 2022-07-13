@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addEvent } from '../../state/admin/eventController/event';
 import AddGuests from './AddGuests';
 import { useTranslation } from 'react-i18next';
@@ -11,8 +11,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/DatePicker.scss';
 import { useNavigate } from 'react-router-dom';
 
+
 const AddEvents = ({ refresh }) => {
   const navigate = useNavigate()
+  const listener = useSelector(state => state.listener);
   //new Date().getTime() + 86400000
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date().getTime() + 86400000);
@@ -26,7 +28,9 @@ const AddEvents = ({ refresh }) => {
         date: date,
       })
     );
-    await refresh();
+    await refresh()
+    navigate(`/admin/app/${listener}`)
+
   };
   const validate = Yup.object({
     url: Yup.string().url().required(t('required_event_link')),
@@ -119,9 +123,8 @@ const AddEvents = ({ refresh }) => {
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
-                  <Button type="submit" variant="light" onClick={() => {
-                    navigate(`/admin/app/addevents`);
-                  }}>
+                  <Button type="submit" variant="light" 
+                  >
                     {t('create_event')}
                   </Button>
                 </div>

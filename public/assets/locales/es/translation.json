@@ -16,8 +16,8 @@
   "email": "Correo electrónico",
   "password": "Contraseña",
   "confirm_password": "Confirmar contraseña",
-  "dont_have_account": "¿No tenés una cuenta?",
-  "invite_to_register": "Te invitamos a registrarte",
+  "forgot_password": "¿Olvidaste tu contraseña?",
+  "reset_password": "Establezca una contraseña nueva",
 
   "enter_your_email": "Ingresa tu correo",
   "not_valid_email": "Correo electrónico no válido",

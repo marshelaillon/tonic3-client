@@ -7,6 +7,7 @@ import { forgotPassword } from '../state/user/user';
 import { useNavigate } from 'react-router-dom';
 import { EmailPassword } from '../utils/sweetAlerts';
 import { useTranslation } from 'react-i18next';
+import "../styles/forms.css"
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
@@ -40,22 +41,24 @@ const ForgotPassword = () => {
         {formik => (
           <div className="container w-75 mt-4">
             <Form>
-              <label>Did you forgot your password? Enter your e-mail to get a new password</label>
-              <Field
-                name="email"
-                placeholder={t('enter_your_email')}
-                className={
-                  formik.touched.email && formik.errors.email
-                    ? 'form-control is-invalid'
-                    : 'form-control'
-                }
-                type="email"
-              />
-              <div className="mt-4 d-flex flex-row">
-                <div className="form-group me-4">
-                  <Button type="submit" variant="dark">
-                    {t('btn_submit')}
-                  </Button>
+              <div className="form-group">
+                <label>Did you forgot your password? Enter your e-mail to get a new password</label>
+                <Field
+                  name="email"
+                  placeholder={t('enter_your_email')}
+                  className={
+                    formik.touched.email && formik.errors.email
+                      ? 'form-control is-invalid'
+                      : 'form-control'
+                  }
+                  type="email"
+                />
+                <div className="mt-4 d-flex flex-row">
+                  <div className="form-group me-4">
+                    <Button type="submit" variant="dark">
+                      {t('btn_submit')}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </Form>
