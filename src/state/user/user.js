@@ -34,6 +34,7 @@ export const loginUser = createAsyncThunk(
       const { data } = await axios.post(`${BASE_URL}/users/login`, credentials);
       console.log("la data de login", data);
       if (data.id) {
+        console.log("entre", data);
         return data
       }
      /*  return thunkAPI.rejectWithValue(data) */
@@ -155,7 +156,8 @@ export const userReducer = createReducer(
       InvalidRegister();
       return action.payload?.data;
     },
-    [loginUser.fulfilled]: (state, action) => action.payload?.data,
+    [loginUser.fulfilled]: (state, action) => action.payload,
+    
     [loginUser.rejected]: (state, action) => {
       InvalidPassword();
       return action.payload?.data;

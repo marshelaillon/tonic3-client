@@ -30,9 +30,9 @@ const NewPassword = () => {
     password: Yup.string()
       .required(t('required_password')).matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
+        t('pass_must_contain')
       ),
-    password2: Yup.string().required(t('required_password')).oneOf([Yup.ref('password'), null], 'La contraseña no coincide')
+    password2: Yup.string().required(t('required_password')).oneOf([Yup.ref('password'), null], (t("password_not_match")))
   });
 
   const handleToggle1 = () => {
