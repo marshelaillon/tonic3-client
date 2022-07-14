@@ -22,6 +22,7 @@ const Login = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const verifiedGuest = useSelector(state => state.verifiedGuest);
   const userPassword = useSelector(state => state.user);
   const [tokenCap, settokenCap] = useState('');
   const captcha = useRef(null);
@@ -83,7 +84,7 @@ const Login = () => {
     <>
       <Formik
         initialValues={{
-          email: '',
+          email: verifiedGuest.email,
           password: '',
         }}
         validationSchema={validate}
@@ -104,6 +105,9 @@ const Login = () => {
                       : 'form-control'
                   }
                   type="email"
+                  style={{ color: 'black' }}
+
+                  disabled
                 />
                 {formik.touched.email && formik.errors.email ? (
                   <div className="invalid-feedback">{formik.errors.email}</div>
