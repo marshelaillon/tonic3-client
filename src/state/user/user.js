@@ -3,7 +3,6 @@ import {
   createAsyncThunk,
   createReducer,
   createSlice,
-  
 } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BASE_URL } from '../../utils/config.js';
@@ -14,7 +13,7 @@ export const registerUser = createAsyncThunk(
   async registerBody => {
     try {
       const { data } = await axios.post(
-        'http://localhost:3001/api/users/register',
+        `${BASE_URL}/users/register`,
         registerBody
       );
       return data;
@@ -27,21 +26,19 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'SEND_LOGIN_REQUEST',
   async (credentials, thunkAPI) => {
-    console.log("esta es la thunkapi", thunkAPI);
-    console.log("ESTAS SON LAS CREDENCIALES", credentials);
+    console.log('esta es la thunkapi', thunkAPI);
+    console.log('ESTAS SON LAS CREDENCIALES', credentials);
     try {
-
       const { data } = await axios.post(`${BASE_URL}/users/login`, credentials);
-      console.log("la data de login", data);
+      console.log('la data de login', data);
       if (data.id) {
-        console.log("entre", data);
-        return data
+        return data;
       }
-     /*  return thunkAPI.rejectWithValue(data) */
-     throw new Error(data)
+      /*  return thunkAPI.rejectWithValue(data) */
+      throw new Error(data);
     } catch (error) {
       console.error('USER-LOGIN ERROR', error);
-      return error
+      return error;
     }
   }
 );
@@ -51,14 +48,11 @@ export const logoutUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { token } = thunkAPI.getState();
-      const response = await axios.get(
-        'http://localhost:3001/api/users/logout',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/users/logout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return {};
     } catch (error) {
       console.error('user/logout ERROR', error);
@@ -71,14 +65,11 @@ export const checkUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const { token } = thunkAPI.getState();
     try {
-      const { data } = await axios.get(
-        'http://localhost:3001/api/users/getMe',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.get(`${BASE_URL}/users/getMe`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return data;
     } catch (error) {
       console.error('user/getMe ERROR', error);
@@ -88,12 +79,12 @@ export const checkUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   'UPDATE_REQUEST',
-  async (updateBody, thunkAPI) => {
+  async (updatedBody, thunkAPI) => {
     const { token } = thunkAPI.getState();
     try {
       const { data } = await axios.put(
-        `http://localhost:3001/api/users/update/${updateBody.id}`,
-        updateBody,
+        `${BASE_URL}/users/update`,
+        updatedBody,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -112,7 +103,7 @@ export const forgotPassword = createAsyncThunk(
   async dataEmail => {
     try {
       const data = await axios.post(
-        'http://localhost:3001/api/users/forgot-password',
+        `${BASE_URL}/users/forgot-password`,
         dataEmail
       );
       return data;
@@ -127,7 +118,7 @@ export const newPassword = createAsyncThunk(
   async dataPassword => {
     try {
       const data = await axios.post(
-        `http://localhost:3001/api/users/${dataPassword.id}/new-password`,
+        `${BASE_URL}/users/${dataPassword.id}/new-password`,
         dataPassword
       );
       return data;

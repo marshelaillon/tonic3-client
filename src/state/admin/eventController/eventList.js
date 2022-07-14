@@ -1,5 +1,6 @@
 import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL } from '../../../utils/config';
 
 export const getEvents = createAsyncThunk(
   'GET_EVENTS',
@@ -7,10 +8,8 @@ export const getEvents = createAsyncThunk(
     try {
       const thunk = thunkAPI.getState();
       if (thunk.user.isAdmin) {
-        const { data } = await axios.get(
-          'http://localhost:3001/api/admin/get-all-events'
-        );
-        console.log(data?.data, "OTRA COSA ")
+        const { data } = await axios.get(`${BASE_URL}/admin/get-all-events`);
+        console.log(data?.data, 'OTRA COSA ');
         return data?.data;
       }
     } catch (error) {

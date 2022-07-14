@@ -4,6 +4,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+import { BASE_URL } from './utils/config';
 clientsClaim();
 // ACTIVAR ALMACENAMIENTO EN CACHE
 precacheAndRoute(self.__WB_MANIFEST);
@@ -64,7 +65,7 @@ self.addEventListener('fetch', async event => {
   console.log('newCache', newCache);
 
   console.log('event.request.url', event.request.url);
-  if (event.request.url == 'http://localhost:3001/api/users/events') {
+  if (event.request.url == `${BASE_URL}/users/events`) {
     console.log('ESTOY DENTRO DEL IF');
     const cacheResponse = await caches.match(event.request);
     if (cacheResponse) {
