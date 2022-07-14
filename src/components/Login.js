@@ -15,13 +15,14 @@ import { Icon } from 'react-icons-kit';
 import { eye } from 'react-icons-kit/icomoon/eye';
 import { eyeBlocked } from 'react-icons-kit/icomoon/eyeBlocked';
 import "../styles/forms.css"
-
+import { useSelector } from 'react-redux';
+import { InvalidPassword } from '../utils/sweetAlerts';
 
 const Login = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const userPassword = useSelector(state => state.user);
   const [tokenCap, settokenCap] = useState('');
   const captcha = useRef(null);
 
@@ -37,13 +38,17 @@ const Login = () => {
           password: values.password,
         })
       );
-      const token = user?.payload?.token;
-      token && dispatch(setToken(token));
-      localStorage.setItem('token', token);
+      if (user?.payload?.response?.status === 400) {
+        InvalidPassword()
+      } else {
+        const token = user?.payload?.token;
+        token && dispatch(setToken(token));
+        localStorage.setItem('token', token);
+        Welcome();
+        navigate('/');
+      }
     }
     //setIsLogged(true);
-    Welcome();
-    navigate('/home');
   };
 
   useEffect(() => {
@@ -69,7 +74,6 @@ const Login = () => {
       .required(t('required_password'))
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-
         t('pass_must_contain')
 
       ),
@@ -150,8 +154,8 @@ const Login = () => {
                 </div>
               </div>
               <p className="mt-4">
-                {t('dont_have_account')}&nbsp;
-                <Link to="/forgotPassword">{t('invite_to_register')}</Link>
+                {t('forgot_password')}&nbsp;
+                <Link to="/forgotPassword">{t('reset_password')}</Link>
               </p>
             </Form>
           </div>

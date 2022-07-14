@@ -122,3 +122,13 @@ export const sendInvi = () => {
     timer: 2500,
   });
 };
+
+export const ascendedUser = () => {
+  Swal.fire({
+    position: 'top',
+    icon: 'success',
+    text: `Cambios realizados  `,
+    showConfirmButton: false,
+    timer: 2500,
+  });
+};

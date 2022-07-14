@@ -3,8 +3,10 @@ import {
   createAsyncThunk,
   createReducer,
   createSlice,
+  
 } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/config.js';
 import { InvalidPassword, InvalidRegister } from '../../utils/sweetAlerts';
 
 export const registerUser = createAsyncThunk(
@@ -12,7 +14,7 @@ export const registerUser = createAsyncThunk(
   async registerBody => {
     try {
       const { data } = await axios.post(
-        'http://localhost:3001/api/users/register',
+        `${BASE_URL}/users/register`,
         registerBody
       );
       return data;
@@ -24,19 +26,21 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'SEND_LOGIN_REQUEST',
-  async credentials => {
-    console.log(credentials);
+  async (credentials, thunkAPI) => {
+    console.log("esta es la thunkapi", thunkAPI);
+    console.log("ESTAS SON LAS CREDENCIALES", credentials);
     try {
-      const { data } = await axios.post(
-        'http://localhost:3001/api/users/login',
-        credentials
-      );
 
+      const { data } = await axios.post(`${BASE_URL}/users/login`, credentials);
       console.log("la data de login", data);
-      return data;
-
+      if (data.id) {
+        return data
+      }
+     /*  return thunkAPI.rejectWithValue(data) */
+     throw new Error(data)
     } catch (error) {
       console.error('USER-LOGIN ERROR', error);
+      return error
     }
   }
 );
@@ -46,14 +50,11 @@ export const logoutUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { token } = thunkAPI.getState();
-      const response = await axios.get(
-        'http://localhost:3001/api/users/logout',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/users/logout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return {};
     } catch (error) {
       console.error('user/logout ERROR', error);
@@ -66,14 +67,11 @@ export const checkUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const { token } = thunkAPI.getState();
     try {
-      const { data } = await axios.get(
-        'http://localhost:3001/api/users/getMe',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.get(`${BASE_URL}/users/getMe`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return data;
     } catch (error) {
       console.error('user/getMe ERROR', error);
@@ -87,7 +85,7 @@ export const updateUser = createAsyncThunk(
     const { token } = thunkAPI.getState();
     try {
       const { data } = await axios.put(
-        `http://localhost:3001/api/users/update/${updateBody.id}`,
+        `${BASE_URL}/users/update/${updateBody.id}`,
         updateBody,
         {
           headers: {
@@ -107,7 +105,7 @@ export const forgotPassword = createAsyncThunk(
   async dataEmail => {
     try {
       const data = await axios.post(
-        'http://localhost:3001/api/users/forgot-password',
+        `${BASE_URL}/users/forgot-password`,
         dataEmail
       );
       return data;
@@ -122,7 +120,7 @@ export const newPassword = createAsyncThunk(
   async dataPassword => {
     try {
       const data = await axios.post(
-        `http://localhost:3001/api/users/${dataPassword.id}/new-password`,
+        `${BASE_URL}/users/${dataPassword.id}/new-password`,
         dataPassword
       );
       return data;
@@ -151,13 +149,14 @@ export const userReducer = createReducer(
       InvalidRegister();
       return action.payload?.data;
     },
-    [loginUser.fulfilled]: (state, action) => action.payload,
+    [loginUser.fulfilled]: (state, action) => action.payload?.data,
     [loginUser.rejected]: (state, action) => {
       InvalidPassword();
       return action.payload?.data;
     },
 
     [logoutUser.fulfilled]: (state, action) => {
+      localStorage.removeItem('vGuest');
       localStorage.removeItem('token');
       return action.payload;
     },
