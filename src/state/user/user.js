@@ -3,7 +3,6 @@ import {
   createAsyncThunk,
   createReducer,
   createSlice,
-  
 } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BASE_URL } from '../../utils/config.js';
@@ -27,20 +26,19 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'SEND_LOGIN_REQUEST',
   async (credentials, thunkAPI) => {
-    console.log("esta es la thunkapi", thunkAPI);
-    console.log("ESTAS SON LAS CREDENCIALES", credentials);
+    console.log('esta es la thunkapi', thunkAPI);
+    console.log('ESTAS SON LAS CREDENCIALES', credentials);
     try {
-
       const { data } = await axios.post(`${BASE_URL}/users/login`, credentials);
-      console.log("la data de login", data);
+      console.log('la data de login', data);
       if (data.id) {
-        return data
+        return data;
       }
-     /*  return thunkAPI.rejectWithValue(data) */
-     throw new Error(data)
+      /*  return thunkAPI.rejectWithValue(data) */
+      throw new Error(data);
     } catch (error) {
       console.error('USER-LOGIN ERROR', error);
-      return error
+      return error;
     }
   }
 );
@@ -81,12 +79,12 @@ export const checkUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   'UPDATE_REQUEST',
-  async (updateBody, thunkAPI) => {
+  async (updatedBody, thunkAPI) => {
     const { token } = thunkAPI.getState();
     try {
       const { data } = await axios.put(
-        `${BASE_URL}/users/update/${updateBody.id}`,
-        updateBody,
+        `${BASE_URL}/users/update`,
+        updatedBody,
         {
           headers: {
             Authorization: `Bearer ${token}`,
