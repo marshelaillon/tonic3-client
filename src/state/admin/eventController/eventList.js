@@ -7,8 +7,11 @@ export const getEvents = createAsyncThunk(
   async (undefined, thunkAPI) => {
     try {
       const thunk = thunkAPI.getState();
+      const { token } = thunkAPI.getState();
       if (thunk.user.isAdmin) {
-        const { data } = await axios.get(`${BASE_URL}/admin/get-all-events`);
+        const { data } = await axios.get(`${BASE_URL}/admin/get-all-events`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         console.log(data?.data, 'OTRA COSA ');
         return data?.data;
       }

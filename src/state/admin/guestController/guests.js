@@ -8,9 +8,13 @@ export const addGuests = createAsyncThunk(
     console.log('esto llega al state del front', body);
 
     const thunk = thunkAPI.getState();
+    const { token } = thunkAPI.getState();
+
     if (thunk.user.isAdmin) {
       try {
-        const { data } = await axios.post(`${BASE_URL}/admin/add-guest`, body);
+        const { data } = await axios.post(`${BASE_URL}/admin/add-guest`, body, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       } catch (error) {
         console.error('/ADD-GUESTS ERROR ', error);
       }
@@ -22,9 +26,13 @@ export const getGuests = createAsyncThunk(
   'GET_GUESTS',
   async (undefined, thunkAPI) => {
     const thunk = thunkAPI.getState();
+    const { token } = thunkAPI.getState();
+
     if (thunk.user.isAdmin) {
       try {
-        const { data } = await axios.get(`${BASE_URL}/admin/get-all-guests`);
+        const { data } = await axios.get(`${BASE_URL}/admin/get-all-guests`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         console.log('REDUX GUESTS', data?.data);
         return data?.data;
       } catch (error) {

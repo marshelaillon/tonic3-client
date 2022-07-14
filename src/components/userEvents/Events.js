@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Carrousel from './Carrousel';
 import Item from './Item';
 
 export default function Events() {
@@ -8,7 +9,7 @@ export default function Events() {
   const userEvents = useSelector(state => state.userEvents);
   return (
     <>
-      <h1>EVENTOS!</h1>
+      <Carrousel />
       <div className="container-sm">
         <div className="row-sm d-flex flex-wrap justify-content-center">
           {userEvents?.events?.map((event, i) => (

@@ -7,7 +7,7 @@ import '../styles/adminView.css';
 import { GrSend } from 'react-icons/gr';
 import { sendInvitations } from '../state/admin/guestController/guests';
 import { IoMdRefreshCircle } from 'react-icons/io';
-import { RiAdminFill } from 'react-icons/ri'
+import { RiAdminFill } from 'react-icons/ri';
 import { BiCalendarEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem } from '../state/admin/adminUI/removeItem';
@@ -40,9 +40,7 @@ const List = ({ refresh, currentList }) => {
     sendInvi();
   };
 
-  const handlerAdmin = values => {
-
-  }
+  const handlerAdmin = values => {};
 
   const handlerDelete = async item => {
     listener &&
@@ -82,7 +80,6 @@ const List = ({ refresh, currentList }) => {
                         </th>
                       </>
                     ))}
-                  {console.log(listener, "LKJLKJÑk")}
                   {list[0] && <th>{t('btn_remove')}</th>}
                   {listener !== 'guests' && <th>Actualizar </th>}
                 </tr>
@@ -110,7 +107,6 @@ const List = ({ refresh, currentList }) => {
                             <MdDeleteForever
                               className="trashcan"
                               onClick={() => {
-                                console.log('DELETE ITEM', item);
                                 handlerDelete(item);
                               }}
                             />
@@ -120,19 +116,16 @@ const List = ({ refresh, currentList }) => {
                               <BiCalendarEdit
                                 className="update"
                                 onClick={() => {
-                                  navigate('/admin/app/upgradeEvent')
+                                  navigate('/admin/app/upgradeEvent');
                                   setItemEvent(item);
                                   handleShow();
                                 }}
                               />
-
                             </td>
                           )}
                           {listener === 'users' && (
                             <td>
-                              <RiAdminFill
-                                className='userAdmin'
-                              />
+                              <RiAdminFill className="userAdmin" />
                             </td>
                           )}
                         </tr>
@@ -162,10 +155,7 @@ const List = ({ refresh, currentList }) => {
                     <UpgradeEvents refresh={refresh} item={itemEvent} />
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button
-                      variant="secondary"
-                      onClick={handleClose}
-                    >
+                    <Button variant="secondary" onClick={handleClose}>
                       Close
                     </Button>
                   </Modal.Footer>
