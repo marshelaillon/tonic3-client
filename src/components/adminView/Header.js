@@ -62,7 +62,7 @@ export default function Header() {
                             border: 'none',
                           }}
                         >
-                          {item.options.map((option, i) => (
+                          {item?.options?.map((option, i) => (
                             <span>
                               <Dropdown.Item
                                 key={`dropd.item ${i}`}
