@@ -1,9 +1,20 @@
 .home-content {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   flex-direction: column;
+  
 }
 
 @media (max-width: 650px) {
   .home-content {
   }
+}
+.iframe{
+ 
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
 }
