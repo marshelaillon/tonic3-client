@@ -1,19 +1,22 @@
 import '../styles/Countdown.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import useCountdown from '../hooks/useCountdown';
-import VideoPlayer from './VideoPlayer';
+import VideoPlayer from '../commons/VideoPlayer'
+
 
 function Countdown() {
+  const dispatch = useDispatch()
   const { t } = useTranslation();
   const currentEvent = useSelector(state => state.currentEvent);
+  console.log(currentEvent, " KJJHKJHKHKJ")
 
-  const [days, hours, minutes, seconds] = useCountdown(
-    currentEvent?.event?.date
-  );
+
+  const [days, hours, minutes, seconds] = useCountdown(currentEvent?.event?.date);
 
   if (days + hours + minutes + seconds <= 0) {
-    return <VideoPlayer></VideoPlayer>;
+    return (<VideoPlayer />)
+
   } else {
     return (
       <>
@@ -21,6 +24,7 @@ function Countdown() {
           <div className="wrap container-sm">
             <div className="contain-countdown">
               <div>
+
                 <h1 className="event-title">
                   Event <strong>{currentEvent?.event?.title}</strong>
                 </h1>
@@ -86,7 +90,7 @@ function Countdown() {
                         </span>
                         <span className="bottom">{seconds}</span>
                         <span className="bottom-back">
-                          <span>{seconds}</span>
+                          <span>{(seconds < 10) ? `0${seconds}` : seconds}</span>
                         </span>
                       </div>
                     </div>
@@ -101,7 +105,7 @@ function Countdown() {
           </div>
         )}
       </>
-    );
+    )
   }
 }
 export default Countdown;
