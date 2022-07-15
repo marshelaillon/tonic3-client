@@ -57,15 +57,8 @@ function Countdown() {
         <div className="wrap container-sm">
           <div className="contain-countdown">
             <div>
-<<<<<<< HEAD
-              <h1 className="event-title">{currentEvent.title}</h1>
-              <h1>
-                Event <strong>Countdown</strong>
-=======
-              {/*  <h1 className="event-title">{currentEvent?.event?.title}</h1> */}
               <h1 className="event-title">
                 Event <strong>{currentEvent?.event?.title}</strong>
->>>>>>> 1c0b1b2833603f715b172fe1036153aba7e3ce2b
               </h1>
             </div>
             <div className="contain-countdown-description">
@@ -74,16 +67,6 @@ function Countdown() {
                   <div className="bloc-time days" data-init-value="24">
                     <span className="count-title">{t('days')}</span>
 
-                    {/*  <div className="figure days days-1">
-                <span className="top">{timerDays}</span>
-                <span className="top-back">
-                  <span>{timerDays}</span>
-                </span>
-                <span className="bottom"> {timerDays} </span>
-                <span className="bottom-back">
-                  <span>{timerDays}</span>
-                </span>
-              </div> */}
 
                     <div className="figure days days-2">
                       <span className="top">{timerDays}</span>
@@ -99,18 +82,6 @@ function Countdown() {
 
                   <div className="bloc-time hours" data-init-value="24">
                     <span className="count-title">{t('hours')}</span>
-                    {/* 
-              <div className="figure hours hours-1">
-
-                <span className="top">{timerHours}</span>
-                <span className="top-back">
-                  <span>{timerHours}</span>
-                </span>
-                <span className="bottom">2</span>
-                <span className="bottom-back">
-                  <span>{timerHours}</span>
-                </span>
-              </div> */}
 
                     <div className="figure hours hours-2">
                       <span className="top">{timerHours}</span>
@@ -130,16 +101,6 @@ function Countdown() {
                   <div className="bloc-time min" data-init-value="0">
                     <span className="count-title">{t('minutes')}</span>
 
-                    {/*  <div className="figure min min-1">
-                <span className="top">{timerMinutes}</span>
-                <span className="top-back">
-                  <span>{timerMinutes}</span>
-                </span>
-                <span className="bottom">{timerMinutes}</span>
-                <span className="bottom-back">
-                  <span>{timerMinutes}</span>
-                </span>
-              </div> */}
 
                     <div className="figure min min-2">
                       <span className="top">{timerMinutes}</span>
@@ -155,18 +116,6 @@ function Countdown() {
 
                   <div className="bloc-time sec" data-init-value="0">
                     <span className="count-title">{t('seconds')}</span>
-                    {/* 
-              <div className="figure sec sec-1">
-
-                <span className="top">{timerSeconds}</span>
-                <span className="top-back">
-                  <span>{timerSeconds}</span>
-                </span>
-                <span className="bottom">{timerSeconds}</span>
-                <span className="bottom-back">
-                  <span>0</span>
-                </span>
-              </div> */}
 
                     <div className="figure sec sec-2">
                       <span className="top">{timerSeconds}</span>
@@ -183,14 +132,7 @@ function Countdown() {
               </div>
 
               <div className="description">
-<<<<<<< HEAD
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Voluptate, mollitia, id, itaque voluptates vitae accusantium
-                tempore molestias harum soluta non doloremque modi amet quo
-                voluptatem. Cum amet iste cumque eos. Placeat facilis unde, hic
-=======
                 <p>{currentEvent?.event?.description}</p>
->>>>>>> 1c0b1b2833603f715b172fe1036153aba7e3ce2b
               </div>
             </div>
           </div>

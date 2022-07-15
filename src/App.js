@@ -82,7 +82,7 @@ function App() {
 
           <Routes>
 
-            <Route path='/videoplayer' element={<VideoPlayer />} />
+          {/* <Route path='/videoplayer' element={<VideoPlayer />} /> */}
             {/* <Route path="/user" element={user.id && <User />} /> */}
 
             <Route path="/:id/events" element={<Events />} />

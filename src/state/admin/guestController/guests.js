@@ -7,9 +7,8 @@ export const addGuests = createAsyncThunk(
   async (body, thunkAPI) => {
     const { token } = thunkAPI.getState()
     console.log('esto llega al state del front', body);
-
     const thunk = thunkAPI.getState();
-    const { token } = thunkAPI.getState();
+
 
     if (thunk.user.isAdmin) {
       try {
@@ -31,7 +30,7 @@ export const getGuests = createAsyncThunk(
   async (undefined, thunkAPI) => {
     const { token } = thunkAPI.getState()
     const thunk = thunkAPI.getState();
-    const { token } = thunkAPI.getState();
+  
 
     if (thunk.user.isAdmin) {
       try {

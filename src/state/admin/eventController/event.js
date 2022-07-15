@@ -14,7 +14,7 @@ export const addEvent = createAsyncThunk(
     form.append('description', body.description);
     form.append('image', body.image);
     form.append('date', body.date);
-    const { token } = thunkAPI.getState();
+  
     if (thunk.user.isAdmin) {
       try {
 
