@@ -16,14 +16,16 @@
   "email": "Email",
   "password": "Password",
   "confirm_password": "Confirm password",
-  "dont_have_account": "Don't have an account?",
-  "invite_to_register": "Invite to register",
+  "forgot_your_password": "Did you forgot your password? Enter your e-mail to get a new password",
+  "forgot_password": "Forgot your password?",
+  "reset_password": "Reset a new password",
 
   "enter_your_email": "Enter your email",
   "not_valid_email": "Email is not valid",
   "required_email": "Email is required",
   "password_min_length": "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
   "required_password": "Password is required",
+  "password_not_match": "Password does not match",
 
   "required_event_link": "Link is required",
   "required_event_title": "Title is required",

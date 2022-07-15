@@ -12,8 +12,8 @@ import { Navigate } from 'react-router-dom';
 import { verifyGuest } from '../state/guests/verifyGuest';
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'react-icons-kit';
-import {eye} from 'react-icons-kit/icomoon/eye';
-import {eyeBlocked} from 'react-icons-kit/icomoon/eyeBlocked'; 
+import { eye } from 'react-icons-kit/icomoon/eye';
+import { eyeBlocked } from 'react-icons-kit/icomoon/eyeBlocked';
 import "../styles/forms.css"
 
 const Register = () => {
@@ -28,8 +28,8 @@ const Register = () => {
 
   const [type1, setType1] = useState('password');
   const [type2, setType2] = useState('password');
-const [icon1, setIcon1] = useState(eyeBlocked);
-const [icon2, setIcon2] = useState(eyeBlocked);
+  const [icon1, setIcon1] = useState(eyeBlocked);
+  const [icon2, setIcon2] = useState(eyeBlocked);
 
   const handleSubmit = values => {
     dispatch(
@@ -152,19 +152,19 @@ const [icon2, setIcon2] = useState(eyeBlocked);
               </div>
               <div className="form-group">
 
-               <label htmlFor="password">{t('password')}</label>
+                <label htmlFor="password">{t('password')}</label>
                 <div className='input-button'>
-                  
-                <Field
-                  name="password"
-                  className={
-                    formik.touched.password && formik.errors.password
-                      ? 'form-control is-invalid'
-                      : 'form-control'
-                  }
-                  type={type1}
-                />
-                <Button className='button-icon' variant='secondary'><span onClick={handleToggle1}><Icon icon={icon1} size={25} /></span></Button> 
+
+                  <Field
+                    name="password"
+                    className={
+                      formik.touched.password && formik.errors.password
+                        ? 'form-control is-invalid'
+                        : 'form-control'
+                    }
+                    type={type1}
+                  />
+                  <Button className='button-icon' variant='secondary'><span onClick={handleToggle1}><Icon icon={icon1} size={25} /></span></Button>
                 </div>
                 {formik.touched.password && formik.errors.password ? (
                   <div className="invalid-feedback">
@@ -173,25 +173,25 @@ const [icon2, setIcon2] = useState(eyeBlocked);
                 ) : null}
               </div>
               <div className="form-group">
-                
+
                 <label htmlFor="confirmpassword">{t('confirm_password')}</label>
                 <div className='input-button'>
                   <Field
 
-                  name="confirmpassword"
-                  className={
-                    formik.touched.confirmpassword &&
-                    formik.errors.confirmpassword
-                      ? 'form-control is-invalid'
-                      : 'form-control'
-                  }
-                  type={type2}
-                />
-                <Button className='button-icon' variant="secondary" ><span onClick={handleToggle2}><Icon icon={icon2} size={25} /></span></Button>
+                    name="confirmpassword"
+                    className={
+                      formik.touched.confirmpassword &&
+                        formik.errors.confirmpassword
+                        ? 'form-control is-invalid'
+                        : 'form-control'
+                    }
+                    type={type2}
+                  />
+                  <Button className='button-icon' variant="secondary" ><span onClick={handleToggle2}><Icon icon={icon2} size={25} /></span></Button>
                 </div>
-                
+
                 {formik.touched.confirmpassword &&
-                formik.errors.confirmpassword ? (
+                  formik.errors.confirmpassword ? (
                   <div className="invalid-feedback">
                     {formik.errors.confirmpassword}
                   </div>

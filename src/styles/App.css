@@ -8,6 +8,7 @@ body {
 }
 .container {
   background-color: rgba(179, 175, 175, 0.452);
+  margin-top: auto;
   border: solid 1px #212529;
   border-top: none;
   border-right: none;
