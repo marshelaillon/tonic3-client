@@ -17,8 +17,7 @@ function Countdown() {
     const countDownDate = new Date(currentEvent?.event?.date).getTime();
 
     interval = setInterval(() => {
-      const now = +(new Date().getTime());
-     
+      const now = +new Date().getTime();
 
       const distance = countDownDate - now;
 
@@ -33,6 +32,7 @@ function Countdown() {
 
       if (distance < 0) {
         // Stop Timer
+        console.log();
         clearInterval(interval.current);
       } else {
         // Update Timer
@@ -57,7 +57,7 @@ function Countdown() {
         <div className="wrap container-sm">
           <div className="contain-countdown">
             <div>
-             {/*  <h1 className="event-title">{currentEvent?.event?.title}</h1> */}
+              {/*  <h1 className="event-title">{currentEvent?.event?.title}</h1> */}
               <h1 className="event-title">
                 Event <strong>{currentEvent?.event?.title}</strong>
               </h1>
@@ -177,9 +177,7 @@ function Countdown() {
               </div>
 
               <div className="description">
-              <p>
-              {currentEvent?.event?.description}
-              </p>
+                <p>{currentEvent?.event?.description}</p>
               </div>
             </div>
           </div>

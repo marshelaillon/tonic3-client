@@ -109,22 +109,28 @@ const List = ({ refresh, currentList }) => {
                           key={`tr=${i}`}
                           scope="row"
                         >
-                          {Object.keys(item).map((key, j) => (
-                            <>
-                              <td key={`td=${i}-${j}`} className="">
-                                {key !== 'description' &&
-                                  key !== 'url' &&
-                                  item[key]?.toString()}
-                              </td>
-                            </>
-                          ))}
+                          {Object.keys(item).map(
+                            (key, j) => (
+                              (
+                                <>
+                                  <td key={`td=${i}-${j}`} className="">
+                                    {key !== 'description' &&
+                                      key !== 'url' &&
+                                      item[key]?.toString()}
+                                  </td>
+                                </>
+                              )
+                            )
+                          )}
                           <td>
-                            <MdDeleteForever
-                              className="trashcan"
-                              onClick={() => {
-                                handlerDelete(item);
-                              }}
-                            />
+                            {!item.isAdmin && item.email !== 'admin@admin.com' && (
+                              <MdDeleteForever
+                                className="trashcan"
+                                onClick={() => {
+                                  handlerDelete(item);
+                                }}
+                              />
+                            )}
                           </td>
                           {listener === 'events' && (
                             <td>
@@ -138,7 +144,7 @@ const List = ({ refresh, currentList }) => {
                               />
                             </td>
                           )}
-                          {listener === 'users' && (
+                          {listener === 'users' && item.email !== 'admin@admin.com' && (
                             <td>
                               <RiAdminFill
                                 style={item.isAdmin && { color: 'yellow' }}
