@@ -24,6 +24,7 @@ import Events from './components/userEvents/Events';
 import { logoutUser } from './state/user/user.js';
 
 import Footer from './components/Footer';
+import VideoPlayer from './commons/VideoPlayer';
 
 function App() {
   const user = useSelector(state => state.user);
@@ -78,11 +79,13 @@ function App() {
           {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
 
           <Routes>
+            <Route path='/videoplayer' element={<VideoPlayer />} />
             {/* <Route path="/user" element={user.id && <User />} /> */}
 
 
+
             {(verifiedToken || verifiedGuest?.data?.checked) &&
-            verifiedGuest?.data?.verified ? (
+              verifiedGuest?.data?.verified ? (
               <>
                 {!user.id && (
                   <>
@@ -120,13 +123,13 @@ function App() {
             <Route path="/upgradeEvent" element={<UpgradeEvents />} />
 
             <Route path="/404" element={<NotFound />} />
-            {/*  <Route path="*" element={<Navigate to="/404" />} /> */}
+            <Route path="*" element={<Navigate to="/404" />} />
             <Route path="/not-found" element={<NotFound />} />
           </Routes>
         </div>
       </div>
-      <Footer className={sidebar ? 'blur' : ''} />
-    </div>
+      {<Footer className={sidebar ? 'blur' : ''} />
+      }    </div>
   );
 }
 

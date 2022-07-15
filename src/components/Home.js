@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import LoginWithToken from './LoginWithToken';
 import Countdown from '../commons/Countdown';
+import '../styles/Home.css'
 
 const Home = () => {
   const user = useSelector(state => state.user);
@@ -9,7 +10,7 @@ const Home = () => {
   const verifiedToken = useSelector(state => state.verifiedToken);
   return (
     <>
-      <div className="home-content row-sm">
+      <div className="home-content iframe row-sm">
         {/* si no hay usuario mostrar el primer ingreso con acces code */}
         {/* {(!verifiedGuest.verified || !verifiedToken) && <LoginWithToken />} */}
         {user.id /*  || verifiedToken */ ? <Countdown /> : <LoginWithToken />}
