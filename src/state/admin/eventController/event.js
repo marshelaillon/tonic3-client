@@ -15,7 +15,7 @@ export const addEvent = createAsyncThunk(
     const { token } = thunkAPI.getState();
     if (thunk.user.isAdmin) {
       try {
-        const data = await axios.post(`${BASE_URL}/admin/add-event`, body, {
+        const data = await axios.post(`${BASE_URL}/admin/add-event`, form, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
