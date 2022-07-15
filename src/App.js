@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
-import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useNavigate,
+  Navigate,
+  useParams,
+} from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
@@ -23,7 +29,10 @@ import Events from './components/userEvents/Events';
 
 
 import Footer from './components/Footer';
-import VideoPlayer from './commons/VideoPlayer';
+
+import { listener } from './state/admin/adminUI/listener';
+
+//import VideoPlayer from './commons/VideoPlayer';
 
 function App() {
   const user = useSelector(state => state.user);
@@ -33,6 +42,7 @@ function App() {
   const sidebar = useSelector(state => state.sidebar);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { type } = useParams();
 
 
   let onClickOutside = () => {
@@ -60,6 +70,7 @@ function App() {
   useEffect(() => {
     (async () => {
       !verifiedGuest?.data && (await dispatch(setVerifiedGuest()));
+      !listener && type && (await dispatch(listener(type)));
     })();
   }, []);
 
@@ -74,6 +85,8 @@ function App() {
             <Route path='/videoplayer' element={<VideoPlayer />} />
             {/* <Route path="/user" element={user.id && <User />} /> */}
 
+            <Route path="/:id/events" element={<Events />} />
+            <Route path="/user" element={user.id && <User />} />
             {(verifiedToken || verifiedGuest?.data?.checked) &&
               verifiedGuest?.data?.verified ? (
               <>
@@ -89,11 +102,12 @@ function App() {
                 {user.isAdmin && (
                   <Route path="/admin/app/:type/*" element={<Adminview />} />
                 )}
+
                 <Route path="/:id/events" element={<Events />} />
+
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
                 <Route path="/forgotPassword" element={<ForgotPassword />} />
-                <Route path="/user" element={user.id && <User />} />
               </>
             ) : (
               <>
