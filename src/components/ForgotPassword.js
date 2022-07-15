@@ -42,7 +42,7 @@ const ForgotPassword = () => {
           <div className="container w-75 mt-4">
             <Form>
               <div className="form-group">
-                <label>Did you forgot your password? Enter your e-mail to get a new password</label>
+                <label>{t("forgot_your_password")}</label>
                 <Field
                   name="email"
                   placeholder={t('enter_your_email')}

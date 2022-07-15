@@ -147,7 +147,8 @@ export const userReducer = createReducer(
       InvalidRegister();
       return action.payload?.data;
     },
-    [loginUser.fulfilled]: (state, action) => action.payload?.data,
+    [loginUser.fulfilled]: (state, action) => action.payload,
+    
     [loginUser.rejected]: (state, action) => {
       InvalidPassword();
       return action.payload?.data;

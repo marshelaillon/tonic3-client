@@ -16,7 +16,8 @@
   "email": "Correio electrónico",
   "password": "Senha",
   "confirm_password": "Confirmar senha",
-  "forgot_password": "¿Você esqueceu sua senha?",
+  "forgot_your_password": "Você esqueceu sua senha? Digite seu e-mail para obter uma nova senha",
+  "forgot_password": "Você esqueceu sua senha?",
   "reset_password": "Definir uma nova senha",
 
   "enter_your_email": "Digite seu e-mail",
@@ -24,6 +25,7 @@
   "required_email": "Email é obrigatório",
   "password_min_length": "Senha deve ter no mínimo 6 caracteres",
   "required_password": "Senha é obrigatória",
+  "password_not_match": "Senha não corresponde",
 
   "required_event_link": "Link do evento é obrigatório",
   "required_event_title": "Título do evento é obrigatório",
