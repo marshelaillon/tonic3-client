@@ -79,12 +79,21 @@ export const checkUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   'UPDATE_REQUEST',
-  async (updatedBody, thunkAPI) => {
+  async (updateBody, thunkAPI) => {
+    const form = new FormData();
+    form.append('id', updateBody.id);
+    form.append('userName', updateBody.userName);
+    form.append('firstName', updateBody.firstName);
+    form.append('lastName', updateBody.lastName);
+    form.append('image', updateBody.image);
+    form.append('genre', updateBody.genre);
+
     const { token } = thunkAPI.getState();
     try {
-      const { data } = await axios.put(
-        `${BASE_URL}/users/update`,
-        updatedBody,
+      const { data } = await axios.post(
+        `${BASE_URL}/users/update/${updateBody.id}`,
+        form,
+
         {
           headers: {
             Authorization: `Bearer ${token}`,

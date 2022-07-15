@@ -20,6 +20,7 @@ const AddEvents = ({ refresh }) => {
   //new Date().getTime() + 86400000
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date().getTime() + 86400000);
+  const [image, setImage] = useState(null);
   const { t } = useTranslation();
   const handleSubmit = async values => {
     await dispatch(
@@ -27,6 +28,7 @@ const AddEvents = ({ refresh }) => {
         title: values.title,
         url: values.url,
         description: values.description,
+        image: image,
         date: date,
       })
     );
@@ -49,6 +51,7 @@ const AddEvents = ({ refresh }) => {
           title: '',
           url: '',
           description: '',
+          image,
           date,
         }}
         validationSchema={validate}
@@ -61,7 +64,7 @@ const AddEvents = ({ refresh }) => {
       >
         {formik => (
           <div>
-            <Form>
+            <Form method="post" encType="multipart/form-data" id="addEvent">
               <div className="form-group">
                 <label htmlFor="title">{t('event_title')}</label>
                 <Field
@@ -109,6 +112,23 @@ const AddEvents = ({ refresh }) => {
                     {formik.errors.description}
                   </div>
                 ) : null}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="image">{t('event_image')}</label>
+                <Field
+                  name="image"
+                  className={
+                    formik.touched.title && formik.errors.title
+                      ? 'form-control is-invalid'
+                      : 'form-control'
+                  }
+                  type="file"
+                  onChange={e => {
+                    console.log(e.target.files);
+                    setImage(e.target.files[0]);
+                  }}
+                />
               </div>
 
               <div className="form-group">

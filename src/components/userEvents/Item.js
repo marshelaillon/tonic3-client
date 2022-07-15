@@ -1,29 +1,41 @@
-import React from 'react';
+import { React, useState } from 'react';
+import '../../styles/UserEvents.css';
+import EventDetail from './EventDetail';
+import { Modal, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 export default function Item({ event }) {
+  const [showDetail, setShowDetail] = useState(false);
+  const navigate = useNavigate();
   return (
     <>
       {/* <div className=" col-sm" style={{ width: '250px' }}> */}
       <div
-        class="card" /*  style="width: 18rem;" */
-        style={{ height: '500px' }}
+        class="card card-ev"
+        style={{ height: '100%' }}
+        onClick={e => setShowDetail(true)}
       >
         <img
           class="card-img-top"
-          src="https://www.nacionflix.com/__export/1608357649862/sites/debate/img/2020/12/18/la_batallas_mxs_xpicas_del_anime_naruto_crop1608357496310.jpg_91657744.jpg"
+          src={event.image}
           alt="Card image cap"
+          height={'200px'}
         />
         <div className="container-sm flex-column align-items-evenly">
           <div
-            class="card-body"
-            style={{ backgroundColor: 'whitesmoke', height: '300px' }}
+            class="card-body "
+            style={{
+              backgroundColor: 'whitesmoke',
+              height: '100%',
+              overflow: 'hidden',
+            }}
           >
             <h2 class="card-title" style={{ fontSize: '120%' }}>
               {event.title}
             </h2>
-            <p class="card-text" /* style={{ maxHeight: '50px' }} */>
+            {/*  <p class="card-text" style={{ maxHeight: '50px' }}>
               {event.description}
-            </p>
+            </p> */}
             <br />
             <p class="card-text">
               <strong>
@@ -35,6 +47,30 @@ export default function Item({ event }) {
       </div>
 
       {/* </div> */}
+      {showDetail && (
+        <Modal
+          className="modalFondo"
+          centered
+          show={showDetail}
+          onHide={!showDetail}
+          backdrop="static"
+          keyboard={true}
+          size="xl"
+        >
+          <Modal.Body className="">{<EventDetail event={event} />}</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setShowDetail(false);
+                // navigate(`/admin/app/${listener}`);
+              }}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </>
   );
 }

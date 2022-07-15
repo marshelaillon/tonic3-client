@@ -48,6 +48,7 @@ const List = ({ refresh, currentList }) => {
     sendInvi();
   };
 
+
   const handlerAdmin = async values => {
     const update_User = await dispatch(
       updateUser({
@@ -56,6 +57,7 @@ const List = ({ refresh, currentList }) => {
     );
     if (update_User) return 'succefully';
   };
+
 
   const handlerDelete = async item => {
     await dispatch(
@@ -94,7 +96,7 @@ const List = ({ refresh, currentList }) => {
                         </th>
                       </>
                     ))}
-                  {console.log(listener, 'LKJLKJÑk')}
+
                   {list[0] && <th>{t('btn_remove')}</th>}
                   {listener !== 'guests' && <th>Actualizar </th>}
                 </tr>
@@ -123,6 +125,7 @@ const List = ({ refresh, currentList }) => {
                             )
                           )}
                           <td>
+
                             {!item.isAdmin && item.email !== 'admin@admin.com' && (
                               <MdDeleteForever
                                 className="trashcan"
@@ -131,6 +134,7 @@ const List = ({ refresh, currentList }) => {
                                 }}
                               />
                             )}
+
                           </td>
                           {listener === 'events' && (
                             <td>
@@ -146,6 +150,7 @@ const List = ({ refresh, currentList }) => {
                           )}
                           {listener === 'users' && item.email !== 'admin@admin.com' && (
                             <td>
+
                               <RiAdminFill
                                 style={item.isAdmin && { color: 'yellow' }}
                                 className="userAdmin"
