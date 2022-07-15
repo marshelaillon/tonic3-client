@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
 import { useSelector } from 'react-redux';
+import '../../styles/UserEvents.css';
 
 export default function Carrousel() {
   const userEvents = useSelector(state => state.userEvents);

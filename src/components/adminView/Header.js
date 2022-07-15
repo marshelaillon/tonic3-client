@@ -6,8 +6,6 @@ import { listener } from '../../state/admin/adminUI/listener';
 import '../../styles/adminView.css';
 
 export default function Header() {
-
-
   const _listener = useSelector(state => state.listener);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,9 +13,9 @@ export default function Header() {
     { title: 'Events', options: ['Add event'] },
     {
       title: 'Guests',
-      options: ['Add guest', 'Send invitations'],
+      options: ['Add guest'],
     },
-    { title: 'Users', options: ['Delete user'] },
+    { title: 'Users' },
   ];
 
   return (

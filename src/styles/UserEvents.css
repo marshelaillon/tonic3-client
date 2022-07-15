@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,800');
+
+
+.card-ev:hover{
+    opacity: 75%;
+    box-shadow: whitesmoke 0 0px 8px 1px;
+}
+
+.card-modal{
+    flex-direction: row !important;
+}
+
+.modalEvents{ 
+    max-width: 1350px !important;
+}
