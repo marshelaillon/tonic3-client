@@ -7,6 +7,7 @@ import useCountdown from '../hooks/useCountdown';
 function Countdown() {
   const { t } = useTranslation();
   const currentEvent = useSelector(state => state.currentEvent);
+
   const [days, hours, minutes, seconds] = useCountdown(currentEvent?.event?.date);
   
   if (days + hours + minutes + seconds <= 0) {
@@ -140,11 +141,9 @@ function Countdown() {
                   </div>
                 </div>
 
-                <div className="description">
-                  <p>
-                    {currentEvent?.event?.description}
-                  </p>
-                </div>
+
+              <div className="description">
+                <p>{currentEvent?.event?.description}</p>
               </div>
             </div>
           </div>

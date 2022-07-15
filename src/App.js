@@ -23,6 +23,7 @@ import Events from './components/userEvents/Events';
 
 
 import Footer from './components/Footer';
+import VideoPlayer from './commons/VideoPlayer';
 
 function App() {
   const user = useSelector(state => state.user);
@@ -69,6 +70,10 @@ function App() {
         <div className={sidebar ? 'blur' : ''}>
 
           <Routes>
+
+            <Route path='/videoplayer' element={<VideoPlayer />} />
+            {/* <Route path="/user" element={user.id && <User />} /> */}
+
             {(verifiedToken || verifiedGuest?.data?.checked) &&
               verifiedGuest?.data?.verified ? (
               <>
@@ -105,8 +110,8 @@ function App() {
           </Routes>
         </div>
       </div>
-      <Footer className={sidebar ? 'blur' : ''} />
-    </div>
+      {<Footer className={sidebar ? 'blur' : ''} />
+      }    </div>
   );
 }
 

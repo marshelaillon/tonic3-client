@@ -1,0 +1,18 @@
+.player-wrapper {
+    
+        height: 60vh;
+        width: 40vw;
+        position: relative;
+        margin-top: 50px;
+    }
+  
+  
+  .videoPlayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+
+  
+ 
