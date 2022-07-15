@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, Modal } from 'react-bootstrap';
 import { Table } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
@@ -11,14 +11,16 @@ import { RiAdminFill } from 'react-icons/ri';
 import { BiCalendarEdit } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem } from '../state/admin/adminUI/removeItem';
-import { sendInvi } from '../utils/sweetAlerts';
+import { ascendedUser, sendInvi } from '../utils/sweetAlerts';
 import { MdDeleteForever } from 'react-icons/md';
 import UpgradeEvents from '../components/adminView/UpgradeEvents';
 import { useNavigate } from 'react-router-dom';
+import { updateUser } from '../state/admin/userController/users';
 
 const List = ({ refresh, currentList }) => {
   const [show, setShow] = useState(false);
   const [itemEvent, setItemEvent] = useState({});
+  const [change, setChange] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,6 +32,12 @@ const List = ({ refresh, currentList }) => {
   const dispatch = useDispatch();
   const { count, list } = currentList;
 
+  useEffect(() => {
+    (async () => {
+      await refresh();
+    })();
+  }, [change]);
+
   const handlerItemEvent = item => {
     console.log('PRUEBA DE CAPTURA DE EVNTO', item);
     setItemEvent(item);
@@ -40,15 +48,23 @@ const List = ({ refresh, currentList }) => {
     sendInvi();
   };
 
-  const handlerAdmin = values => {};
+
+  const handlerAdmin = async values => {
+    const update_User = await dispatch(
+      updateUser({
+        id: values.id,
+      })
+    );
+    if (update_User) return 'succefully';
+  };
+
 
   const handlerDelete = async item => {
-    listener &&
-      (await dispatch(
-        removeItem({
-          id: item.id,
-        })
-      ));
+    await dispatch(
+      removeItem({
+        id: item.id,
+      })
+    );
     await refresh();
   };
 
@@ -80,6 +96,7 @@ const List = ({ refresh, currentList }) => {
                         </th>
                       </>
                     ))}
+
                   {list[0] && <th>{t('btn_remove')}</th>}
                   {listener !== 'guests' && <th>Actualizar </th>}
                 </tr>
@@ -94,22 +111,30 @@ const List = ({ refresh, currentList }) => {
                           key={`tr=${i}`}
                           scope="row"
                         >
-                          {Object.keys(item).map((key, j) => (
-                            <>
-                              <td key={`td=${i}-${j}`} className="">
-                                {key !== 'description' &&
-                                  key !== 'url' &&
-                                  item[key]?.toString()}
-                              </td>
-                            </>
-                          ))}
+                          {Object.keys(item).map(
+                            (key, j) => (
+                              (
+                                <>
+                                  <td key={`td=${i}-${j}`} className="">
+                                    {key !== 'description' &&
+                                      key !== 'url' &&
+                                      item[key]?.toString()}
+                                  </td>
+                                </>
+                              )
+                            )
+                          )}
                           <td>
-                            <MdDeleteForever
-                              className="trashcan"
-                              onClick={() => {
-                                handlerDelete(item);
-                              }}
-                            />
+
+                            {!item.isAdmin && item.email !== 'admin@admin.com' && (
+                              <MdDeleteForever
+                                className="trashcan"
+                                onClick={() => {
+                                  handlerDelete(item);
+                                }}
+                              />
+                            )}
+
                           </td>
                           {listener === 'events' && (
                             <td>
@@ -123,9 +148,19 @@ const List = ({ refresh, currentList }) => {
                               />
                             </td>
                           )}
-                          {listener === 'users' && (
+                          {listener === 'users' && item.email !== 'admin@admin.com' && (
                             <td>
-                              <RiAdminFill className="userAdmin" />
+
+                              <RiAdminFill
+                                style={item.isAdmin && { color: 'yellow' }}
+                                className="userAdmin"
+                                onClick={() => {
+                                  (async () => {
+                                    const exit = await handlerAdmin(item);
+                                    exit && (await setChange(!change));
+                                  })();
+                                }}
+                              />
                             </td>
                           )}
                         </tr>

@@ -6,16 +6,18 @@ export const removeItem = createAsyncThunk(
   'REMOVE_INVITATIONS',
   async (body, thunkAPI) => {
     const thunk = thunkAPI.getState();
-    const { token } = thunkAPI.getState();
 
+    const { token } = thunkAPI.getState()
     if (thunk.user.isAdmin) {
       if (thunk.listener !== 'users') {
         try {
           await axios.delete(
-            `${BASE_URL}/admin/remove-${thunk.listener}/${body.id}`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
+
+            `${BASE_URL}/admin/remove-${thunk.listener}/${body.id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
           );
         } catch (error) {
           console.error(`remove-${thunk.listener}`, error.response.data);

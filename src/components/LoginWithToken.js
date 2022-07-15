@@ -64,11 +64,9 @@ const LoginWhitToken = () => {
 
   const validate = Yup.object({
     email: Yup.string()
-      .email('El email ingresado no es válido')
-      .required('Se requiere un email'),
-    token: usuarioValido && Yup.string().required('se requiere un token'),
-    /* password: usuarioValido && Yup.string().required('Se requiere contraseña').oneOf([Yup.ref('password'), null], 'La contraseña no coincide') */
-
+      .email(t("not_valid_email"))
+      .required(t("required_email")),
+    token: usuarioValido && Yup.string().required(t("required_access_code")),
   });
 
   return (

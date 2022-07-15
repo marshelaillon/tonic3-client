@@ -13,7 +13,6 @@ import User from './components/User';
 import Navbar from './commons/Navbar';
 import Countdown from './commons/Countdown';
 import './styles/App.css';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUser, setToken } from './state/user/user';
 import Home from './components/Home';
@@ -27,25 +26,25 @@ import { getUserEvents } from './state/user/userEvents';
 import { setcurrentEvent } from './state/user/currentEvent';
 import UpgradeEvents from './components/adminView/UpgradeEvents';
 import Events from './components/userEvents/Events';
-import { logoutUser } from './state/user/user.js';
+
 
 import Footer from './components/Footer';
+
 import { listener } from './state/admin/adminUI/listener';
+
+//import VideoPlayer from './commons/VideoPlayer';
 
 function App() {
   const user = useSelector(state => state.user);
-  const currentEvent = useSelector(state => state.currentEvent);
   const verifiedGuest = useSelector(state => state.verifiedGuest);
   const verifiedToken = useSelector(state => state.verifiedToken);
-  console.log('verifiedguest', verifiedGuest);
-  const userEvents = useSelector(state => state.userEvents);
   const token = useSelector(state => state.token);
   const sidebar = useSelector(state => state.sidebar);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { type } = useParams();
 
-  console.log(process.env.NODE_ENV, 'esto es NODE_ENV');
+
   let onClickOutside = () => {
     dispatch(toggleSidebar());
   };
@@ -75,24 +74,21 @@ function App() {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(setToken(localStorage.getItem('token')));
-  // }, []);
-
   return (
     <div className="container-all">
       <div className={sidebar ? 'overlap' : ''}>
         <Navbar onClickOutside={onClickOutside} />
         <div className={sidebar ? 'blur' : ''}>
-          {/* {verifiedGuest.verified && verifiedToken && <Countdown />} */}
 
           <Routes>
+
+            <Route path='/videoplayer' element={<VideoPlayer />} />
             {/* <Route path="/user" element={user.id && <User />} /> */}
 
             <Route path="/:id/events" element={<Events />} />
             <Route path="/user" element={user.id && <User />} />
             {(verifiedToken || verifiedGuest?.data?.checked) &&
-            verifiedGuest?.data?.verified ? (
+              verifiedGuest?.data?.verified ? (
               <>
                 {!user.id && (
                   <>
@@ -103,10 +99,11 @@ function App() {
                     <Route path="/login" element={<Login />} />
                   </>
                 )}
-                {console.log('deberia mostrar el login')}
                 {user.isAdmin && (
                   <Route path="/admin/app/:type/*" element={<Adminview />} />
                 )}
+
+                <Route path="/:id/events" element={<Events />} />
 
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
@@ -114,25 +111,21 @@ function App() {
               </>
             ) : (
               <>
-                {console.log('entre al segundo condicional pa')}
                 <Route path="/" element={<Home />} />
-                <Route path="/forgotPassword" element={<ForgotPassword />} />
                 {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
-
+                <Route path="/user" element={user.id && <User />} />
                 <Route path="/countdown" element={<Countdown />} />
+                <Route path="*" element={<Navigate to="/404" />} /> 
               </>
             )}
-
             <Route path="/upgradeEvent" element={<UpgradeEvents />} />
-
             <Route path="/404" element={<NotFound />} />
-            {/*  <Route path="*" element={<Navigate to="/404" />} /> */}
             <Route path="/not-found" element={<NotFound />} />
           </Routes>
         </div>
       </div>
-      <Footer className={sidebar ? 'blur' : ''} />
-    </div>
+      {<Footer className={sidebar ? 'blur' : ''} />
+      }    </div>
   );
 }
 

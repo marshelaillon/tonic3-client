@@ -16,14 +16,16 @@
   "email": "Correo electrónico",
   "password": "Contraseña",
   "confirm_password": "Confirmar contraseña",
-  "dont_have_account": "¿No tenés una cuenta?",
-  "invite_to_register": "Te invitamos a registrarte",
+  "forgot_your_password": "¿Olvidaste tu contraseña? Ingrese su correo electrónico para obtener una nueva contraseña",
+  "forgot_password": "¿Olvidaste tu contraseña?",
+  "reset_password": "Establezca una contraseña nueva",
 
   "enter_your_email": "Ingresa tu correo",
   "not_valid_email": "Correo electrónico no válido",
   "required_email": "Correo electrónico requerido",
   "password_min_length": "Debe contener 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial",
   "required_password": "La contraseña es requerida",
+  "password_not_match": "La contraseña no coincide",
 
   "required_event_link": "El enlace es requerido",
   "required_event_title": "El título es requerido",

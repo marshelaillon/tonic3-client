@@ -5,6 +5,7 @@ import { BASE_URL } from '../../../utils/config';
 export const addGuests = createAsyncThunk(
   'ADD_GUESTS',
   async (body, thunkAPI) => {
+    const { token } = thunkAPI.getState()
     console.log('esto llega al state del front', body);
 
     const thunk = thunkAPI.getState();
@@ -13,7 +14,10 @@ export const addGuests = createAsyncThunk(
     if (thunk.user.isAdmin) {
       try {
         const { data } = await axios.post(`${BASE_URL}/admin/add-guest`, body, {
-          headers: { Authorization: `Bearer ${token}` },
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
       } catch (error) {
         console.error('/ADD-GUESTS ERROR ', error);
@@ -25,14 +29,19 @@ export const addGuests = createAsyncThunk(
 export const getGuests = createAsyncThunk(
   'GET_GUESTS',
   async (undefined, thunkAPI) => {
+    const { token } = thunkAPI.getState()
     const thunk = thunkAPI.getState();
     const { token } = thunkAPI.getState();
 
     if (thunk.user.isAdmin) {
       try {
-        const { data } = await axios.get(`${BASE_URL}/admin/get-all-guests`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+
+        const { data } = await axios.get(`${BASE_URL}/admin/get-all-guests`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
         console.log('REDUX GUESTS', data?.data);
         return data?.data;
       } catch (error) {
@@ -44,11 +53,16 @@ export const getGuests = createAsyncThunk(
 
 export const sendInvitations = createAsyncThunk(
   'SEND_INVITATIONS',
-  async (undefined, thunkAPI) => {
+  async (_, thunkAPI) => {
     const thunk = thunkAPI.getState();
+    const { token } = thunkAPI.getState()
     if (thunk.user.isAdmin) {
       try {
-        await axios.get(`${BASE_URL}/admin/send-invitations`);
+        await axios.get(`${BASE_URL}/admin/send-invitations`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       } catch (error) {
         console.error('send-invitations', error);
       }
