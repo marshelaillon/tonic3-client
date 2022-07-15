@@ -6,8 +6,6 @@ export const addEvent = createAsyncThunk(
   'ADD_EVENT',
   async (body, thunkAPI) => {
     const thunk = thunkAPI.getState();
-    const { token } = thunkAPI.getState();
-
     const form = new FormData();
     form.append('title', body.title);
     form.append('url', body.url);
@@ -17,8 +15,7 @@ export const addEvent = createAsyncThunk(
   
     if (thunk.user.isAdmin) {
       try {
-
-        const data = await axios.post(`${BASE_URL}/admin/add-event`, body, {
+        const data = await axios.post(`${BASE_URL}/admin/add-event`, form, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -48,7 +45,6 @@ export const editEvent = createAsyncThunk(
     } catch (error) {
       console.error('/EDIT-event ERROR', error);
     }
-
   }
 );
 

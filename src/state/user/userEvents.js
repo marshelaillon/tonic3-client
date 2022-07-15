@@ -10,8 +10,8 @@ export const getUserEvents = createAsyncThunk(
       const { data } = await axios.get(`${BASE_URL}/users/events`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const filtered = data.events.filter(
-        (item, i) => item.id !== data.events[i + 1]?.id
+      const filtered = data?.events?.filter(
+        (item, i) => item?.id !== data.events[i + 1]?.id
       );
       return { events: filtered, leftTime: data.leftTime };
     } catch (error) {

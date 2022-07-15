@@ -127,6 +127,7 @@ const UpgradeEvents = ({ item, refresh }) => {
                                         selected={date}
                                         onChange={date => setDate(date)}
                                         showTimeSelect
+                                        timeIntervals={1}
                                         dateFormat="dd-MMMM-yyyy, hh:mm aa"
                                     />
                                 </div>
