@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
-import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useNavigate,
+  Navigate,
+  useParams,
+} from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
@@ -20,10 +26,9 @@ import { getUserEvents } from './state/user/userEvents';
 import { setcurrentEvent } from './state/user/currentEvent';
 import UpgradeEvents from './components/adminView/UpgradeEvents';
 import Events from './components/userEvents/Events';
-
-
 import Footer from './components/Footer';
-import VideoPlayer from './commons/VideoPlayer';
+import { listener } from './state/admin/adminUI/listener';
+//import VideoPlayer from './commons/VideoPlayer';
 
 function App() {
   const user = useSelector(state => state.user);
@@ -33,7 +38,7 @@ function App() {
   const sidebar = useSelector(state => state.sidebar);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const { type } = useParams();
 
   let onClickOutside = () => {
     dispatch(toggleSidebar());
@@ -60,6 +65,7 @@ function App() {
   useEffect(() => {
     (async () => {
       !verifiedGuest?.data && (await dispatch(setVerifiedGuest()));
+      !listener && type && (await dispatch(listener(type)));
     })();
   }, []);
 
@@ -68,14 +74,12 @@ function App() {
       <div className={sidebar ? 'overlap' : ''}>
         <Navbar onClickOutside={onClickOutside} />
         <div className={sidebar ? 'blur' : ''}>
-
           <Routes>
-
-            <Route path='/videoplayer' element={<VideoPlayer />} />
             {/* <Route path="/user" element={user.id && <User />} /> */}
-
+            <Route path="/:id/events" element={<Events />} />
+            <Route path="/user" element={user.id && <User />} />
             {(verifiedToken || verifiedGuest?.data?.checked) &&
-              verifiedGuest?.data?.verified ? (
+            verifiedGuest?.data?.verified ? (
               <>
                 {!user.id && (
                   <>
@@ -89,11 +93,12 @@ function App() {
                 {user.isAdmin && (
                   <Route path="/admin/app/:type/*" element={<Adminview />} />
                 )}
+
                 <Route path="/:id/events" element={<Events />} />
+
                 <Route path="/" element={<Home />} />
                 <Route exact path="/register" element={<Register />} />
                 <Route path="/forgotPassword" element={<ForgotPassword />} />
-                <Route path="/user" element={user.id && <User />} />
               </>
             ) : (
               <>
@@ -101,17 +106,17 @@ function App() {
                 {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
                 <Route path="/user" element={user.id && <User />} />
                 <Route path="/countdown" element={<Countdown />} />
-                <Route path="*" element={<Navigate to="/404" />} /> 
+                <Route path="*" element={<Navigate to="/404" />} />
               </>
             )}
             <Route path="/upgradeEvent" element={<UpgradeEvents />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="/not-found" element={<NotFound />} />
+            {/* <Route path="/404" element={<NotFound />} />
+            <Route path="/not-found" element={<NotFound />} /> */}
           </Routes>
         </div>
       </div>
-      {<Footer className={sidebar ? 'blur' : ''} />
-      }    </div>
+      {<Footer className={sidebar ? 'blur' : ''} />}{' '}
+    </div>
   );
 }
 

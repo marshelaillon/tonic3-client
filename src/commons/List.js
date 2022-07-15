@@ -68,7 +68,7 @@ const List = ({ refresh, currentList }) => {
 
   return (
     <>
-      <div className="container border">
+      <div className="container border" style={{ marginBottom: '20px' }}>
         <div className="head-list row-sm info my-2 d-flex justify-content-between">
           <div className="col-sm-1 mx-2 border text-center my-2">
             <div className="row-sm">{count}</div>
@@ -94,7 +94,7 @@ const List = ({ refresh, currentList }) => {
                         </th>
                       </>
                     ))}
-                  {console.log(listener, 'LKJLKJÑk')}
+
                   {list[0] && <th>{t('btn_remove')}</th>}
                   {listener !== 'guests' && <th>Actualizar </th>}
                 </tr>
@@ -109,19 +109,15 @@ const List = ({ refresh, currentList }) => {
                           key={`tr=${i}`}
                           scope="row"
                         >
-                          {Object.keys(item).map(
-                            (key, j) => (
-                              (
-                                <>
-                                  <td key={`td=${i}-${j}`} className="">
-                                    {key !== 'description' &&
-                                      key !== 'url' &&
-                                      item[key]?.toString()}
-                                  </td>
-                                </>
-                              )
-                            )
-                          )}
+                          {Object.keys(item).map((key, j) => (
+                            <>
+                              <td key={`td=${i}-${j}`} className="">
+                                {key !== 'description' &&
+                                  key !== 'url' &&
+                                  item[key]?.toString()}
+                              </td>
+                            </>
+                          ))}
                           <td>
                             {!item.isAdmin && (
                               <MdDeleteForever
@@ -144,20 +140,21 @@ const List = ({ refresh, currentList }) => {
                               />
                             </td>
                           )}
-                          {listener === 'users' && item.email !== 'admin@admin.com' && (
-                            <td>
-                              <RiAdminFill
-                                style={item.isAdmin && { color: 'yellow' }}
-                                className="userAdmin"
-                                onClick={() => {
-                                  (async () => {
-                                    const exit = await handlerAdmin(item);
-                                    exit && (await setChange(!change));
-                                  })();
-                                }}
-                              />
-                            </td>
-                          )}
+                          {listener === 'users' &&
+                            item.email !== 'admin@admin.com' && (
+                              <td>
+                                <RiAdminFill
+                                  style={item.isAdmin && { color: 'yellow' }}
+                                  className="userAdmin"
+                                  onClick={() => {
+                                    (async () => {
+                                      const exit = await handlerAdmin(item);
+                                      exit && (await setChange(!change));
+                                    })();
+                                  }}
+                                />
+                              </td>
+                            )}
                         </tr>
                       </>
                     ))

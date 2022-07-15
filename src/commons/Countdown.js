@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
 import '../styles/Countdown.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import useCountdown from '../hooks/useCountdown';
 import VideoPlayer from '../commons/VideoPlayer'
+
 
 function Countdown() {
   const dispatch = useDispatch()
@@ -16,6 +16,7 @@ function Countdown() {
 
   if (days + hours + minutes + seconds <= 0) {
     return (<VideoPlayer />)
+
   } else {
     return (
       <>
@@ -33,6 +34,7 @@ function Countdown() {
                   <div className="box-1">
                     <div className="bloc-time days" data-init-value="24">
                       <span className="count-title">{t('days')}</span>
+
                       <div className="figure days days-2">
                         <span className="top">{days}</span>
                         <span className="top-back">
@@ -47,6 +49,7 @@ function Countdown() {
 
                     <div className="bloc-time hours" data-init-value="24">
                       <span className="count-title">{t('hours')}</span>
+
                       <div className="figure hours hours-2">
                         <span className="top">{hours}</span>
                         <span className="top-back">
@@ -64,6 +67,7 @@ function Countdown() {
                   <div className="box-2">
                     <div className="bloc-time min" data-init-value="0">
                       <span className="count-title">{t('minutes')}</span>
+
                       <div className="figure min min-2">
                         <span className="top">{minutes}</span>
                         <span className="top-back">
@@ -78,6 +82,7 @@ function Countdown() {
 
                     <div className="bloc-time sec" data-init-value="0">
                       <span className="count-title">{t('seconds')}</span>
+
                       <div className="figure sec sec-2">
                         <span className="top">{seconds}</span>
                         <span className="top-back">
@@ -91,7 +96,6 @@ function Countdown() {
                     </div>
                   </div>
                 </div>
-
 
                 <div className="description">
                   <p>{currentEvent?.event?.description}</p>
