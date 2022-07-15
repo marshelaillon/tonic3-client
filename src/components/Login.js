@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { loginUser, setToken } from '../state/user/user';
 import { Welcome } from '../utils/sweetAlerts';
 import { useEffect } from 'react';
@@ -21,6 +21,7 @@ const Login = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const verifiedGuest = useSelector(state => state.verifiedGuest);
   const [tokenCap, settokenCap] = useState('');
   const captcha = useRef(null);
 
@@ -88,7 +89,7 @@ const Login = () => {
 
       <Formik
         initialValues={{
-          email: '',
+          email: verifiedGuest.email,
           password: '',
         }}
         validationSchema={validate}
@@ -109,6 +110,9 @@ const Login = () => {
                       : 'form-control'
                   }
                   type="email"
+                  style={{ color: 'black' }}
+
+                  disabled
                 />
                 {formik.touched.email && formik.errors.email ? (
                   <div className="invalid-feedback">{formik.errors.email}</div>
