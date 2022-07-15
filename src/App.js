@@ -26,12 +26,8 @@ import { getUserEvents } from './state/user/userEvents';
 import { setcurrentEvent } from './state/user/currentEvent';
 import UpgradeEvents from './components/adminView/UpgradeEvents';
 import Events from './components/userEvents/Events';
-
-
 import Footer from './components/Footer';
-
 import { listener } from './state/admin/adminUI/listener';
-
 //import VideoPlayer from './commons/VideoPlayer';
 
 function App() {
@@ -43,7 +39,6 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { type } = useParams();
-
 
   let onClickOutside = () => {
     dispatch(toggleSidebar());
@@ -79,16 +74,12 @@ function App() {
       <div className={sidebar ? 'overlap' : ''}>
         <Navbar onClickOutside={onClickOutside} />
         <div className={sidebar ? 'blur' : ''}>
-
           <Routes>
-
-            <Route path='/videoplayer' element={<VideoPlayer />} />
             {/* <Route path="/user" element={user.id && <User />} /> */}
-
             <Route path="/:id/events" element={<Events />} />
             <Route path="/user" element={user.id && <User />} />
             {(verifiedToken || verifiedGuest?.data?.checked) &&
-              verifiedGuest?.data?.verified ? (
+            verifiedGuest?.data?.verified ? (
               <>
                 {!user.id && (
                   <>
@@ -115,17 +106,17 @@ function App() {
                 {/* AGREGAR QUE MOSTRAR EN HOME CUANDO YA ESTA VERIFICADO EL USUARIO. */}
                 <Route path="/user" element={user.id && <User />} />
                 <Route path="/countdown" element={<Countdown />} />
-                <Route path="*" element={<Navigate to="/404" />} /> 
+                <Route path="*" element={<Navigate to="/404" />} />
               </>
             )}
             <Route path="/upgradeEvent" element={<UpgradeEvents />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="/not-found" element={<NotFound />} />
+            {/* <Route path="/404" element={<NotFound />} />
+            <Route path="/not-found" element={<NotFound />} /> */}
           </Routes>
         </div>
       </div>
-      {<Footer className={sidebar ? 'blur' : ''} />
-      }    </div>
+      {<Footer className={sidebar ? 'blur' : ''} />}{' '}
+    </div>
   );
 }
 
