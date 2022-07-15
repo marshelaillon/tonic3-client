@@ -1,20 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 import '../styles/Countdown.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import useCountdown from '../hooks/useCountdown';
+import VideoPlayer from '../commons/VideoPlayer'
 
 function Countdown() {
+  const dispatch = useDispatch()
   const { t } = useTranslation();
   const currentEvent = useSelector(state => state.currentEvent);
+  console.log(currentEvent, " KJJHKJHKHKJ")
+
 
   const [days, hours, minutes, seconds] = useCountdown(currentEvent?.event?.date);
-  
+
   if (days + hours + minutes + seconds <= 0) {
-    return (<h1>
-        <span>Expired!!!</span>
-        <p>Please select a future date and time.</p>
-      </h1>)
+    return (<VideoPlayer />)
   } else {
     return (
       <>
@@ -22,7 +23,7 @@ function Countdown() {
           <div className="wrap container-sm">
             <div className="contain-countdown">
               <div>
-                
+
                 <h1 className="event-title">
                   Event <strong>{currentEvent?.event?.title}</strong>
                 </h1>
@@ -32,18 +33,6 @@ function Countdown() {
                   <div className="box-1">
                     <div className="bloc-time days" data-init-value="24">
                       <span className="count-title">{t('days')}</span>
-
-                      {/*  <div className="figure days days-1">
-                <span className="top">{timerDays}</span>
-                <span className="top-back">
-                  <span>{timerDays}</span>
-                </span>
-                <span className="bottom"> {timerDays} </span>
-                <span className="bottom-back">
-                  <span>{timerDays}</span>
-                </span>
-              </div> */}
-
                       <div className="figure days days-2">
                         <span className="top">{days}</span>
                         <span className="top-back">
@@ -58,19 +47,6 @@ function Countdown() {
 
                     <div className="bloc-time hours" data-init-value="24">
                       <span className="count-title">{t('hours')}</span>
-                      {/* 
-              <div className="figure hours hours-1">
-
-                <span className="top">{timerHours}</span>
-                <span className="top-back">
-                  <span>{timerHours}</span>
-                </span>
-                <span className="bottom">2</span>
-                <span className="bottom-back">
-                  <span>{timerHours}</span>
-                </span>
-              </div> */}
-
                       <div className="figure hours hours-2">
                         <span className="top">{hours}</span>
                         <span className="top-back">
@@ -88,18 +64,6 @@ function Countdown() {
                   <div className="box-2">
                     <div className="bloc-time min" data-init-value="0">
                       <span className="count-title">{t('minutes')}</span>
-
-                      {/*  <div className="figure min min-1">
-                <span className="top">{timerMinutes}</span>
-                <span className="top-back">
-                  <span>{timerMinutes}</span>
-                </span>
-                <span className="bottom">{timerMinutes}</span>
-                <span className="bottom-back">
-                  <span>{timerMinutes}</span>
-                </span>
-              </div> */}
-
                       <div className="figure min min-2">
                         <span className="top">{minutes}</span>
                         <span className="top-back">
@@ -114,19 +78,6 @@ function Countdown() {
 
                     <div className="bloc-time sec" data-init-value="0">
                       <span className="count-title">{t('seconds')}</span>
-                      {/* 
-              <div className="figure sec sec-1">
-
-                <span className="top">{timerSeconds}</span>
-                <span className="top-back">
-                  <span>{timerSeconds}</span>
-                </span>
-                <span className="bottom">{timerSeconds}</span>
-                <span className="bottom-back">
-                  <span>0</span>
-                </span>
-              </div> */}
-
                       <div className="figure sec sec-2">
                         <span className="top">{seconds}</span>
                         <span className="top-back">
@@ -134,7 +85,7 @@ function Countdown() {
                         </span>
                         <span className="bottom">{seconds}</span>
                         <span className="bottom-back">
-                          <span>{seconds}</span>
+                          <span>{(seconds < 10) ? `0${seconds}` : seconds}</span>
                         </span>
                       </div>
                     </div>
@@ -142,14 +93,15 @@ function Countdown() {
                 </div>
 
 
-              <div className="description">
-                <p>{currentEvent?.event?.description}</p>
+                <div className="description">
+                  <p>{currentEvent?.event?.description}</p>
+                </div>
               </div>
             </div>
           </div>
         )}
       </>
-    );
+    )
   }
 }
-  export default Countdown;
+export default Countdown;

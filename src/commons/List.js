@@ -123,7 +123,7 @@ const List = ({ refresh, currentList }) => {
                             )
                           )}
                           <td>
-                            {!item.isAdmin && item.email !== 'admin@admin.com' && (
+                            {!item.isAdmin && (
                               <MdDeleteForever
                                 className="trashcan"
                                 onClick={() => {

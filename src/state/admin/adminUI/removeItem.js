@@ -24,7 +24,11 @@ export const removeItem = createAsyncThunk(
       if (thunk.listener === 'users') {
         try {
           console.log('NO ME OPERDI EN EL CAMINO');
-          await axios.delete(`${BASE_URL}/users/remove/${body.id}`);
+          await axios.delete(`${BASE_URL}/users/remove/${body.id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
         } catch (error) {
           console.error(`remove-${thunk.listener}`, error.response.data);
         }
