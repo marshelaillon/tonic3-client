@@ -57,10 +57,15 @@ function Countdown() {
         <div className="wrap container-sm">
           <div className="contain-countdown">
             <div>
+<<<<<<< HEAD
+              <h1 className="event-title">{currentEvent.title}</h1>
+              <h1>
+                Event <strong>Countdown</strong>
+=======
               {/*  <h1 className="event-title">{currentEvent?.event?.title}</h1> */}
               <h1 className="event-title">
                 Event <strong>{currentEvent?.event?.title}</strong>
-
+>>>>>>> 1c0b1b2833603f715b172fe1036153aba7e3ce2b
               </h1>
             </div>
             <div className="contain-countdown-description">
@@ -178,8 +183,14 @@ function Countdown() {
               </div>
 
               <div className="description">
+<<<<<<< HEAD
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Voluptate, mollitia, id, itaque voluptates vitae accusantium
+                tempore molestias harum soluta non doloremque modi amet quo
+                voluptatem. Cum amet iste cumque eos. Placeat facilis unde, hic
+=======
                 <p>{currentEvent?.event?.description}</p>
-
+>>>>>>> 1c0b1b2833603f715b172fe1036153aba7e3ce2b
               </div>
             </div>
           </div>

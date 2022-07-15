@@ -15,7 +15,6 @@ import { Icon } from 'react-icons-kit';
 import { eye } from 'react-icons-kit/icomoon/eye';
 import { eyeBlocked } from 'react-icons-kit/icomoon/eyeBlocked';
 import "../styles/forms.css"
-import { useSelector } from 'react-redux';
 import { InvalidPassword } from '../utils/sweetAlerts';
 
 const Login = () => {
@@ -23,15 +22,15 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const verifiedGuest = useSelector(state => state.verifiedGuest);
-  const userPassword = useSelector(state => state.user);
   const [tokenCap, settokenCap] = useState('');
   const captcha = useRef(null);
 
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(eyeBlocked);
 
-  const handleSubmit = async values => {
+  const handleSubmit = async (values) => {
     captcha.current.execute();
+
     if (values.password) {
       const user = await dispatch(
         loginUser({
@@ -48,6 +47,11 @@ const Login = () => {
         Welcome();
         navigate('/');
       }
+
+      console.log("ESTO ES EL USER", user);
+      if (user?.payload?.isAdmin === true) {
+        navigate('/admin/app/guests')
+      } 
     }
     //setIsLogged(true);
   };
