@@ -4,20 +4,16 @@ import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEvent } from '../../state/admin/eventController/event';
-import AddGuests from './AddGuests';
 import { useTranslation } from 'react-i18next';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/DatePicker.scss';
 import { useNavigate } from 'react-router-dom';
 
-
 const AddEvents = ({ refresh }) => {
-
   const listener = useSelector(state => state.listener);
   const navigate = useNavigate();
 
-  //new Date().getTime() + 86400000
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date().getTime() + 86400000);
   const [image, setImage] = useState(null);
@@ -33,7 +29,6 @@ const AddEvents = ({ refresh }) => {
       })
     );
     await refresh();
-
     navigate(`/admin/app/${listener}`);
   };
   const validate = Yup.object({
@@ -41,7 +36,6 @@ const AddEvents = ({ refresh }) => {
     description: Yup.string().required(t('required_event_description')),
     title: Yup.string().required(t('required_event_title')),
     date: Yup.string().required(t('required_event_date')),
-    // yup.date().nullable().required('Start Date is required')
   });
 
   return (
@@ -56,9 +50,6 @@ const AddEvents = ({ refresh }) => {
         }}
         validationSchema={validate}
         onSubmit={values => {
-          console.log(values);
-          // console.log('values', values);
-          // console.log('date', date);
           handleSubmit(values);
         }}
       >
@@ -147,7 +138,7 @@ const AddEvents = ({ refresh }) => {
 
               <div className="mt-4 d-flex flex-row">
                 <div className="form-group me-4">
-                  <Button type="submit" variant="light" >
+                  <Button type="submit" variant="light">
                     {t('create_event')}
                   </Button>
                 </div>
