@@ -43,7 +43,7 @@ export default function Sidebar({ onClickOutside }) {
         cNm: 'nav-text',
       },
       {
-        title: t('events'),
+        title: t('Events'),
         path: `/${user.id}/events`,
         cNm: 'nav-text',
       },
