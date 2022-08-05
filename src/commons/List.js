@@ -39,7 +39,7 @@ const List = ({ refresh, currentList }) => {
   }, [change]);
 
   const handlerItemEvent = item => {
-    console.log('PRUEBA DE CAPTURA DE EVNTO', item);
+    // console.log('PRUEBA DE CAPTURA DE EVNTO', item);
     setItemEvent(item);
   };
 

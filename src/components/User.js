@@ -4,17 +4,15 @@ import { PleaseRegister } from '../utils/sweetAlerts';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsFillGearFill, BsCheckCircleFill } from 'react-icons/bs';
-import { Button } from 'react-bootstrap';
 import { useInput } from '../hooks/useInput';
 import { updateUser } from '../state/user/user';
 import { useTranslation } from 'react-i18next';
-import { BASE_URL, IMG_URL } from '../utils/config';
 
 export default function User() {
   const myform = document.querySelector('#update');
   const [image, setImage] = useState('');
   const [readImage, setReadImage] = useState('');
-  console.log(image);
+  // console.log(image);
   const { t } = useTranslation();
   const [editInput, setEdit] = useState(false);
   const user = useSelector(state => state.user);
@@ -45,7 +43,7 @@ export default function User() {
     // form.append('lastName', lastName.value || user.lastName);
     // form.append('image', image || user.profilePicture);
     // form.append('genre', genre.value || user.genre);
-    console.log(form);
+    // console.log(form);
     //crear estado para la ruta
     dispatch(
       updateUser({
@@ -73,7 +71,12 @@ export default function User() {
     <>
       <div className="container porfile">
         <div className="card mb-9 perfil-card ">
-          <form method="post" encType="multipart/form-data" id="update" style={{margin: "auto 15px"}}>
+          <form
+            method="post"
+            encType="multipart/form-data"
+            id="update"
+            style={{ margin: 'auto 15px' }}
+          >
             <div className="card-header" style={{ background: 'black' }}>
               <ul className="nav nav-tabs card-header-tabs">
                 <li className="imag">
@@ -143,7 +146,9 @@ export default function User() {
             </div>
 
             <label className=" text-white" htmlFor="text ">
-              <p style={{fontSize:"70%", marginRight:"10px"}}>{t('username')}</p>
+              <p style={{ fontSize: '70%', marginRight: '10px' }}>
+                {t('username')}
+              </p>
               <input
                 {...userName}
                 placeholder={user.userName?.toString()}
@@ -154,7 +159,9 @@ export default function User() {
               />
             </label>
             <label className="text-white" htmlFor="text ">
-              <p  style={{fontSize:"70%", marginRight:"10px"}}>{t('name')}</p>
+              <p style={{ fontSize: '70%', marginRight: '10px' }}>
+                {t('name')}
+              </p>
               <input
                 name="firstName"
                 className="perfil-input"
@@ -164,7 +171,9 @@ export default function User() {
               />
             </label>
             <label className="text-white" htmlFor="text ">
-              <p  style={{fontSize:"70%", marginRight:"10px"}}>{t('last_name')}</p>
+              <p style={{ fontSize: '70%', marginRight: '10px' }}>
+                {t('last_name')}
+              </p>
               <input
                 name="lastName"
                 className="perfil-input"
@@ -174,11 +183,15 @@ export default function User() {
               />
             </label>
             <label className=" text-white" htmlFor="email">
-              <p  style={{fontSize:"70%", marginRight:"10px"}}>{t('email')}</p>
+              <p style={{ fontSize: '70%', marginRight: '10px' }}>
+                {t('email')}
+              </p>
               <input className="perfil-input" value={user.email} />
             </label>
             <label className=" text-white" name="text">
-              <p  style={{fontSize:"70%", marginRight:"10px"}}>{t('genre')}</p>
+              <p style={{ fontSize: '70%', marginRight: '10px' }}>
+                {t('genre')}
+              </p>
               <input
                 name="genre"
                 className="perfil-input"

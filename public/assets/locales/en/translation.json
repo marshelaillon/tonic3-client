@@ -36,6 +36,7 @@
   "event_link": "Event link",
   "event_description": "Description",
   "event_date": "Date",
+  "event_image": "Image",
 
   "btn_submit": "Submit",
   "btn_remove": "Remove",

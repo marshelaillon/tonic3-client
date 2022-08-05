@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 // * import { SIDEBAR_ITEMS } from '../utils/enviroment';
 import SidebarItem from './SidebarItem';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { toggleSidebar } from '../state/UI/sidebar';
 
 export default function Sidebar({ onClickOutside }) {
   const sidebarRef = useRef();
@@ -27,7 +25,6 @@ export default function Sidebar({ onClickOutside }) {
   }, [onClickOutside]);
 
   const user = useSelector(state => state.user);
-  const listener = useSelector(state => state.listener);
   const [typeOfUser, setTypeOfUser] = useState('notLogged');
   const { t } = useTranslation();
   const SIDEBAR_ITEMS = {
@@ -43,7 +40,7 @@ export default function Sidebar({ onClickOutside }) {
         cNm: 'nav-text',
       },
       {
-        title: t('Events'),
+        title: t('events'),
         path: `/${user.id}/events`,
         cNm: 'nav-text',
       },

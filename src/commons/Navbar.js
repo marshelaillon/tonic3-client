@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import Sidebar from '../components/Sidebar';
 import { toggleSidebar } from '../state/UI/sidebar';
 import LanguageDropdown from '../components/LanguageDropdown';
-import { Button, Nav } from 'react-bootstrap';
 
 function Navbar({ onClickOutside }) {
   const { t } = useTranslation();
@@ -31,11 +30,11 @@ function Navbar({ onClickOutside }) {
   }, []);
 
   async function download() {
-    console.log('Hiciste click en el disparador de descarga');
+    // console.log('Hiciste click en el disparador de descarga');
     const promptEvent = window.deferredPrompt;
     if (!promptEvent) {
       // The deferred prompt isn't available.
-      console.log('no prompt event guardado en window');
+      // console.log('no prompt event guardado en window');
       return;
     }
     // Show the install prompt.

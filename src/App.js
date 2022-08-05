@@ -28,7 +28,10 @@ import UpgradeEvents from './components/adminView/UpgradeEvents';
 import Events from './components/userEvents/Events';
 import Footer from './components/Footer';
 import { listener } from './state/admin/adminUI/listener';
-//import VideoPlayer from './commons/VideoPlayer';
+
+// ! BUGS: CUANDO ENTRAS A LA PÁGINA POR PRIMERA VEZ Y TE VAS AL LOGIN, BOTA UN:
+// * Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render *
+// ! TIENES QUE MODIFICAR LA FECHA PARA QUE CREE UN EVENTO, SINO TE BOTA UN VALUE ERROR
 
 function App() {
   const user = useSelector(state => state.user);

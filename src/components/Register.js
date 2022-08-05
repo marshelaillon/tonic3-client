@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { Icon } from 'react-icons-kit';
 import { eye } from 'react-icons-kit/icomoon/eye';
 import { eyeBlocked } from 'react-icons-kit/icomoon/eyeBlocked';
-import "../styles/forms.css"
+import '../styles/forms.css';
 
 const Register = () => {
   const { t } = useTranslation();
@@ -60,8 +60,7 @@ const Register = () => {
     if (type1 === 'password') {
       setIcon1(eye);
       setType1('text');
-    }
-    else {
+    } else {
       setIcon1(eyeBlocked);
       setType1('password');
     }
@@ -71,8 +70,7 @@ const Register = () => {
     if (type2 === 'password') {
       setIcon2(eye);
       setType2('text');
-    }
-    else {
+    } else {
       setIcon2(eyeBlocked);
       setType2('password');
     }
@@ -85,10 +83,10 @@ const Register = () => {
       .required(t('required_email')),
     password: Yup.string()
 
-      .required('Se requiere contraseña').matches(
+      .required('Se requiere contraseña')
+      .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         t('password_min_length')
-
       ),
     confirmpassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'La contraseña no coincide')
@@ -115,10 +113,8 @@ const Register = () => {
             <h3>{t('register')}</h3>
             <Form>
               <div className="form-group">
-
                 <label htmlFor="userName">{t('username')}</label>
                 <Field
-
                   name="userName"
                   className={
                     formik.touched.userName && formik.errors.userName
@@ -151,10 +147,8 @@ const Register = () => {
                 ) : null}
               </div>
               <div className="form-group">
-
                 <label htmlFor="password">{t('password')}</label>
-                <div className='input-button'>
-
+                <div className="input-button">
                   <Field
                     name="password"
                     className={
@@ -164,7 +158,11 @@ const Register = () => {
                     }
                     type={type1}
                   />
-                  <Button className='button-icon' variant='secondary'><span onClick={handleToggle1}><Icon icon={icon1} size={25} /></span></Button>
+                  <Button className="button-icon" variant="secondary">
+                    <span onClick={handleToggle1}>
+                      <Icon icon={icon1} size={25} />
+                    </span>
+                  </Button>
                 </div>
                 {formik.touched.password && formik.errors.password ? (
                   <div className="invalid-feedback">
@@ -173,25 +171,27 @@ const Register = () => {
                 ) : null}
               </div>
               <div className="form-group">
-
                 <label htmlFor="confirmpassword">{t('confirm_password')}</label>
-                <div className='input-button'>
+                <div className="input-button">
                   <Field
-
                     name="confirmpassword"
                     className={
                       formik.touched.confirmpassword &&
-                        formik.errors.confirmpassword
+                      formik.errors.confirmpassword
                         ? 'form-control is-invalid'
                         : 'form-control'
                     }
                     type={type2}
                   />
-                  <Button className='button-icon' variant="secondary" ><span onClick={handleToggle2}><Icon icon={icon2} size={25} /></span></Button>
+                  <Button className="button-icon" variant="secondary">
+                    <span onClick={handleToggle2}>
+                      <Icon icon={icon2} size={25} />
+                    </span>
+                  </Button>
                 </div>
 
                 {formik.touched.confirmpassword &&
-                  formik.errors.confirmpassword ? (
+                formik.errors.confirmpassword ? (
                   <div className="invalid-feedback">
                     {formik.errors.confirmpassword}
                   </div>

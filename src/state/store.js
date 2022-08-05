@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import { listenerReducer } from './admin/adminUI/listener';
-import { eventReducer } from './admin/eventController/event';
 import { eventsReducer } from './admin/eventController/eventList';
 import { guestsReducer } from './admin/guestController/guests';
 import { usersReducer } from './admin/userController/users';

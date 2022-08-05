@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 const AddEvents = ({ refresh }) => {
   const listener = useSelector(state => state.listener);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date().getTime() + 86400000);
   const [image, setImage] = useState(null);

@@ -8,11 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { verifyToken } from '../state/guests/verifyToken';
 import { InvalidToken } from '../utils/sweetAlerts';
 import { verifyGuest } from '../state/guests/verifyGuest';
-
 import updateToken from '../services/updateToken';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useTranslation } from 'react-i18next';
-import "../styles/forms.css"
+import '../styles/forms.css';
 
 const LoginWhitToken = () => {
   const navigate = useNavigate();
@@ -23,13 +22,10 @@ const LoginWhitToken = () => {
   const [tries, setTries] = useState(0);
   const [usuarioValido, setUsuarioValido] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState(false);
-
   const [tokenCap, setTokenCap] = useState(null);
-
   const captcha = useRef(null);
 
   const handleSubmit = values => {
-
     if (!checkedEmail) {
       return dispatch(verifyGuest({ email: values.email }))
         .then(({ payload }) => {
@@ -40,18 +36,16 @@ const LoginWhitToken = () => {
     if (!guestdata.checked) {
       return dispatch(
         verifyToken({ email: values.email, token: values.token })
-      )
-        .then(state => {
-          !state.payload?.data && tries >= 3
-            ? InvalidToken() && updateToken({ email: values.email })
-            : setTries(tries + 1);
-        })
+      ).then(state => {
+        !state.payload?.data && tries >= 3
+          ? InvalidToken() && updateToken({ email: values.email })
+          : setTries(tries + 1);
+      });
     }
     if (checkedEmail && guestdata.checked) {
-      navigate('/login')
+      navigate('/login');
     }
   };
-
 
   const onLoad = () => {
     captcha.current.execute();
@@ -61,12 +55,11 @@ const LoginWhitToken = () => {
     if (tokenCap) console.log(`Este es el bendito hCaptcha Token: ${tokenCap}`);
   }, [tokenCap]);
 
-
   const validate = Yup.object({
     email: Yup.string()
-      .email(t("not_valid_email"))
-      .required(t("required_email")),
-    token: usuarioValido && Yup.string().required(t("required_access_code")),
+      .email(t('not_valid_email'))
+      .required(t('required_email')),
+    token: usuarioValido && Yup.string().required(t('required_access_code')),
   });
 
   return (
@@ -105,8 +98,7 @@ const LoginWhitToken = () => {
                 y se lo redirige a /register */}
               {checkedEmail && !guestdata.checked && (
                 <div className="form-group">
-                  <label htmlFor="loginToken">
-                    {t('access_code')}</label>
+                  <label htmlFor="loginToken">{t('access_code')}</label>
                   <Field
                     name="token"
                     className={
@@ -121,11 +113,8 @@ const LoginWhitToken = () => {
                       {formik.errors.token}
                     </div>
                   ) : null}
-
                 </div>
-
-              )} 
-            
+              )}
 
               <div className="form-group">
                 <HCaptcha

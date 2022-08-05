@@ -8,8 +8,6 @@ import { fillingList } from '../../utils/enviroment';
 
 const Adminview = () => {
   const _listener = useSelector(state => state.listener);
-
-  const guests = useSelector(state => state.guests);
   const [currentList, setCurrentList] = useState({});
   const dispatch = useDispatch();
   const { type } = useParams();

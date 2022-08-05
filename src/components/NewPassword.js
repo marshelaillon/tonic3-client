@@ -79,7 +79,6 @@ const NewPassword = () => {
           password2: '',
         }}
         validationSchema={validate}
-        //preguntar de donde mierda sale ese value ¿? {maxi}
         onSubmit={value => handleSubmit(value)}
       >
         {formik => (

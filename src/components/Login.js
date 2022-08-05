@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, setToken } from '../state/user/user';
 import { Welcome } from '../utils/sweetAlerts';
 import { useEffect } from 'react';
@@ -14,7 +14,7 @@ import '../styles/App.css';
 import { Icon } from 'react-icons-kit';
 import { eye } from 'react-icons-kit/icomoon/eye';
 import { eyeBlocked } from 'react-icons-kit/icomoon/eyeBlocked';
-import "../styles/forms.css"
+import '../styles/forms.css';
 import { InvalidPassword } from '../utils/sweetAlerts';
 
 const Login = () => {
@@ -28,7 +28,7 @@ const Login = () => {
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(eyeBlocked);
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async values => {
     captcha.current.execute();
 
     if (values.password) {
@@ -39,7 +39,7 @@ const Login = () => {
         })
       );
       if (user?.payload?.response?.status === 400) {
-        InvalidPassword()
+        InvalidPassword();
       } else {
         const token = user?.payload?.token;
         token && dispatch(setToken(token));
@@ -48,10 +48,10 @@ const Login = () => {
         navigate('/');
       }
 
-      console.log("ESTO ES EL USER", user);
+      console.log('ESTO ES EL USER', user);
       if (user?.payload?.isAdmin === true) {
-        navigate('/admin/app/guests')
-      } 
+        navigate('/admin/app/guests');
+      }
     }
     //setIsLogged(true);
   };
@@ -64,8 +64,7 @@ const Login = () => {
     if (type === 'password') {
       setIcon(eye);
       setType('text');
-    }
-    else {
+    } else {
       setIcon(eyeBlocked);
       setType('password');
     }
@@ -80,13 +79,11 @@ const Login = () => {
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         t('pass_must_contain')
-
       ),
   });
 
   return (
     <>
-
       <Formik
         initialValues={{
           email: verifiedGuest.email,
@@ -111,7 +108,6 @@ const Login = () => {
                   }
                   type="email"
                   style={{ color: 'black' }}
-
                   disabled
                 />
                 {formik.touched.email && formik.errors.email ? (
@@ -120,8 +116,7 @@ const Login = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="password">{t('password')}</label>
-                <div className='input-button'>
-
+                <div className="input-button">
                   <Field
                     name="password"
                     className={
@@ -131,9 +126,10 @@ const Login = () => {
                     }
                     type={type}
                   />
-                  <Button className='button-icon' variant='secondary'>
-
-                    <span onClick={handleToggle}><Icon icon={icon} size={25} /></span>
+                  <Button className="button-icon" variant="secondary">
+                    <span onClick={handleToggle}>
+                      <Icon icon={icon} size={25} />
+                    </span>
                   </Button>
                 </div>
 
